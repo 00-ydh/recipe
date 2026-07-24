@@ -169,4 +169,7 @@ $RECYCLE.BIN/
 # Ignore all spring properties
 *.properties
 
+.idea/
+*.iml
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,intellij,java
