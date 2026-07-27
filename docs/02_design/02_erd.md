@@ -16,34 +16,96 @@ erDiagram
     MEMBER ||--o{ REPLY : writes
     POST ||--o{ REPLY : contains
 
+    ADMIN {
+        int id PK
+        varchar_50 admin_id
+        varchar_255 password
+        datetime created_at
+    }
+    
     MEMBER {
         int id PK
         varchar_100 email
         varchar_255 password
         varchar_50 name
+        varchar_50 nickname
         varchar_20 phone
-        int recommender_id FK
+        int follower_count
         datetime created_at
     }
 
-    POST {
+    RECIPE_POST {
         int id PK
         int member_id FK
+        int category_id FK
+        int ingredient_id FK
         varchar_50 writer_name
-        varchar_255 password
+        varchar_200 main_image
         varchar_200 title
         text content
+        int people
+        int cook_time
+        int like_count
         int view_count
         datetime created_at
     }
 
-    REPLY {
+    RECIPE_REPLY {
         int id PK
-        int post_id FK
+        int recipe_id FK
         int member_id FK
         text content
         datetime created_at
     }
+    
+    TIP_POST {
+        int id PK
+        int member_id FK
+        varchar_50 writer_name
+        varchar_200 main_image
+        varchar_200 title
+        text content
+        int like_count
+        int view_count
+        datetime created_at
+    }
+    
+    TIP_REPLY {
+        int id PK
+        int tip_post_id FK
+        int member_id FK
+        text content
+        datetime created_at
+    }
+    
+    SCRAP {
+        int id PK
+        int recipe_post_id FK
+        int member_id FK
+    }
+    
+    RECIPE_LIKE {
+        int id PK
+        int recipe_post id FK
+        int member_id FK
+    }
+    
+    TIP_LIKE {
+        int id PK
+        int tip_post id FK
+        int member_id FK
+    }
+    
+    CATEGORY {
+        int id PK
+        varchar_50 category_name
+    }
+    
+    INGREDIENT {
+        int id PK
+        varchar_50 ingredient_name
+    }
+    
 ```
 
 ---
