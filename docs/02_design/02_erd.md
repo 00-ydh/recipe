@@ -72,8 +72,8 @@ erDiagram
     
     FOLLOW {
         int id PK
-        following_id FK
-        follower_id FK
+        int following_id FK
+        int follower_id FK
     }
     
 ```
