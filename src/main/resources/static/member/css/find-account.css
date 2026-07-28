@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: #FFF8F5; /* 은은한 주황/살구빛 베이지 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 전체 컨테이너 감싸기 */
+body > div {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    padding: 36px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/* 상단 탭 버튼 영역 */
+body > div > div:first-child {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+body > div > div:first-child button {
+    flex: 1;
+    padding: 12px 0;
+    background-color: #F8F8F8;
+    border: 1px solid #EEEEEE;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+body > div > div:first-child button:hover {
+    background-color: #FAF3EF;
+    color: #B23B0D;
+    border-color: #EFE5DF;
+}
+
+/* 구분선/여백 조절 (HTML 내 <br> 태그 깔끔히 무시/정돈) */
+br {
+    display: none;
+}
+
+/* 타이틀 */
+h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #222222;
+    margin: 20px 0 24px 0;
+}
+
+/* 폼 공통 스타일 */
+form {
+    text-align: left;
+}
+
+form > div {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444444;
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #FAF3EF;
+    border: 1px solid #EFE5DF;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333333;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder {
+    color: #A0958E;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+    border-color: #F16035;
+    background-color: #ffffff;
+}
+
+/* 서밋 버튼 */
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #F16035; /* 브랜딩 오렌지 컬러 */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    box-shadow: 0 4px 12px rgba(241, 96, 53, 0.2);
+    transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #DC4F25;
+}
+
+/* 비밀번호/아이디 전환 안내 문구 */
+#find-id-section p,
+#find-pw-section p {
+    text-align: center;
+    font-size: 12px;
+    color: #666666;
+    margin-top: 16px;
+}
+
+#find-id-section p a,
+#find-pw-section p a {
+    color: #B23B0D;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* 하단 구분선 및 이동 링크 */
+hr {
+    border: none;
+    border-top: 1px solid #EEEEEE;
+    margin: 24px 0 20px 0;
+}
+
+body > div > div:last-of-type {
+    font-size: 13px;
+    color: #999999;
+}
+
+body > div > div:last-of-type a {
+    color: #555555;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 4px;
+}
+
+body > div > div:last-of-type a:hover {
+    text-decoration: underline;
+    color: #111111;
+}
