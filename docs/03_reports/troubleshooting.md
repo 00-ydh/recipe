@@ -1,82 +1,44 @@
 # 1. 트러블슈팅 및 기술 문제 해결 기록
 
-## 목차
-- [1. 트러블슈팅 및 기술 문제 해결 기록](#1-트러블슈팅-및-기술-문제-해결-기록)
-- [TS-YONG-01: HandlerInterceptor에서 세션 검증 후 리다이렉트 무한 루프 발생 문제](#ts-yong-01-handlerinterceptor에서-세션-검증-후-리다이렉트-무한-루프-발생-문제)
-- [TS-HARU-01: JdbcTemplate post와 reply 조인 쿼리 실행 시 1:N 댓글 중복 조회 문제](#ts-haru-01-jdbctemplate-post와-reply-조인-쿼리-실행-시-1n-댓글-중복-조회-문제)
+### 📌 문제 발생
 
----
+- **문제 유형 (핵심 태그)**: `Git / VCS`, `캐싱 문제`, `개발 환경 설정`
+- **어떤 기능에서 문제가 발생했는가?**:
+    - 프로젝트 초기 설정 과정에서 `.gitignore` 파일에 `/gradle` (또는 빌드용 자동 생성 파일/설정 파일) 경로를 추가하고 커밋했음에도 불구하고, 해당 폴더/파일들이 Git 추적 대상에서 제외되지 않고 계속 GitHub 원격 저장소에 변경사항으로 잡히거나 올라가는 문제 상황이 발생함.
 
-## TS-YONG-01: HandlerInterceptor에서 세션 검증 후 리다이렉트 무한 루프 발생 문제
+### 🔍 원인 분석
 
-### 1) 발생 현상 및 에러
-미인증 사용자의 글 작성 접근을 막기 위해 HandlerInterceptor를 적용했으나, 로그인 페이지(`/members/login`) 및 정적 리소스(CSS/JS) 요청 시에도 인터셉터가 동작하여 `Too Many Redirects` 에러 발생.
+- **왜 발생했는가?**:
+    - `.gitignore` 파일은 **Git이 아직 한 번도 추적(Track)하지 않은 새로운 파일**에만 적용됩니다.
+    - 이미 이전에 `git add` 및 `git commit`을 통해 Git의 스테이징 영역(Index/Cache)에 한번 등록되어 관리되던 파일들은, 나중에 `.gitignore`에 해당 경로를 추가하더라도 **Git이 기존 캐시 정보를 가지고 계속 추적을 유지**하기 때문입니다.
 
-### 2) 원인 분석
-WebMvcConfigurer 인터페이스 구현체의 `addInterceptors()` 설정 메서드에서 로그인 폼 요청 URL(`/members/login`), 회원가입 URL(`/members/join`), static 리소스 경로(`/css/**`, `/js/**`)에 대한 `excludePathPatterns()` 제외 설정 누락 확인.
+### 🛠 해결 방법
 
-### 3) 해결 방법
-WebConfig 클래스 내 인터셉터 등록 시 제외 경로를 명확하게 지정.
+1. **Git의 추적 캐시(Index) 전체 비우기**:Bash
+    - 실제 프로젝트 파일은 유지한 채, Git이 기억하고 있는 파일 추적 목록만 삭제합니다.
 
-```java
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
+    ```
+    git rm -r --cached .
+    ```
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInterceptor())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/", "/members/join", "/members/login", "/members/logout",
-                        "/posts", "/posts/{id}", "/css/**", "/js/**", "/favicon.ico"
-                );
-    }
-}
-```
+2. **`.gitignore` 규칙을 재적용하여 다시 추적 대상으로 올리기**:Bash
+    - 전체 파일을 다시 스테이징 영역에 올리면, 새로 반영된 `.gitignore` 규칙이 작동하여 `/gradle` 등 제외 대상 파일들이 빼집니다.
 
-### 4) 시사점 및 배운 점
-인터셉터 적용 시 전역 경로(`/**`)를 대상으로 설정할 때는 로그인/회원가입 처리 요청뿐만 아니라 static 정적 자원 및 비회원 허용 페이지의 제외 경로(`excludePathPatterns`)를 사전에 정밀하게 설계해야 런타임 무한 리다이렉트 방지 가능.
+    ```
+    git add .
+    ```
 
----
+3. **정리된 상태 커밋 및 원격 저장소 반영**:Bash
+    - 제외 대상이 제거된 깔끔한 상태를 커밋하고 원격 브랜치에 푸시합니다.
 
-## TS-HARU-01: JdbcTemplate post와 reply 조인 쿼리 실행 시 1:N 댓글 중복 조회 문제
+    ```
+    git commit -m "Chore: .gitignore 적용을 위한 Git 캐시 삭제 및 추적 파일 재정리"
+    git push origin develop
+    ```
 
-### 1) 발생 현상 및 에러
-게시글 상세 보기 기능 구현 중, 게시글(post) 정보와 해당 글에 달린 댓글(reply) 목록을 한 번의 1:N 조인 SQL로 가져오기 위해 Query를 실행했으나, 댓글 개수만큼 게시글 객체 및 댓글 데이터가 중복 렌더링되는 결과 발생.
 
-### 2) 원인 분석
-1:N 조인 쿼리 실행 결과 ResultSet 행(Row) 수가 댓글 개수만큼 늘어나게 되어, 일반 RowMapper를 단순 반복 사용할 경우 동일한 게시글 엔티티가 댓글 수만큼 반복 생성되는 ResultSet 매핑 특성 원인.
+### 🧠 배운점
 
-### 3) 해결 방법
-ResultSetExtractor 인터페이스를 구현하여 게시글 PK(`post_id`) 기준으로 맵(Map) 객체에 1개의 게시글만 생성/저장하고, 조인되어 돌아오는 댓글 행들은 동일한 게시글의 댓글 List에 추가하는 방식으로 매핑 로직 수정.
-
-```java
-public class PostWithRepliesExtractor implements ResultSetExtractor<Post> {
-
-    @Override
-    public Post extractData(ResultSet rs) throws SQLException, DataAccessException {
-        Post post = null;
-        while (rs.next()) {
-            if (post == null) {
-                post = new Post();
-                post.setId(rs.getInt("post_id"));
-                post.setTitle(rs.getString("title"));
-                post.setContent(rs.getString("content"));
-                post.setReplies(new ArrayList<>());
-            }
-            int replyId = rs.getInt("reply_id");
-            if (replyId != 0) {
-                Reply reply = new Reply();
-                reply.setId(replyId);
-                reply.setContent(rs.getString("reply_content"));
-                post.getReplies().add(reply);
-            }
-        }
-        return post;
-    }
-}
-```
-
-### 4) 시사점 및 배운 점
-Spring JDBC 사용 시 1:N 조인 데이터를 하나의 객체 그래프로 변환할 때는 RowMapper 대신 ResultSetExtractor를 활용하여 자바 코드에서 수동 매핑 컬렉션을 구성해야 객체 중복 방지 및 정합성 보장 가능.
+- **`.gitignore` 작동 시점의 이해**: `.gitignore`는 무적의 파일 삭제 도구가 아니라 '미추적(Untracked) 파일에 대한 무시 규칙'일 뿐이라는 것을 깨달았습니다.
+- **Git 캐시 관리의 중요성**: 이미 버전 관리에 들어간 파일에 ignore 규칙을 뒤늦게 적용하려면 반드시 `git rm --cached`를 통해 Git의 인덱스 캐시를 제거해 주는 작업이 선행되어야 함을 배웠습니다.
+- **초기 환경 설정 순서의 중요성**: 팀 프로젝트 시작 시 소스코드를 작성하고 커밋을 날리기 전에 `.gitignore` 설정을 최우선으로 완료해야 이러한 불필요한 트러블슈팅을 줄일 수 있다는 점을 체득했습니다.
