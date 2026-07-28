@@ -1,0 +1,423 @@
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAF6F1;
+    color: #333;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== Layout ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Shared Section Styles ===== */
+section {
+    padding: 56px 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.title-icon {
+    font-size: 20px;
+}
+
+.more-link {
+    font-size: 14px;
+    color: #999;
+    transition: color 0.2s;
+}
+
+.more-link:hover {
+    color: #E07550;
+}
+
+/* ===== Primary Button ===== */
+.btn-primary {
+    background-color: #E07550;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #c96340;
+}
+
+/* ===== Hall of Fame ===== */
+.hall-of-fame {
+    background-color: #FAF6F1;
+}
+
+.fame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.fame-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.fame-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.fame-img-wrap {
+    position: relative;
+    height: 210px;
+    background-color: #C4956A;
+}
+
+.fame-img-wrap.img-2 { background-color: #7B9E7B; }
+.fame-img-wrap.img-3 { background-color: #A0856A; }
+
+.fame-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rank-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+}
+
+.rank-badge.gold   { background-color: #F5A623; }
+.rank-badge.silver { background-color: #9B9B9B; }
+.rank-badge.bronze { background-color: #C96B3E; }
+
+.fame-info {
+    padding: 14px 16px 16px;
+}
+
+.fame-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.fame-sub {
+    font-size: 13px;
+    color: #999;
+}
+
+/* ===== Influencer Banner ===== */
+.influencer-banner {
+    background-color: #FAEAE0;
+    border-radius: 16px;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.influencer-intro {
+    min-width: 160px;
+}
+
+.inf-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #C96B3E;
+    margin-bottom: 6px;
+}
+
+.inf-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+}
+
+.influencer-list {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+}
+
+.influencer-item {
+    text-align: center;
+}
+
+.inf-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin: 0 auto 8px;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.av1 { background-color: #C4956A; }
+.av2 { background-color: #7B9E7B; }
+.av3 { background-color: #9B7BB0; }
+.av4 { background-color: #B07B5B; }
+.av5 { background-color: #8B9BB0; }
+
+.inf-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.inf-count {
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* ===== Recommended Recipes ===== */
+.recommended-recipes {
+    background-color: #F5F1EC;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.recipe-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.recipe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.11);
+}
+
+.recipe-img {
+    height: 130px;
+}
+
+.rc1  { background-color: #C4956A; }
+.rc2  { background-color: #7B9E7B; }
+.rc3  { background-color: #B07B5B; }
+.rc4  { background-color: #8B6B5B; }
+.rc5  { background-color: #9B8B7B; }
+.rc6  { background-color: #6B7B5B; }
+.rc7  { background-color: #C49060; }
+.rc8  { background-color: #8B6B7B; }
+.rc9  { background-color: #7B9B8B; }
+.rc10 { background-color: #9B7B6B; }
+
+.recipe-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    padding: 10px 12px 4px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.recipe-meta {
+    font-size: 12px;
+    color: #bbb;
+    padding: 0 12px 12px;
+}
+
+/* ===== Cooking Tips ===== */
+.cooking-tips {
+    background-color: #FAF6F1;
+}
+
+.cooking-tips .section-title {
+    margin-bottom: 24px;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.tip-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.tip-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.tip-date {
+    font-size: 12px;
+    color: #bbb;
+    margin-bottom: 10px;
+}
+
+.tip-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.tip-desc {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.read-more {
+    font-size: 13px;
+    font-weight: 600;
+    color: #E07550;
+    transition: color 0.2s;
+}
+
+.read-more:hover {
+    color: #c96340;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+    background-color: #2E2A27;
+    color: #ccc;
+    padding: 40px 0 24px;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.footer-desc {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.8;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-nav a {
+    font-size: 14px;
+    color: #aaa;
+    transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+    color: white;
+}
+
+.footer-share {
+    display: flex;
+    align-items: flex-start;
+}
+
+.share-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.share-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
