@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>레시피 작성하기</title>
+    <link rel="stylesheet" href="/board/css/recipe-write.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>레시피 작성하기</h2>
+    <p class="sub-title">
+        당신만이 알고 있는 주방의 마법, 나만의 요리 비법을 공유해 주세요.
+    </p>
+
+    <div class="write-box">
+
+        <form>
+
+            <div class="form-group">
+                <label>사진 첨부 (선택)</label>
+
+                <label class="upload-box">
+                    <input type="file" hidden>
+
+                    <div class="camera">사진 첨부</div>
+
+                    <p>클릭하거나 파일을 드래그하여 이미지를 추가하세요</p>
+
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>제목</label>
+
+                <input
+                        type="text"
+                        placeholder="꿀팁의 핵심 내용을 한 줄로 요약해 주세요">
+            </div>
+
+            <div class="form-group">
+                <label>내용</label>
+
+                <textarea
+                        placeholder="이 요리를 사용하면 어떤 점이 좋은지, 자세한 방법을 설명해 주세요."></textarea>
+            </div>
+
+            <div class="button-group">
+
+                <button type="button" class="cancel-btn">
+                    취소하기
+                </button>
+
+                <button type="submit" class="submit-btn">
+                    레시피 등록하기
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

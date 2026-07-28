@@ -1,0 +1,147 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Pretendard",sans-serif;
+}
+
+body{
+    background:#f7f2ef;
+}
+
+.container{
+    width:1200px;
+    margin:40px auto;
+}
+
+h2{
+    margin-bottom:25px;
+}
+
+.category{
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:30px;
+}
+
+.category button{
+    border:1px solid #ddd;
+    background:#fff;
+    padding:8px 18px;
+    border-radius:20px;
+    margin-right:10px;
+    cursor:pointer;
+}
+
+.category .active{
+    background:#b34712;
+    color:white;
+    border:none;
+}
+
+.top-info{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.top-info span{
+    color:#d85b1d;
+    font-weight:bold;
+}
+
+.sort button{
+    padding:8px 16px;
+    margin-left:8px;
+    border:1px solid #ddd;
+    background:white;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.recipe-list{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.recipe-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    transition:.2s;
+}
+
+.recipe-card:hover{
+    transform:translateY(-4px);
+}
+
+.image{
+    position:relative;
+}
+
+.image img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.score{
+    position:absolute;
+    right:10px;
+    top:10px;
+    background:white;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.content{
+    padding:18px;
+}
+
+.tag{
+    background:#ffe7d6;
+    color:#d85b1d;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.content h3{
+    margin:15px 0;
+    font-size:20px;
+    line-height:1.5;
+}
+
+.writer{
+    display:flex;
+    justify-content:space-between;
+    color:#888;
+    font-size:13px;
+}
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:50px 0;
+}
+
+.pagination button{
+    width:35px;
+    height:35px;
+    border:1px solid #ddd;
+    background:white;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.pagination .active{
+    background:#b34712;
+    color:white;
+    border:none;
+}

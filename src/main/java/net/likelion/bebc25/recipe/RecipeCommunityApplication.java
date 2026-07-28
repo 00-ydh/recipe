@@ -1,4 +1,4 @@
-package net.likelion.bebc25.recipecommunity;
+package net.likelion.bebc25.recipe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
