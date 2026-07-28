@@ -1,3 +1,5 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
 /* ===== Reset & Base ===== */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -6,7 +8,7 @@
 }
 
 body {
-    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #FAF6F1;
     color: #333;
     line-height: 1.5;
@@ -37,7 +39,7 @@ section {
 }
 
 .section-title {
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 700;
     color: #222;
     display: flex;
@@ -46,7 +48,7 @@ section {
 }
 
 .title-icon {
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .more-link {
@@ -148,8 +150,14 @@ section {
     line-height: 1.4;
 }
 
+.fame-author {
+    font-size: 12px;
+    color: #E07550;
+    margin-bottom: 4px;
+}
+
 .fame-sub {
-    font-size: 13px;
+    font-size: 12px;
     color: #999;
 }
 
@@ -157,7 +165,7 @@ section {
 .influencer-banner {
     background-color: #FAEAE0;
     border-radius: 16px;
-    padding: 24px 32px;
+    padding: 22px 32px;
     display: flex;
     align-items: center;
     gap: 48px;
@@ -182,7 +190,7 @@ section {
 
 .influencer-list {
     display: flex;
-    gap: 32px;
+justify-content: space-between;
     flex: 1;
 }
 
@@ -249,7 +257,11 @@ section {
 }
 
 .recipe-img {
+    width: 100%;
     height: 130px;
+    object-fit: cover;
+    display: block;
+    background-color: #D4C4B0;
 }
 
 .rc1  { background-color: #C4956A; }
@@ -273,6 +285,12 @@ section {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.recipe-author {
+    font-size: 12px;
+    color: #E07550;
+    padding: 0 12px 2px;
 }
 
 .recipe-meta {
@@ -378,8 +396,7 @@ section {
 
 .footer-nav {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 30px;
 }
 
 .footer-nav a {
@@ -417,7 +434,7 @@ section {
 }
 
 .footer-bottom {
-    text-align: center;
+    text-align: right;
     font-size: 13px;
     color: #666;
 }

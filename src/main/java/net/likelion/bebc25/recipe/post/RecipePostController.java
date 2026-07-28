@@ -9,11 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RecipePostController {
 
 
-    // recip-list 화면 보여주는 컨트롤러
+    // recipe-list 화면 보여주는 컨트롤러
     @GetMapping("/recipe-list.html")
     public String getRecipeList(){
         return "board/recipe-list";
+    }
 
+    // recipe-details 화면 보여주는 컨트롤러
+    @GetMapping("/recipe-details.html")
+    public String getRecipeDetails(){
+        return "redirect:/board/recipe-details.html";
     }
 
 

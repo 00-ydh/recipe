@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레시피 상세 페이지</title>
+    <link rel="stylesheet" href="css/recipe-details.css">
+    <link rel="stylesheet" href="../header/header.css">
+</head>
+<body>
+
+
+<!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
+<div id="header-placeholder"></div>
+<script src="/header/load-header.js"></script>
+<!--header 끝-->
+
+<main class="recipe-detail">
+    <div class="container">
+
+        <!-- 히어로 이미지 -->
+        <div class="recipe-hero">
+            <img src="" alt="레시피 대표 이미지">
+            <!--    레시피 카테고리(한식,중식,일식,양식 등)     -->
+            <span class="recipe-tag">한식</span>
+        </div>
+
+        <!-- 제목 + 액션 -->
+        <div class="recipe-title-row">
+            <h1 class="recipe-title">매콤달콤 전통 비빔밥과 특제 고추장 소스</h1>
+            <div class="recipe-actions">
+                <!--  북마크 버튼-->
+                <button class="action-btn" title="북마크">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                </button>
+                <!--  좋아요 버튼 -->
+                <button class="action-btn" title="좋아요">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- 레시피 메타 정보 -->
+        <div class="recipe-meta">
+            <!-- 작성자-->
+            <span class="meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                작성자
+            </span>
+            <!--   요리시간-->
+            <span class="meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                조리 4시간
+            </span>
+
+        </div>
+
+        <hr class="divider">
+
+        <!-- 필요한 재료 -->
+        <div class="ingredients-section">
+            <h2 class="section-label">필요한 재료</h2>
+            <div class="ingredients-grid">
+                <div class="ingredient-item">
+                    <span class="ing-dot"></span>
+                    중 3인(이하 팝래에 감)
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 요리 순서 -->
+        <div class="ingredients-section">
+            <h2 class="section-label">요리 순서</h2>
+            <!--   사진과 글 있을 예정-->
+            <div class="step-box">
+                <p>1. 재료를 손질하여 준비합니다.</p>
+                <p>2. 팬에 기름을 두르고 볶아줍니다.</p>
+                <p>3. 양념을 넣고 잘 섞어줍니다.</p>
+            </div>
+        </div>
+
+        <!-- 요리 팁 -->
+        <div class="ingredients-section">
+            <h2 class="section-label">요리 팁</h2>
+            <div class="step-box">
+                <p>재료를 미리 손질해두면 조리 시간을 줄일 수 있어요.</p>
+            </div>
+        </div>
+
+        <!-- 조회수 / 좋아요 -->
+        <div class="recipe-stats">
+            <div class="stat-item">
+                <span class="stat-label">조회수</span>
+                <span class="stat-value">1,240</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">좋아요</span>
+                <span class="stat-value">45,892</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- 댓글 -->
+        <div class="comment-section">
+            <h2 class="section-label">댓글 <span class="comment-count">12</span></h2>
+
+            <div class="comment-write">
+                <div class="comment-avatar default-av"></div>
+                <textarea class="comment-input" placeholder="나만의 소감을 남겨주세요..."></textarea>
+            </div>
+            <div class="comment-submit-row">
+                <button class="btn-submit">등록</button>
+            </div>
+
+            <div class="comment-list">
+                <div class="comment-item">
+                    <div class="comment-avatar av-orange">김</div>
+                    <div class="comment-body">
+                        <p class="comment-author">김요리 <span class="comment-time">46분 전</span></p>
+                        <p class="comment-text">고추장 소스 사용에 전통 한식처럼 이 밥을 먹어보세요. 설령 대신 해독하심 많이 다 넣겠 넣으면 탄탄해지요</p>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="comment-avatar av-blue">이</div>
+                    <div class="comment-body">
+                        <p class="comment-author">이연재 <span class="comment-time">30분 전</span></p>
+                        <p class="comment-text">오늘도 타이밍! 냠푸 식자 정말이오 있어요. 감사합니다</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>
