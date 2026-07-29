@@ -1,8 +1,9 @@
+<!--요리 꿀팁(게시판) 목록 페이지 -->
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>요리 꿀팁</title>
+    <title>요리 꿀팁 목록</title>
     <link rel="stylesheet" href="/board/css/tip-list.css">
 </head>
 <body>
@@ -12,112 +13,98 @@
 <script src="/header/load-header.js"></script>
 <!--header 끝-->
 
+<!--전체 틀(박스)-->
 <div class="container">
 
+    <!-- 요리 꿀팁 게시판 제목 부분 -->
     <div class="header">
         <div>
             <h2>요리 꿀팁!</h2>
-            <p>당신만의 소중한 요리 꿀팁을 이웃들과 공유해보세요!</p>
+            <p>당신만의 소중한 요리 꿀팁을 공유해보세요!</p>
         </div>
 
+        <!-- 꿀팁 작성하기 페이지로 이동 -->
         <button class="write-btn" onclick="location.href='/tip/write.html'">
-            ✏ 꿀팁 등록하기
+            요리 꿀팁 작성하기
         </button>
     </div>
 
     <div class="tip-list">
 
-        <div class="tip-card">
-            <div class="tip-info">
-                <h3>요리 꿀팁 게시글1: 완벽한 수란 만드는 비법</h3>
+        <!-- 꿀팁 게시글 목록 반복 출력 -->
+        <div class="tip-card" th:each="post : ${posts}" th:onclick="|location.href='@{/tip/detail.html(id=${post.id})}'|" style="cursor:pointer;">
 
+            <div class="tip-info">
+                <h3 th:text="${post.title}">요리 꿀팁 게시글 제목</h3>
+
+                <!-- 작성자, 작성일, 조회수 -->
                 <div class="meta">
-                    작성자 : 베테랑
-                    <span>2024.05.20</span>
-                    <span>👁 1,240</span>
+                    <span>✍️ <span th:text="${post.memberName}">작성자</span></span>
+                    <span>📅 <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2024.05.20</span></span>
+                    <span>👁 <span th:text="${post.viewCount}">0</span></span>
                 </div>
             </div>
 
-            <div class="arrow">〉</div>
-        </div>
-
-        <div class="tip-card">
-            <div class="tip-info">
-                <h3>요리 꿀팁 게시글2: 눅눅해진 튀김 다시 바삭하게 살리기</h3>
-
-                <div class="meta">
-                    작성자 : 박봉상
-                    <span>2024.05.19</span>
-                    <span>👁 856</span>
-                </div>
-            </div>
-
-            <div class="arrow">〉</div>
-        </div>
-
-        <div class="tip-card">
-            <div class="tip-info">
-                <h3>요리 꿀팁 게시글3: 5분 만에 끝내는 마늘 빨리 다지는 노하우</h3>
-                <div class="meta">
-                    작성자 : 최지원
-                    <span>2024.05.18</span>
-                    <span>❤ 2.4k</span>
-                </div>
-            </div>
-
-            <div class="arrow">〉</div>
-
-        </div>
-
-        <div class="tip-card">
-            <div class="tip-info">
-                <h3>요리 꿀팁 게시글4: 남은 와인 활용한 스테이크 소스 만들기</h3>
-
-                <div class="meta">
-                    작성자 : 요리왕
-                    <span>2024.05.17</span>
-                    <span>👁 521</span>
-                </div>
-            </div>
-
-            <div class="arrow">〉</div>
-        </div>
-
-        <div class="tip-card">
-            <div class="tip-info">
-                <h3>요리 꿀팁 게시글5: 칼날 무뎌졌을 때 사기그릇으로 갈기</h3>
-
-                <div class="meta">
-                    작성자 : 마미
-                    <span>2024.05.16</span>
-                    <span>👁 1,092</span>
-                </div>
-            </div>
-
-            <div class="arrow">〉</div>
+            <!-- 상세 페이지로 이동 -->
+            <a th:href="@{/tip/detail.html(id=${post.id})}" class="arrow">〉</a>
         </div>
 
     </div>
 
-    <div class="pagination">
-
-        <button>〈</button>
-
-        <button class="active">1</button>
-
-        <button>2</button>
-
-        <button>3</button>
-
-        <button>4</button>
-
-        <button>5</button>
-
-        <button>〉</button>
-
-    </div>
+<!--    페이지 네이션-->
+    <div class="pagination" id="pagination"></div>
 
 </div>
+
+<script>
+    const PAGE_SIZE = 10;
+    const cards = Array.from(document.querySelectorAll('.tip-card'));
+    let currentPage = 1;
+
+    function showPage(page) {
+        currentPage = page;
+        const start = (page - 1) * PAGE_SIZE;
+        const end = start + PAGE_SIZE;
+
+        cards.forEach((card, index) => {
+            card.style.display = (index >= start && index < end) ? '' : 'none';
+        });
+
+        renderPagination();
+    }
+
+    function renderPagination() {
+        const totalPages = Math.ceil(cards.length / PAGE_SIZE);
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        // 이전 버튼
+        const prev = document.createElement('button');
+        prev.textContent = '〈';
+        prev.disabled = currentPage === 1;
+        prev.onclick = () => showPage(currentPage - 1);
+        pagination.appendChild(prev);
+
+        // 페이지 번호 버튼
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            if (i === currentPage) btn.classList.add('active');
+            btn.onclick = () => showPage(i);
+            pagination.appendChild(btn);
+        }
+
+        // 다음 버튼
+        const next = document.createElement('button');
+        next.textContent = '〉';
+        next.disabled = currentPage === totalPages;
+        next.onclick = () => showPage(currentPage + 1);
+        pagination.appendChild(next);
+    }
+
+    // 초기 실행
+    showPage(1);
+</script>
 
 </body>
 </html>

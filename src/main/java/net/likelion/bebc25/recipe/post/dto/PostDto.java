@@ -44,5 +44,7 @@ public class PostDto {
     // 1. 레시피 게시판 / 2. 요리꿀팁 게시판
     private int postType;
 
+    // [새로추가됨.] member 테이블에서 LEFT JOIN으로 가져오는 작성자 이름
+    private String memberName;
 
 }

@@ -28,7 +28,10 @@ public class JdbcPostRepository implements PostRepository {
                 .content(rs.getString("content"))
                 .viewCount(rs.getInt("view_count"))
                 .createdAt(rs.getObject("created_at", LocalDateTime.class))
-                .postType(rs.getInt("post_type")).build();
+                .postType(rs.getInt("post_type"))
+                // [새로추가됨.] LEFT JOIN으로 가져온 작성자 이름
+                .memberName(rs.getString("member_name"))
+                .build();
     };
 
     // 게시글 전체 조회 (레시피 + 꿀팁 모두)
@@ -46,9 +49,10 @@ public class JdbcPostRepository implements PostRepository {
     }
 
     // 꿀팁 게시글 전체 조회 (post_type = 2)
+    // [새로추가됨.] member 테이블 LEFT JOIN으로 작성자 이름(member_name) 함께 조회
     @Override
     public List<PostDto> findTipPosts() {
-        String sql = "SELECT * FROM post WHERE post_type = 2";
+        String sql = "SELECT p.*, m.name AS member_name FROM post p LEFT JOIN member m ON p.member_id = m.id WHERE p.post_type = 2";
         return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 
@@ -65,7 +69,8 @@ public class JdbcPostRepository implements PostRepository {
         String sql = "INSERT INTO post (member_id, category_id, main_image, title, content, post_type) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 post.getMemberId(),
-                post.getCategoryId(),
+                // category가 없으면(0) null로 처리 (FK 제약조건 위반 방지)
+                post.getCategoryId() == 0 ? null : post.getCategoryId(),
                 post.getMainImage(),
                 post.getTitle(),
                 post.getContent(),

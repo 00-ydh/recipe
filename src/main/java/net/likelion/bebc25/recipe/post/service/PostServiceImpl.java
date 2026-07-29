@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getTipPosts(int type) {
-        return List.of();
+        return postRepository.findTipPosts();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void writePost(PostDto postDto) {
-
+        postRepository.save(postDto);
     }
 
     @Override

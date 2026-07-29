@@ -1,5 +1,6 @@
+<!--요리 꿀팁(게시판) 작성하기 페이지 -->
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>요리 꿀팁 작성하기</title>
@@ -12,38 +13,46 @@
 <script src="/header/load-header.js"></script>
 <!--header 끝-->
 
+<!--전체 틀(박스)-->
 <div class="container">
+
+<!-- 꿀팁 작성하기 제목 부분   -->
+    <div class="header">
 
     <h2>요리 꿀팁 작성하기</h2>
     <p class="sub-title">
         당신만이 알고 있는 주방의 마법, 나만의 요리 꿀팁을 공유해 주세요.
     </p>
+    </div>
 
-    <div class="write-box">
+    <form class="write-box" th:action="@{${postForm.id == 0} ? '/tip/write' : '/tip/edit'}" method="POST" th:object="${postForm}">
+
+
+        <!-- 수정 시 id 전달을 위한 hidden input -->
+        <input type="hidden" th:field="*{id}">
 
         <div class="form-group">
             <label>제목</label>
-            <input type="text" placeholder="꿀팁의 핵심 내용을 한 줄로 요약해 주세요">
+            <!-- 꿀팁 제목 입력 -->
+            <input type="text" th:field="*{title}" placeholder="요리 꿀팁의 제목을 간단하게 입력해 주세요">
         </div>
 
         <div class="form-group">
             <label>내용</label>
-            <textarea placeholder="이 꿀팁을 사용하면 어떤 점이 좋은지, 자세한 방법을 설명해 주세요."></textarea>
+            <!-- 꿀팁 내용 입력 -->
+            <textarea th:field="*{content}" placeholder="꿀탭 내용을 자유롭게 적어주세요"></textarea>
         </div>
+
+        <!--  제출 버튼 부분-->
         <div class="button-box">
-
-            <button class="cancel-btn">
-                취소하기
-            </button>
-
-            <button class="submit-btn">
-                꿀팁 등록하기
-            </button>
-
+            <!-- 취소 버튼: 이전 페이지로 이동 -->
+            <button type="button" class="cancel-btn" onclick="history.back()">취소하기</button>
+            <!-- 등록/수정 버튼: 새 글이면 '꿀팁 등록하기', 수정이면 '꿀팁 수정하기' -->
+            <button type="submit" class="submit-btn" th:text="${postForm.id == 0} ? '꿀팁 등록하기' : '꿀팁 수정하기'">꿀팁 등록하기</button>
         </div>
 
-    </div>
 
+    </form>
 </div>
 
 </body>
