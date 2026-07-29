@@ -66,7 +66,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
      */
     @Override
     public void update(MemberDto memberDto) {
-        jdbcTemplate.update("UPDATE member SET name = ?,password = ? WHERE id = ?",
+        jdbcTemplate.update("UPDATE member SET name = ?, password = ? WHERE id = ?",
                 memberDto.getName(),
                 memberDto.getPassword(),
                 memberDto.getId());

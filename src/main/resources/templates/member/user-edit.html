@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,15 @@
     <h1 class="title">회원정보 수정</h1>
     <p class="subtitle">소중한 정보를 안전하게 관리하세요.</p>
 
-    <form class="profile-form">
+    <form class="profile-form" method="post" th:object="${member}">
+        <input type="hidden" th:field="*{id}">
         <!-- 이메일 그룹 -->
         <div class="form-group">
             <label for="email">이메일</label>
             <div class="input-row">
                 <div class="input-box read-only">
                     <i class="fa-regular fa-envelope icon"></i>
-                    <input type="email" id="email" value="cook_master@nengbu.com" readonly>
+                    <input type="email" id="email" th:field="*{email}" readonly>
                 </div>
                 <button type="button" class="btn-sub">이메일 수정</button>
             </div>
@@ -33,9 +34,9 @@
             <div class="input-row">
                 <div class="input-box">
                     <i class="fa-regular fa-user icon"></i>
-                    <input type="text" id="nickname" value="냉장고마스터">
+                    <input type="text" id="nickname" th:field="*{name}" value="냉장고마스터">
                 </div>
-                <button type="button" class="btn-sub">별명 수정</button>
+                <button type="submit" class="btn-sub" th:formaction="@{/member/edit/name}">별명 수정</button>
             </div>
         </div>
 
@@ -45,9 +46,9 @@
             <div class="input-row">
                 <div class="input-box">
                     <i class="fa-solid fa-lock icon"></i>
-                    <input type="password" id="password" value="********">
+                    <input type="password" id="password" th:field="*{password}" value="********">
                 </div>
-                <button type="button" class="btn-sub">비밀번호 수정</button>
+                <button type="submit" class="btn-sub" th:formaction="@{/member/edit/password}">비밀번호 수정</button>
             </div>
         </div>
 

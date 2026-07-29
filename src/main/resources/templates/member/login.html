@@ -23,7 +23,7 @@
     <!-- 로그인 카드 -->
     <div class="card">
         <h1 class="title">로그인</h1>
-
+        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red"></p>
         <form class="login-form" th:action="@{/member/login}" method="post">
             <!-- 아이디 (이메일) -->
             <div class="form-group">
