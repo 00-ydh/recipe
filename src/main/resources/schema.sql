@@ -17,7 +17,6 @@ CREATE TABLE member (
 CREATE TABLE post (
                       id INT AUTO_INCREMENT PRIMARY KEY,
                       member_id INT NOT NULL,
-                      target_id INT NOT NULL,
                       category_id INT,
                       main_image VARCHAR(200) NULL,
                       title VARCHAR(200) NOT NULL,
