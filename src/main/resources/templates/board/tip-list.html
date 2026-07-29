@@ -7,6 +7,11 @@
 </head>
 <body>
 
+<!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
+<div id="header-placeholder"></div>
+<script src="/header/load-header.js"></script>
+<!--header 끝-->
+
 <div class="container">
 
     <div class="header">
@@ -15,7 +20,7 @@
             <p>당신만의 소중한 요리 꿀팁을 이웃들과 공유해보세요!</p>
         </div>
 
-        <button class="write-btn">
+        <button class="write-btn" onclick="location.href='/tip/write.html'">
             ✏ 꿀팁 등록하기
         </button>
     </div>
