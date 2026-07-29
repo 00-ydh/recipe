@@ -24,4 +24,13 @@ public interface MemberService {
      * @param name 회원 별명
      */
     String findPassword(String email, String name);
+
+    /**
+     * 회원 정보를 수정합니다.
+     * @param memberDto 수정할 회원 정보 DTO
+     */
+    void editMember(MemberDto memberDto);
+
+// 임시
+    MemberDto getMemberById(int id);
 }

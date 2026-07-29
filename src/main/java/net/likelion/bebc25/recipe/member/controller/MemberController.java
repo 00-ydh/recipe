@@ -59,10 +59,11 @@ public class MemberController {
      * @return 성공 시 메인 화면, 실패 시 로그인 페이지
      */
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password) {
+    public String login(@RequestParam String email, @RequestParam String password, Model model) {
         if (memberService.login(email, password) != null) {
-            return "redirect:/index.html";
+            return "redirect:/";
         } else {
+            model.addAttribute("errorMessage", "이메일 또는 비밀번호가 맞지 않습니다.");
             return "member/login";
         }
     }
@@ -99,18 +100,44 @@ public class MemberController {
         return "redirect:/member/login";
     }
 
+    // 임시
     @GetMapping("/mypage")
-    public String myPage() {
-        return "member/mypage.html";
+    public String getMyPageForm(Model model) {
+        MemberDto memberDto = memberService.getMemberById(1);
+
+        model.addAttribute("member", memberDto);
+
+        return "member/mypage";
+    }
+
+    @PostMapping("/mypage")
+    public String mypage() {
+        return "";
     }
 
     @GetMapping("/profile")
     public String profile() {
-        return "member/profile.html";
+        return "member/profile";
     }
 
+    // 임시
     @GetMapping("/edit")
-    public String userEdit() {
-        return "member/user-edit.html";
+    public String getUserEditForm(Model model) {
+        MemberDto memberDto = memberService.getMemberById(1);
+        model.addAttribute("member", memberDto);
+
+        return "member/user-edit";
+    }
+
+    @PostMapping("/edit/name")
+    public String editName(@ModelAttribute("member") MemberDto memberDto) {
+        memberService.editMember(memberDto);
+        return "redirect:/member/mypage";
+    }
+
+    @PostMapping("/edit/password")
+    public String editPassword(@ModelAttribute("member") MemberDto memberDto) {
+        memberService.editMember(memberDto);
+        return "redirect:/member/mypage";
     }
 }

@@ -37,14 +37,10 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto login(String email, String password) {
         MemberDto memberDto = memberRepository.findByEmail(email);
 
-        if (memberDto == null){
+        if (memberDto == null || !(memberDto.getPassword().equals(password))){
             return null;
-        }
-
-        if (memberDto.getPassword().equals(password)){
-            return memberDto;
         } else {
-            return null;
+            return memberDto;
         }
     }
 
@@ -65,5 +61,12 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    @Override
+    public void editMember(MemberDto memberDto) {
+        memberRepository.update(memberDto);
+    }
 
+    public MemberDto getMemberById(int id) {
+        return memberRepository.findById(id);
+    }
 }
