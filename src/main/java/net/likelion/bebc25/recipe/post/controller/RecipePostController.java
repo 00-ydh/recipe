@@ -17,9 +17,9 @@ public class RecipePostController {
     }
 
     // recipe-details 화면 보여주는 컨트롤러
-    @GetMapping("/details.html")
+    @GetMapping("/detail.html")
     public String getRecipeDetails(){
-        return "redirect:/board/recipe-details.html";
+        return "board/recipe-detail";
     }
 
     // recipe-write 화면 보여주는 컨트롤러
@@ -28,7 +28,4 @@ public class RecipePostController {
         return "board/recipe-write";
 
     }
-
-
-
 }
