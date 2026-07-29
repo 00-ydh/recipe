@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>구독(팔로우) 페이지</title>
+    <style>
+        /* 기본 설정 및 가운데 정렬 */
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 50px 20px;
+        }
+
+        .wrap {
+            max-width: 800px; /* PC 화면에서 보기 좋은 넓이 */
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* 메인 컨테이너 (흰색 배경 박스) */
+        .main-container {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        /* =========================================
+           섹션 1: 구독한 사람들 프로필 목록 영역
+           ========================================= */
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .section-desc {
+            font-size: 13px;
+            color: #868e96;
+        }
+
+        .profile-list {
+            display: flex;
+            gap: 25px; /* 프로필 사이 간격 */
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #f1f3f5; /* 아래쪽 구분선 */
+        }
+
+        /* 개별 프로필 아이템 */
+        .profile-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none; /* 링크 밑줄 제거 */
+            cursor: pointer;
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%; /* 동그란 프로필 */
+            background-color: #ffe066; /* 임시 배경색 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .profile-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        /* =========================================
+           섹션 2: 구독한 사람들의 레시피 영역
+           ========================================= */
+        .recipe-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* 레시피 카드 사이 간격 */
+        }
+
+        /* 개별 레시피 카드 (가로형) */
+        .recipe-card {
+            display: flex;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-2px); /* 마우스 올리면 살짝 위로 뜸 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .recipe-thumb {
+            width: 200px;
+            height: 140px;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #adb5bd;
+            font-size: 14px;
+        }
+
+        .recipe-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .recipe-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #212529;
+        }
+
+        .recipe-author {
+            font-size: 14px;
+            color: #f08c00; /* 강조색 */
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .recipe-meta {
+            font-size: 13px;
+            color: #868e96;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="page-title">내 구독 피드</div>
+
+    <div class="main-container">
+
+        <!-- 상단: 내가 팔로우한 사람들 목록 -->
+        <div class="section-header">
+            <div class="section-title">내가 구독한 사람들 목록</div>
+            <div class="section-desc">클릭 시 해당 유저의 프로필 페이지로 이동합니다.</div>
+        </div>
+
+        <div class="profile-list">
+            <!-- 💡 나중에 백엔드 연결 시 여기에 th:each="member : ${subscribeList}" 를 넣습니다 -->
+            <a href="#" class="profile-item">
+                <div class="profile-img" style="background-color: #ffc9c9;">김</div>
+                <div class="profile-name">김셰프</div>
+            </a>
+            <a href="#" class="profile-item">
+                <div class="profile-img" style="background-color: #b2f2bb;">요</div>
+                <div class="profile-name">요리왕</div>
+            </a>
+            <a href="#" class="profile-item">
+                <div class="profile-img" style="background-color: #d0bfff;">백</div>
+                <div class="profile-name">백주부</div>
+            </a>
+            <a href="#" class="profile-item">
+                <div class="profile-img" style="background-color: #ffe066;">박</div>
+                <div class="profile-name">박장금</div>
+            </a>
+        </div>
+
+        <!-- 하단: 구독한 사람들의 최신 레시피 -->
+        <div class="section-header">
+            <div class="section-title">구독한 사람의 최신 레시피</div>
+        </div>
+
+        <div class="recipe-list">
+            <!-- 💡 나중에 백엔드 연결 시 여기에 th:each="recipe : ${recipeList}" 를 넣습니다 -->
+
+            <!-- 레시피 카드 1 -->
+            <a href="#" class="recipe-card">
+                <div class="recipe-thumb">요리 완성 사진 1</div>
+                <div class="recipe-info">
+                    <div class="recipe-title">집에서 즐기는 정통 까르보나라</div>
+                    <div class="recipe-author">작성자: 김셰프</div>
+                    <div class="recipe-meta">조회 1,204 · 댓글 45 · 2024.05.20</div>
+                </div>
+            </a>
+
+            <!-- 레시피 카드 2 -->
+            <a href="#" class="recipe-card">
+                <div class="recipe-thumb">요리 완성 사진 2</div>
+                <div class="recipe-info">
+                    <div class="recipe-title">초간단 5분 완성 볶음밥 비법</div>
+                    <div class="recipe-author">작성자: 백주부</div>
+                    <div class="recipe-meta">조회 850 · 댓글 12 · 2024.05.19</div>
+                </div>
+            </a>
+
+            <!-- 레시피 카드 3 -->
+            <a href="#" class="recipe-card">
+                <div class="recipe-thumb">요리 완성 사진 3</div>
+                <div class="recipe-info">
+                    <div class="recipe-title">비오는 날 생각나는 해물파전</div>
+                    <div class="recipe-author">작성자: 박장금</div>
+                    <div class="recipe-meta">조회 2,100 · 댓글 77 · 2024.05.18</div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
