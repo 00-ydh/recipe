@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,12 +31,29 @@ public class JdbcPostRepository implements PostRepository {
                 .viewCount(rs.getInt("view_count"))
                 .createdAt(rs.getObject("created_at", LocalDateTime.class))
                 .postType(rs.getInt("post_type"))
-                // [추가] 카테고리 이름
-                .categoryName(rs.getString("category_name"))
-                // [추가] member테이블에서 name 컬럼
-                .memberName(rs.getString("name"))
+                // 💡 컬럼 존재 여부를 확인 후 안전하게 매핑 (없으면 null)
+                .categoryName(hasColumn(rs, "category_name") ? rs.getString("category_name") : null)
+                // 💡 쿼리에서 'name' 또는 'member_name' 별칭(alias)을 다르게 쓸 수 있으므로 둘 다 대응
+                .memberName(hasColumn(rs, "member_name") ? rs.getString("member_name") :
+                        (hasColumn(rs, "name") ? rs.getString("name") : null))
                 .build();
     };
+
+    // 2. 클래스 하단에 추가할 도우미 메서드 (컬럼 존재 여부 체크)
+    private boolean hasColumn(ResultSet rs, String columnName) {
+        try {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            for (int i = 1; i <= columnCount; i++) {
+                if (columnName.equalsIgnoreCase(metaData.getColumnLabel(i))) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+        return false;
+    }
 
     // 게시글 전체 조회 (레시피 + 꿀팁 모두)
     @Override
