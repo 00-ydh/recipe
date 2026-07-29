@@ -11,7 +11,6 @@ public interface PostRepository {
     List<PostDto> findTipPosts(int type);
     // 게시글 한건 조회
     PostDto findById(int id);
-    PostDto findTipById(int id);
     // 게시글 등록
     void save(PostDto post);
     // 게시글 수정
