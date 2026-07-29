@@ -1,4 +1,4 @@
-package net.likelion.bebc25.recipe.post;
+package net.likelion.bebc25.recipe.post.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
