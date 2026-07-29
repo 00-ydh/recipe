@@ -28,4 +28,9 @@ public class memberController {
     public String myPage() {
         return "member/mypage.html";
     }
+
+    @GetMapping("/edit")
+    public String userEdit() {
+        return "member/user-edit.html";
+    }
 }

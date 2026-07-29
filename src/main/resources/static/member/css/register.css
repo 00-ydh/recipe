@@ -1,12 +1,13 @@
+/* 기본 초기화 */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    background-color: #FFF8F5; /* 배경 연한 베이지 */
+    background-color: #FAF4F0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,158 +15,94 @@ body {
     padding: 20px;
 }
 
-/* 카드 전체 용기 */
-body > div {
-    background-color: #ffffff;
+/* 카드 컨테이너 */
+.card {
+    background-color: #FFFFFF;
     width: 100%;
     max-width: 440px;
-    padding: 40px 32px;
+    padding: 40px 36px;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
-    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
 }
 
 /* 제목 및 부제목 */
-h1 {
-    font-size: 26px;
-    font-weight: 800;
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
     color: #111111;
     margin-bottom: 8px;
 }
 
-p {
-    font-size: 14px;
+.subtitle {
+    text-align: center;
+    font-size: 13px;
     color: #666666;
+    margin-bottom: 32px;
 }
 
-/* 불필요한 HTML <br> 태그 무시 */
-br {
-    display: none;
-}
-
-/* 폼 영역 전체 */
-form {
-    text-align: left;
-    margin-top: 28px;
-}
-
-form > div {
+/* 폼 요소 */
+.form-group {
     margin-bottom: 18px;
 }
 
-label {
+.form-group label {
     display: block;
     font-size: 12px;
     font-weight: 600;
-    color: #444444;
-    margin-bottom: 6px;
+    color: #555555;
+    margin-bottom: 8px;
 }
 
-/* 비밀번호 / 비밀번호 확인 2열 나란히 배치 */
-form > div:nth-child(2) {
-    display: flex;
-    gap: 12px;
-}
-
-form > div:nth-child(2) label {
-    flex: 1;
-}
-
-/* 비밀번호 라벨 위치 조정을 위해 내부 flex 처리 */
-form > div:nth-child(2) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 12px;
-}
-
-/* 입력창 스타일 */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+.form-group input {
     width: 100%;
-    padding: 12px 14px;
-    background-color: #FAF3EF;
-    border: 1px solid #EFE5DF;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #EBE6E3;
     border-radius: 8px;
+    background-color: #FAF5F2;
     font-size: 14px;
     color: #333333;
     outline: none;
-    transition: border-color 0.2s, background-color 0.2s;
 }
 
-input[type="text"]::placeholder,
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-    color: #A0958E;
+.form-group input::placeholder {
+    color: #B8B0AA;
 }
 
-input:focus {
-    border-color: #B23B0D;
-    background-color: #ffffff;
-}
-
-/* 약관 동의 영역 */
-form > div:nth-child(4) {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin: 24px 0;
-}
-
-form > div:nth-child(4) input[type="checkbox"] {
-    margin-top: 2px;
-    accent-color: #B23B0D;
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-}
-
-form > div:nth-child(4) label {
-    font-size: 12px;
-    font-weight: normal;
-    color: #555555;
-    line-height: 1.4;
-    margin-bottom: 0;
-}
-
-form > div:nth-child(4) a {
-    color: #B23B0D;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-/* 가입하기 버튼 */
-button[type="submit"] {
+/* 진한 주황/갈색 가입하기 버튼 */
+.btn-primary {
     width: 100%;
-    padding: 14px;
-    background-color: #B23B0D; /* 메인 브랜드 다크 브라운/주황 */
-    color: #ffffff;
+    height: 50px;
+    background-color: #B23B15;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
+    color: #FFFFFF;
+    font-size: 15px;
     font-weight: 700;
+    margin-top: 24px;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-button[type="submit"]:hover {
-    background-color: #94300A;
+.btn-primary:hover {
+    background-color: #963110;
 }
 
-/* 하단 로그인 이동 영역 */
-body > div > div:last-child {
-    margin-top: 28px;
+/* 하단 링크 영역 */
+.bottom-links {
+    margin-top: 24px;
+    text-align: center;
     font-size: 13px;
-    color: #666666;
+    color: #777777;
 }
 
-body > div > div:last-child a {
-    color: #B23B0D;
+.bottom-links a {
+    color: #B23B15;
     font-weight: 700;
     text-decoration: none;
-    margin-left: 4px;
+    margin-left: 6px;
 }
 
-body > div > div:last-child a:hover {
+.bottom-links a:hover {
     text-decoration: underline;
 }

@@ -1,213 +1,307 @@
+/* 기본 초기화 */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    background-color: #FFF8F5; /* 연한 베이지 바탕 */
+    background-color: #FAF4F0;
     padding: 40px 20px;
-    display: flex;
-    justify-content: center;
 }
 
 .container {
-    width: 100%;
-    max-width: 1080px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-/* 1. 상단 프로필 영역 */
+/* 1. 페이지 상단 타이틀 */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111111;
+    margin-bottom: 6px;
+}
+
+.page-desc {
+    font-size: 13px;
+    color: #777777;
+}
+
+/* 2. 프로필 카드 */
 .profile-card {
-    background-color: #FAF3EF;
-    border: 1px solid #EFE5DF;
+    background-color: #FFFFFF;
     border-radius: 12px;
-    padding: 24px 32px;
+    padding: 28px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
     margin-bottom: 32px;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.nickname {
-    font-size: 16px;
+.user-nickname {
+    font-size: 20px;
     font-weight: 700;
     color: #222222;
-}
-
-.btn-edit-profile {
-    font-size: 13px;
-    color: #444444;
-    text-decoration: none;
-    border: 1px solid #CCCCCC;
-    background-color: #ffffff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    transition: background-color 0.2s;
-}
-
-.btn-edit-profile:hover {
-    background-color: #F5F5F5;
+    margin-bottom: 20px;
 }
 
 .stats {
     display: flex;
-    gap: 24px;
+    gap: 32px;
 }
 
 .stat-item {
     display: flex;
     flex-direction: column;
-}
-
-.stat-num {
-    font-size: 15px;
-    font-weight: 800;
-    color: #111111;
+    gap: 4px;
 }
 
 .stat-label {
+    font-size: 11px;
+    color: #888888;
+}
+
+.stat-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: #B23B15;
+}
+
+.profile-right {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit-profile {
+    background-color: #B23B15;
+    color: #FFFFFF;
+    padding: 10px 16px;
+    border-radius: 8px;
     font-size: 12px;
-    color: #777777;
-    margin-top: 2px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
 }
 
 .btn-logout {
-    background-color: #E8E2DC;
-    color: #444444;
+    background-color: #554844;
+    color: #FFFFFF;
     border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
 }
 
-.btn-logout:hover {
-    background-color: #DDD6CF;
+/* 3. 탭 제어 (라디오 버튼) */
+input[type="radio"][name="tab"] {
+    display: none;
 }
 
-/* 2. 탭 메뉴 영역 */
 .tab-menu {
     display: flex;
     gap: 32px;
-    border-bottom: 1px solid #EFE5DF;
-    margin-bottom: 24px;
+    border-bottom: 1px solid #EBE6E3;
+    margin-bottom: 32px;
 }
 
 .tab-item {
-    background: none;
-    border: none;
     padding-bottom: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #666666;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-}
-
-.tab-item.active {
-    color: #B23B0D; /* 메인 브랜드 오렌지/브라운 */
+    font-size: 14px;
     font-weight: 700;
-    border-bottom: 2px solid #B23B0D;
+    color: #777777;
+    cursor: pointer;
+    position: relative;
+    bottom: -1px;
 }
 
-/* 3. 레시피 그리드 영역 */
+/* 활성화 탭 표시 */
+#tab1:checked ~ .tab-menu label[for="tab1"],
+#tab2:checked ~ .tab-menu label[for="tab2"],
+#tab3:checked ~ .tab-menu label[for="tab3"] {
+    color: #B23B15;
+    border-bottom: 2px solid #B23B15;
+}
+
+/* 탭 전환 */
+.tab-content {
+    display: none;
+}
+
+#tab1:checked ~ .content-my-posts,
+#tab2:checked ~ .content-scraps,
+#tab3:checked ~ .content-follows {
+    display: block;
+}
+
+/* 4. 컨텐츠 헤더 */
+.section-header {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #333333;
+    margin-bottom: 8px;
+}
+
+.section-desc {
+    font-size: 13px;
+    color: #888888;
+    line-height: 1.4;
+}
+
+/* 5. 레시피 그리드 및 카드 */
 .recipe-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-@media (max-width: 900px) {
-    .recipe-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    gap: 16px;
 }
 
 .recipe-card {
-    background-color: #ffffff;
-    border: 1px solid #EFE5DF;
+    background: #FFFFFF;
     border-radius: 12px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .thumbnail-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 66.66%; /* 3:2 비율 유지 */
-    overflow: hidden;
-    background-color: #EEEEEE;
+    height: 150px;
 }
 
 .thumbnail-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* 조회수 배지 (오른쪽 상단) */
-.view-badge {
+/* 좌측 상단 [수정 | 삭제] 주황색 배지 */
+.badge-edit-delete {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #F06638;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-edit-delete a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.badge-edit-delete .divider {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+/* 우측 상단 좋아요/북마크 배지 */
+.top-badges {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #ffffff;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 12px;
-    backdrop-filter: blur(2px);
+    display: flex;
+    gap: 4px;
 }
 
+.badge {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #333333;
+}
+
+/* 카드 내부 본문 */
 .card-content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
+    padding: 14px 12px;
+}
+
+.category-tag {
+    font-size: 10px;
+    color: #E25B2D;
+    background-color: #FDF0EC;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 6px;
 }
 
 .recipe-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: #222222;
-    margin-bottom: 16px;
-    line-height: 1.4;
+    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+/* 팔로우 그리드 스타일 */
+.follow-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.follow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.follow-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+.author {
+    font-size: 11px;
+    color: #A09890;
+    margin-bottom: 12px;
 }
 
 .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
-    color: #888888;
-}
-
-.card-footer .actions a {
+    font-size: 11px;
     color: #777777;
-    text-decoration: none;
 }
 
-.card-footer .actions a:hover {
-    color: #111111;
-}
-
-.card-footer .divider {
-    margin: 0 2px;
-    color: #DDDDDD;
+.date {
+    color: #666666;
 }

@@ -1,12 +1,13 @@
+/* 기본 초기화 */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    background-color: #FFF8F5; /* 배경 은은한 살구빛 베이지 */
+    background-color: #FAF4F0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,158 +15,148 @@ body {
     padding: 20px;
 }
 
-/* 전체 바깥 영역 정렬 */
-body > div {
+/* 전체 로그인 컨테이너 */
+.login-container {
     width: 100%;
     max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 상단 로고 영역 */
+.logo-area {
     text-align: center;
+    margin-bottom: 24px;
 }
 
-/* 1. 상단 로고 및 설명 문구 */
-body > div > div:first-child {
-    margin-bottom: 28px;
-}
-
-body > div > div:first-child h1 {
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     font-size: 28px;
     font-weight: 800;
-    color: #9E3312; /* 브랜드 갈색/주황 */
+    color: #8C2C1D;
     margin-bottom: 8px;
 }
 
-body > div > div:first-child p {
-    font-size: 14px;
-    color: #666666;
-    line-height: 1.4;
+.logo-icon {
+    font-size: 26px;
 }
 
-/* 2. 로그인 흰색 하얀 카드 영역 */
-body > div > div:nth-child(2) {
-    background-color: #ffffff;
-    padding: 36px 32px 28px 32px;
+.service-desc {
+    font-size: 13px;
+    color: #777777;
+}
+
+/* 카드 컨테이너 */
+.card {
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 36px 32px;
     border-radius: 16px;
-    border: 1px solid #F5EAE3;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-    text-align: left;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
 }
 
-body > div > div:nth-child(2) h2 {
-    font-size: 22px;
-    font-weight: 800;
+/* 카드 내부 제목 */
+.title {
+    font-size: 20px;
+    font-weight: 700;
     color: #111111;
     margin-bottom: 24px;
 }
 
-/* <br> 태그 공간 무시 및 CSS 여백 처리 */
-br {
-    display: none;
-}
-
 /* 폼 요소 */
-form > div {
+.form-group {
     margin-bottom: 18px;
 }
 
-label {
+.form-group label {
     display: block;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    color: #555555;
-    margin-bottom: 6px;
+    color: #666666;
+    margin-bottom: 8px;
 }
 
-input[type="email"],
-input[type="password"] {
+.form-group input {
     width: 100%;
-    padding: 12px 14px;
-    background-color: #FAF3EF;
-    border: 1px solid #EFE5DF;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid #EBE6E3;
     border-radius: 8px;
+    background-color: #FAF5F2;
     font-size: 14px;
     color: #333333;
     outline: none;
-    transition: border-color 0.2s, background-color 0.2s;
 }
 
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-    color: #A0958E;
+.form-group input::placeholder {
+    color: #B8B0AA;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #F16035;
-    background-color: #ffffff;
-}
-
-/* 버튼 및 회원가입 링크 영역 */
-form > div:last-child {
+/* 버튼 그룹 (로그인 + 회원가입) */
+.btn-group {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-top: 24px;
-    margin-bottom: 0;
 }
 
-button[type="submit"] {
+/* 주황색 로그인 버튼 */
+.btn-primary {
     flex: 1;
-    padding: 13px;
-    background-color: #F16035; /* 오렌지 메인 컬러 */
-    color: #ffffff;
+    height: 48px;
+    background-color: #F06638;
     border: none;
     border-radius: 8px;
+    color: #FFFFFF;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(241, 96, 53, 0.2);
-    transition: background-color 0.2s;
 }
 
-button[type="submit"]:hover {
-    background-color: #DC4F25;
+.btn-primary:hover {
+    background-color: #D95327;
 }
 
-form > div:last-child a {
+/* 회원가입 링크 버튼 */
+.btn-secondary {
     flex: 1;
     text-align: center;
+    color: #D95327;
     font-size: 14px;
     font-weight: 700;
-    color: #B23B0D;
     text-decoration: none;
 }
 
-form > div:last-child a:hover {
+.btn-secondary:hover {
     text-decoration: underline;
 }
 
-/* 카드 하단 구분선 및 아이디/비밀번호 찾기 */
-hr {
-    border: none;
-    border-top: 1px solid #EEEEEE;
-    margin: 24px 0 20px 0;
-}
-
-body > div > div:nth-child(2) > div:last-child {
+/* 하단 링크 */
+.bottom-links {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #F0ECE9;
     text-align: center;
 }
 
-body > div > div:nth-child(2) > div:last-child a {
-    font-size: 13px;
-    font-weight: 600;
+.bottom-links a {
     color: #666666;
+    font-size: 12px;
     text-decoration: none;
 }
 
-body > div > div:nth-child(2) > div:last-child a:hover {
-    color: #111111;
+.bottom-links a:hover {
+    text-decoration: underline;
 }
 
-/* 3. 푸터 카피라이트 */
-footer {
+/* 푸터 카피라이트 */
+.footer {
     margin-top: 32px;
-}
-
-footer p {
     font-size: 12px;
-    color: #888888;
+    color: #999999;
+    text-align: center;
 }
