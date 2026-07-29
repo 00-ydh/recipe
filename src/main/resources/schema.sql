@@ -13,8 +13,9 @@ CREATE TABLE member (
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+# 게시글 등록에서 category null 조건문 안넣으면 오류남
 CREATE TABLE category (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                           category_name VARCHAR(50) NOT NULL
 );
 

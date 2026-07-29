@@ -22,8 +22,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getRecipePosts(int type) {
-        return List.of();
+    public List<PostDto> getRecipePosts() {
+        return postRepository.findRecipePosts();
     }
 
     @Override
@@ -45,7 +45,6 @@ public class PostServiceImpl implements PostService {
     public void editPost(PostDto postDto) {
 
     }
-
     @Override
     public void removePost(int id) {
 

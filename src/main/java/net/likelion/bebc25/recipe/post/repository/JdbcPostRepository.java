@@ -29,8 +29,10 @@ public class JdbcPostRepository implements PostRepository {
                 .viewCount(rs.getInt("view_count"))
                 .createdAt(rs.getObject("created_at", LocalDateTime.class))
                 .postType(rs.getInt("post_type"))
-                // [새로추가됨.] LEFT JOIN으로 가져온 작성자 이름
-                .memberName(rs.getString("member_name"))
+                // [추가] 카테고리 이름
+                .categoryName(rs.getString("category_name"))
+                // [추가] member테이블에서 name 컬럼
+                .memberName(rs.getString("name"))
                 .build();
     };
 
@@ -44,12 +46,15 @@ public class JdbcPostRepository implements PostRepository {
     // 레시피 게시글 조회 (post_type = 1)
     @Override
     public List<PostDto> findRecipePosts() {
-        String sql = "SELECT * FROM post WHERE post_type = 1";
+        String sql = "SELECT post.* , category.category_name, member.name FROM post " +
+                "LEFT JOIN category on post.category_id = category.id " +
+                "LEFT JOIN member on post.member_id = member.id " +
+                "WHERE post.post_type = 1";
         return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 
+
     // 꿀팁 게시글 전체 조회 (post_type = 2)
-    // [새로추가됨.] member 테이블 LEFT JOIN으로 작성자 이름(member_name) 함께 조회
     @Override
     public List<PostDto> findTipPosts() {
         String sql = "SELECT p.*, m.name AS member_name FROM post p LEFT JOIN member m ON p.member_id = m.id WHERE p.post_type = 2";
@@ -64,12 +69,12 @@ public class JdbcPostRepository implements PostRepository {
     }
 
     // 게시글 등록
+    //  post.getCategoryId() == 0 ? null : post.getCategoryId() - 오류
     @Override
     public void save(PostDto post) {
         String sql = "INSERT INTO post (member_id, category_id, main_image, title, content, post_type) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 post.getMemberId(),
-                // category가 없으면(0) null로 처리 (FK 제약조건 위반 방지)
                 post.getCategoryId() == 0 ? null : post.getCategoryId(),
                 post.getMainImage(),
                 post.getTitle(),

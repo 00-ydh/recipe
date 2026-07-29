@@ -8,7 +8,7 @@ public interface PostService {
     // 게시글 전체 조회
     List<PostDto> getPosts();
     // 레시피 게시글 따로 / 요리 꿀팁 게시글 따로 조회
-    List<PostDto> getRecipePosts(int type);
+    List<PostDto> getRecipePosts();
     List<PostDto> getTipPosts(int type);
     // 게시글 조회
     PostDto getPost(int id);
@@ -18,4 +18,5 @@ public interface PostService {
     void editPost(PostDto postDto);
     // 게시글 삭제
     void removePost(int id);
+
 }
