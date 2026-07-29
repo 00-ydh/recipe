@@ -61,7 +61,7 @@ public class MemberController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password) {
         if (memberService.login(email, password) != null) {
-            return "redirect:/index.html";
+            return "redirect:/";
         } else {
             return "member/login";
         }
