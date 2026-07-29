@@ -1,0 +1,121 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAF6F1;
+    color: #333;
+}
+
+a { text-decoration: none; color: inherit; }
+
+.mypage-wrap { padding-top: 48px; padding-bottom: 64px; }
+
+/* ===== 프로필 섹션 ===== */
+.profile-section {
+    background-color: white;
+    border-bottom: 1px solid #f0ebe5;
+    padding: 36px 0;
+    margin-bottom: 40px;
+}
+
+.profile-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: #F5EDE4;
+    border: 2px solid #E07550;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.profile-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #E07550;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #999;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 32px;
+    background-color: #EDE8E2;
+}
+
+/* ===== 팔로우 버튼 ===== */
+.follow-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #E07550;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.2s;
+    font-family: inherit;
+}
+
+.follow-btn:hover { background-color: #c96340; }
+
+/* ===== 레시피 목록 섹션 ===== */
+.mypage-recipes { background-color: #FAF6F1; }
+
+.mypage-section-header { margin-bottom: 24px; }
+
+.mypage-section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.mypage-section-sub {
+    font-size: 13px;
+    color: #aaa;
+}
+
+/* 4열 그리드 (main은 5열이라 override) */
+.mypage-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+}

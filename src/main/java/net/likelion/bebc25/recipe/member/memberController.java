@@ -29,6 +29,11 @@ public class memberController {
         return "member/mypage.html";
     }
 
+    @GetMapping("/profile")
+    public String profile() {
+        return "member/profile.html";
+    }
+
     @GetMapping("/edit")
     public String userEdit() {
         return "member/user-edit.html";
