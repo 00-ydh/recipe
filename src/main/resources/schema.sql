@@ -63,3 +63,19 @@ CREATE TABLE follow (
                         CONSTRAINT fk_follow_following_id FOREIGN KEY (following_id) REFERENCES member(id) ON DELETE CASCADE,
                         CONSTRAINT fk_follow_follower_id FOREIGN KEY (follower_id) REFERENCES member(id) ON DELETE CASCADE
 );
+
+
+INSERT INTO category(id, category_name) VALUES (1,'한식');
+INSERT INTO category(id, category_name) VALUES (2,'양식');
+INSERT INTO category(id, category_name) VALUES (3,'중식');
+INSERT INTO category(id, category_name) VALUES (4,'일식');
+
+
+
+INSERT INTO member (email, password, name)
+VALUES
+    ('kim@example.com', '1234', '김철수'),
+    ('lee@example.com', '1234', '이영희'),
+    ('park@example.com', '1234', '박민수'),
+    ('choi@example.com', '1234', '최지은'),
+    ('jung@example.com', '1234', '정현우');
