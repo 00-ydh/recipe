@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보 수정</title>
+    <!-- 아이콘 사용을 위한 Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/member/css/user-edit.css">
+</head>
+<body>
+
+<div class="card">
+    <h1 class="title">회원정보 수정</h1>
+    <p class="subtitle">소중한 정보를 안전하게 관리하세요.</p>
+
+    <form class="profile-form">
+        <!-- 이메일 그룹 -->
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <div class="input-row">
+                <div class="input-box read-only">
+                    <i class="fa-regular fa-envelope icon"></i>
+                    <input type="email" id="email" value="cook_master@nengbu.com" readonly>
+                </div>
+                <button type="button" class="btn-sub">이메일 수정</button>
+            </div>
+        </div>
+
+        <!-- 별명 그룹 -->
+        <div class="form-group">
+            <label for="nickname">별명</label>
+            <div class="input-row">
+                <div class="input-box">
+                    <i class="fa-regular fa-user icon"></i>
+                    <input type="text" id="nickname" value="냉장고마스터">
+                </div>
+                <button type="button" class="btn-sub">별명 수정</button>
+            </div>
+        </div>
+
+        <!-- 비밀번호 그룹 -->
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <div class="input-row">
+                <div class="input-box">
+                    <i class="fa-solid fa-lock icon"></i>
+                    <input type="password" id="password" value="********">
+                </div>
+                <button type="button" class="btn-sub">비밀번호 수정</button>
+            </div>
+        </div>
+
+        <!-- 하단 탈퇴하기 버튼 -->
+        <button type="button" class="btn-danger">탈퇴하기</button>
+    </form>
+</div>
+
+</body>
+</html>
