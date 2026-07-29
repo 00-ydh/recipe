@@ -31,9 +31,9 @@ public class JdbcPostRepository implements PostRepository {
                 .viewCount(rs.getInt("view_count"))
                 .createdAt(rs.getObject("created_at", LocalDateTime.class))
                 .postType(rs.getInt("post_type"))
-                // 💡 컬럼 존재 여부를 확인 후 안전하게 매핑 (없으면 null)
+                // 컬럼 존재 여부를 확인 후 안전하게 매핑 (없으면 null)
                 .categoryName(hasColumn(rs, "category_name") ? rs.getString("category_name") : null)
-                // 💡 쿼리에서 'name' 또는 'member_name' 별칭(alias)을 다르게 쓸 수 있으므로 둘 다 대응
+                // 쿼리에서 'name' 또는 'member_name' 별칭(alias)을 다르게 쓸 수 있으므로 둘 다 대응
                 .memberName(hasColumn(rs, "member_name") ? rs.getString("member_name") :
                         (hasColumn(rs, "name") ? rs.getString("name") : null))
                 .build();

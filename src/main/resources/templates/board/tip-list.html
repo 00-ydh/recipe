@@ -9,10 +9,10 @@
 <body>
 
 <!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
-<div id="header-placeholder"></div>
+<!-- templates/header/header.html을 찾고 그 파일 안에서 fragment header를 가져오기 -->
+<div th:replace="~{header/header :: header}"></div>
 <script src="/header/load-header.js"></script>
 <!--header 끝-->
-
 <!--전체 틀(박스)-->
 <div class="container">
 

@@ -21,7 +21,7 @@ public class TipPostController {
     }
 
     // 요리 꿀팁 리스트 보여주는 컨트롤러
-    @GetMapping("/list.html")
+    @GetMapping("/list")
     public String getTipList(Model model) {
         List<PostDto> tips = postService.getTipPosts(2);
         model.addAttribute("posts", tips);
