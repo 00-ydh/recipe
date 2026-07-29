@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS follow;
-DROP TABLE IF EXISTS `like`;
+DROP TABLE IF EXISTS good;
 DROP TABLE IF EXISTS reply;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS category;
@@ -13,10 +13,14 @@ CREATE TABLE member (
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE category (
+                          id INT AUTO_INCREMENT PRIMARY KEY,
+                          category_name VARCHAR(50) NOT NULL
+);
 
 CREATE TABLE post (
                       id INT AUTO_INCREMENT PRIMARY KEY,
-                      member_id INT NOT NULL,
+                      member_id INT,
                       category_id INT,
                       main_image VARCHAR(200) NULL,
                       title VARCHAR(200) NOT NULL,
@@ -40,7 +44,7 @@ CREATE TABLE reply (
 );
 
 
-CREATE TABLE like (
+CREATE TABLE good (
                       id INT AUTO_INCREMENT PRIMARY KEY,
                       post_id INT NOT NULL,
                       member_id INT NOT NULL,
@@ -49,10 +53,7 @@ CREATE TABLE like (
                       CONSTRAINT fk_like_target FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 );
 
-CREATE TABLE category (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          category_name VARCHAR(50) NOT NULL
-);
+
 
 
 CREATE TABLE follow (
