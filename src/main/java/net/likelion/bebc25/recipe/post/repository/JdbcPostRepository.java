@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class JdbcPostRepository implements  PostRepository {
+public class JdbcPostRepository implements PostRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcPostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-
     }
-    private final RowMapper<PostDto> postDtoRowMapper = (ResultSet rs, int rowNum) ->{
+
+    private final RowMapper<PostDto> postDtoRowMapper = (ResultSet rs, int rowNum) -> {
         return PostDto.builder()
                 .id(rs.getInt("id"))
                 .memberId(rs.getInt("member_id"))
@@ -31,38 +31,63 @@ public class JdbcPostRepository implements  PostRepository {
                 .postType(rs.getInt("post_type")).build();
     };
 
+    // 게시글 전체 조회 (레시피 + 꿀팁 모두)
     @Override
     public List<PostDto> findAll() {
-        return List.of();
+        String sql = "SELECT * FROM post";
+        return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 
+    // 레시피 게시글 조회 (post_type = 1)
     @Override
-    public List<PostDto> findRecipePosts(int type) {
-        return List.of();
+    public List<PostDto> findRecipePosts() {
+        String sql = "SELECT * FROM post WHERE post_type = 1";
+        return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 
+    // 꿀팁 게시글 전체 조회 (post_type = 2)
     @Override
-    public List<PostDto> findTipPosts(int type) {
-        return List.of();
+    public List<PostDto> findTipPosts() {
+        String sql = "SELECT * FROM post WHERE post_type = 2";
+        return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 
+    // 게시글 단건 조회 (id로 조회)
     @Override
     public PostDto findById(int id) {
-        return null;
+        String sql = "SELECT * FROM post WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, postDtoRowMapper, id);
     }
 
+    // 게시글 등록
     @Override
     public void save(PostDto post) {
-
+        String sql = "INSERT INTO post (member_id, category_id, main_image, title, content, post_type) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql,
+                post.getMemberId(),
+                post.getCategoryId(),
+                post.getMainImage(),
+                post.getTitle(),
+                post.getContent(),
+                post.getPostType());
     }
 
+    // 게시글 수정
     @Override
     public void update(PostDto post) {
-
+        String sql = "UPDATE post SET title = ?, content = ?, main_image = ? WHERE id = ?";
+        jdbcTemplate.update(sql,
+                post.getTitle(),
+                post.getContent(),
+                post.getMainImage(),
+                post.getId());
     }
 
+    // 게시글 삭제
     @Override
     public void deleteById(int id) {
-
+        String sql = "DELETE FROM post WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 }
+

@@ -7,8 +7,8 @@ import java.util.List;
 public interface PostRepository {
     // 게시글 전체 조회
     List<PostDto> findAll();
-    List<PostDto> findRecipePosts(int type);
-    List<PostDto> findTipPosts(int type);
+    List<PostDto> findRecipePosts();
+    List<PostDto> findTipPosts();
     // 게시글 한건 조회
     PostDto findById(int id);
     // 게시글 등록
