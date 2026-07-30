@@ -10,8 +10,8 @@ body{
 }
 
 .container{
-    width:900px;
-    margin:50px auto;
+    width:1200px;
+    margin:40px auto;
 }
 
 h2{
@@ -25,6 +25,7 @@ h2{
 }
 
 .write-box{
+    width:1200px;
     background:#fff;
     border-radius:12px;
     padding:35px;

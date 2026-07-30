@@ -8,10 +8,8 @@
 </head>
 <body>
 
-<!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
-<div id="header-placeholder"></div>
-<script src="/header/load-header.js"></script>
-<!--header 끝-->
+<!--header 삽입 코드 한줄 !-->
+<div th:replace="~{header/header :: header}"></div>
 
 <!--전체 틀(박스)-->
 <div class="container">
@@ -33,14 +31,14 @@
 
         <div class="form-group">
             <label>제목</label>
-            <!-- 꿀팁 제목 입력 -->
             <input type="text" th:field="*{title}" placeholder="요리 꿀팁의 제목을 간단하게 입력해 주세요">
+            <span class="error-msg" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         </div>
 
         <div class="form-group">
             <label>내용</label>
-            <!-- 꿀팁 내용 입력 -->
-            <textarea th:field="*{content}" placeholder="꿀탭 내용을 자유롭게 적어주세요"></textarea>
+            <textarea th:field="*{content}" placeholder="요리 꿀팁 내용을 자유롭게 적어주세요"></textarea>
+            <span class="error-msg" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
         </div>
 
         <!--  제출 버튼 부분-->

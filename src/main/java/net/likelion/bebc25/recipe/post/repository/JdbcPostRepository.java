@@ -36,6 +36,7 @@ public class JdbcPostRepository implements PostRepository {
                 // 쿼리에서 'name' 또는 'member_name' 별칭(alias)을 다르게 쓸 수 있으므로 둘 다 대응
                 .memberName(hasColumn(rs, "member_name") ? rs.getString("member_name") :
                         (hasColumn(rs, "name") ? rs.getString("name") : null))
+                .likeCount(hasColumn(rs, "like_count") ? rs.getInt("like_count") : 0)
                 .build();
     };
 
@@ -80,12 +81,27 @@ public class JdbcPostRepository implements PostRepository {
         return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 
-    // 게시글 단건 조회 (id로 조회)
+    // 게시글 단건 조회 (id로 조회) - 좋아요 수 포함
+    // 원래 코드: String sql = "SELECT * FROM post WHERE id = ?";
+    //
+    // 변경 이유: 좋아요 수(like_count)를 함께 가져오기 위해 like 테이블을 JOIN함
+    // - LEFT JOIN member : 작성자 이름(member_name)을 가져오기 위함
+    // - LEFT JOIN good : 해당 게시글의 좋아요 개수를 COUNT하기 위함 (테이블명: good)
+    //   (LEFT JOIN 사용 → 좋아요가 0개여도 null이 아닌 0으로 반환됨)
+    // - GROUP BY p.id : COUNT 집계를 위해 필요
     @Override
     public PostDto findById(int id) {
-        String sql = "SELECT * FROM post WHERE id = ?";
+        String sql = "SELECT p.*, m.name AS member_name, COUNT(l.id) AS like_count " +
+                     "FROM post p " +
+                     "LEFT JOIN member m ON p.member_id = m.id " +
+                     "LEFT JOIN good l ON p.id = l.post_id " +
+                     "WHERE p.id = ? " +
+                     "GROUP BY p.id";
         return jdbcTemplate.queryForObject(sql, postDtoRowMapper, id);
     }
+
+
+
 
     // 게시글 등록
     //  post.getCategoryId() == 0 ? null : post.getCategoryId() - 오류

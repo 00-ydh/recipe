@@ -15,9 +15,11 @@ a { text-decoration: none; color: inherit; }
 /* ===== 프로필 섹션 ===== */
 .profile-section {
     background-color: white;
-    border-bottom: 1px solid #f0ebe5;
-    padding: 36px 0;
-    margin-bottom: 40px;
+    border-radius: 16px;
+    padding: 36px 40px;
+    max-width: 1200px;
+    margin: 0 auto ;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
 .profile-inner {

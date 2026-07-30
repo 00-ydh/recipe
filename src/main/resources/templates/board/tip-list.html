@@ -8,11 +8,9 @@
 </head>
 <body>
 
-<!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
-<!-- templates/header/header.html을 찾고 그 파일 안에서 fragment header를 가져오기 -->
+<!--header 삽입 코드 한줄 !-->
 <div th:replace="~{header/header :: header}"></div>
-<script src="/header/load-header.js"></script>
-<!--header 끝-->
+
 <!--전체 틀(박스)-->
 <div class="container">
 
@@ -24,29 +22,40 @@
         </div>
 
         <!-- 꿀팁 작성하기 페이지로 이동 -->
-        <button class="write-btn" onclick="location.href='/tip/write.html'">
+        <button class="write-btn" onclick="location.href='/tip/write'">
             요리 꿀팁 작성하기
         </button>
     </div>
 
-    <div class="tip-list">
+<div class="tip-list">
 
         <!-- 꿀팁 게시글 목록 반복 출력 -->
-        <div class="tip-card" th:each="post : ${posts}" th:onclick="|location.href='@{/tip/detail.html(id=${post.id})}'|" style="cursor:pointer;">
+        <div class="tip-card" th:each="post : ${posts}" th:onclick="|location.href='@{/tip/detail(id=${post.id})}'|" style="cursor:pointer;">
 
             <div class="tip-info">
                 <h3 th:text="${post.title}">요리 꿀팁 게시글 제목</h3>
 
                 <!-- 작성자, 작성일, 조회수 -->
                 <div class="meta">
-                    <span>✍️ <span th:text="${post.memberName}">작성자</span></span>
-                    <span>📅 <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2024.05.20</span></span>
-                    <span>👁 <span th:text="${post.viewCount}">0</span></span>
+                    <span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span th:text="${post.memberName}">작성자</span>
+                    </span>
+                    <span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2024.05.20</span>
+                    </span>
+                    <span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span th:text="${post.viewCount}">0</span>
+                    </span>
                 </div>
             </div>
 
-            <!-- 상세 페이지로 이동 -->
-            <a th:href="@{/tip/detail.html(id=${post.id})}" class="arrow">〉</a>
+            <!-- 화살표 꾸밈요소 -->
+            <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
         </div>
 
     </div>
@@ -56,6 +65,8 @@
 
 </div>
 
+
+<!--페이지네이션 js 코드 (필요없을 시 삭제 예정)-->
 <script>
     const PAGE_SIZE = 10;
     const cards = Array.from(document.querySelectorAll('.tip-card'));
