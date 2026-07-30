@@ -21,5 +21,7 @@ public interface PostRepository {
     List<PostDto> findPostByUser(int memberId);
     // 아이디로 레시피 게시글 조회
     List<PostDto> findRecipePostByUser(int memberId);
+    // 아이디로 꿀팁 게시글 조회[[새로 추가됨]]
+    List<PostDto> findTipPostByUser(int memberId);
 
 }

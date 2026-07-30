@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
+import org.springframework.http.MediaType;
 import net.likelion.bebc25.recipe.reply.dto.RequestDTO;
 import net.likelion.bebc25.recipe.reply.dto.ResponseDTO;
 import net.likelion.bebc25.recipe.reply.service.ReplyService;
@@ -11,6 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -20,6 +28,7 @@ import java.util.List;
 public class TipPostController {
 
     private final PostService postService;
+    private final String uploadDir = Paths.get("C:","Programming","TUI_Editor","upload").toString();
     private final ReplyService replyService;
 
     public TipPostController(PostService postService, ReplyService replyService) {
@@ -95,5 +104,57 @@ public class TipPostController {
     public String deleteTip(@RequestParam int id) {
         postService.removePost(id);
         return "redirect:/tip/list";
+    }
+
+    @PostMapping("/image-upload")
+    @ResponseBody
+    public String uploadEditorImage(@RequestParam("image") MultipartFile image){
+        log.info("이미지 업로드 요청");
+        log.info("파일명 = {}", image.getOriginalFilename());
+        if(image.isEmpty()){
+            return "";
+        }
+        String orgFilename = image.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String extension = orgFilename.substring(orgFilename.lastIndexOf(".") + 1);
+        String saveFilename = uuid + "." + extension;
+        String fileFullPath = Paths.get(uploadDir, saveFilename).toString();
+
+        File dir = new File(uploadDir);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            image.transferTo(new File(fileFullPath));
+
+            return saveFilename;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping(value = "/image-print", produces = { MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+    @ResponseBody
+    public byte[] printEditorImage(@RequestParam final String filename) {
+        // 업로드된 파일의 전체 경로
+        String fileFullPath = Paths.get(uploadDir, filename).toString();
+
+        // 파일이 없는 경우 예외 throw
+        File uploadedFile = new File(fileFullPath);
+        if (uploadedFile.exists() == false) {
+            throw new RuntimeException();
+        }
+
+        try {
+            // 이미지 파일을 byte[]로 변환 후 반환
+            byte[] imageBytes = Files.readAllBytes(uploadedFile.toPath());
+            return imageBytes;
+
+        } catch (IOException e) {
+            // 예외 처리는 따로 해주는 게 좋습니다.
+            throw new RuntimeException(e);
+        }
     }
 }

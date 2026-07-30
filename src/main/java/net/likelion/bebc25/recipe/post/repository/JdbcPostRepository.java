@@ -156,5 +156,15 @@ public class JdbcPostRepository implements PostRepository {
 
         return jdbcTemplate.query(sql, postDtoRowMapper,memberId);
     }
+
+    // 아이디로 꿀팁 게시글 목록 조회 [[새로추가됨!]]
+    @Override
+    public List<PostDto> findTipPostByUser(int memberId) {
+        String sql = "SELECT p.*, m.name AS member_name FROM post p " +
+                "LEFT JOIN member m ON p.member_id = m.id " +
+                "WHERE p.post_type = 2 AND p.member_id = ?";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
+    }
 }
 
