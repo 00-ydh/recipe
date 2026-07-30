@@ -111,11 +111,13 @@
             <div class="comment-list">
                 <!-- replies 리스트를 돌면서 댓글 하나씩 출력 -->
                 <div class="comment-item" th:each="reply : ${replies}">
-                    <div class="comment-avatar av-orange" th:text="${#strings.substring(reply.memberName,0,1)}">김</div>
+
+                    <div class="comment-avatar av-orange" th:text="${#strings.substring(reply.name,0,1)}">김</div>
                     <div class="comment-body">
                         <!-- 작성자, 작성한 날짜 표시 -->
                         <p class="comment-author">
-                            <span th:text="${reply.memberName}">작성자</span>
+
+                            <span th:text="${reply.name}">작성자</span>
                             <span class="comment-time" th:text="${#temporals.format(reply.createdAt, 'yyyy.MM.dd HH:mm')}">2026.07.29</span>
                         </p>
                         <!-- 댓글 내용 표시 -->
@@ -132,7 +134,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </main>
 
