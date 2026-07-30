@@ -143,7 +143,7 @@ public class JdbcPostRepository implements PostRepository {
                 "LEFT JOIN member on post.member_id = member.id " +
                 "WHERE post.member_id = ?";
 
-        return jdbcTemplate.query(sql, postDtoRowMapper);
+        return jdbcTemplate.query(sql, postDtoRowMapper,memberId);
     }
 
     // 아이디로 레시피 게시글 목록 조회
@@ -154,7 +154,7 @@ public class JdbcPostRepository implements PostRepository {
                 "LEFT JOIN member on post.member_id = member.id " +
                 "WHERE post.post_type = 1 AND post.member_id = ?";
 
-        return jdbcTemplate.query(sql, postDtoRowMapper);
+        return jdbcTemplate.query(sql, postDtoRowMapper,memberId);
     }
 }
 

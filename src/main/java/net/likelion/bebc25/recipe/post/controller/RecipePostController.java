@@ -55,17 +55,20 @@ public class RecipePostController {
     public String getRecipeWriteForm(@ModelAttribute("recipePostForm") PostDto post){
         return "board/recipe-write";
     }
-    // 게시글 등록 요청을 처리하는 컨트롤러
+    // recipe 게시글 등록 요청을 처리하는 컨트롤러
     @PostMapping("/write")
     public String writeRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post, BindingResult bindingResult){
         post.setMemberId(1);
         // 레시피 post_type
         post.setPostType(1);
-        log.info("member = {} ", post.getMemberId());
+        // memberid 확인용
+//        log.info("member = {} ", post.getMemberId());
+
+        // 검증에 실패했을 경우
         if(bindingResult.hasErrors()){
             return "board/recipe-write";
         }
-        log.info("post = {}", post);
+
         postService.writePost(post);
         return "redirect:/recipe/list";
     }
