@@ -1,0 +1,123 @@
+<!--요리 꿀팁(게시판) 상세 페이지 -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요리 꿀팁 상세</title>
+    <link rel="stylesheet" href="/board/css/recipe-detail.css">
+</head>
+<body>
+
+<!--header 삽입 코드 한줄 !-->
+<div th:replace="~{header/header :: header}"></div>
+
+
+<main class="recipe-detail">
+    <div class="container tip-container">
+
+        <!-- 섹션 1: 게시글 -->
+        <div class="detail-card">
+
+            <!-- 제목 + 좋아요 -->
+            <div class="recipe-title-row">
+                <h1 class="recipe-title" th:text="${tip.title}">꿀팁 제목</h1>
+                <!-- 좋아요 버튼!!!  -->
+                <div class="recipe-actions">
+                    <button class="action-btn" title="좋아요">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 메타 정보: 작성자, 작성일, 조회수 -->
+            <div class="recipe-meta">
+                <span class="meta-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <span th:text="${tip.memberName}">작성자</span>
+                </span>
+                <span class="meta-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span th:text="${#temporals.format(tip.createdAt, 'yyyy.MM.dd')}">2024.05.20</span>
+                </span>
+                <span class="meta-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span th:text="${tip.viewCount}">0</span>
+                </span>
+            </div>
+
+            <!-- 제목과 내용 구분선 -->
+            <hr class="divider">
+
+            <!-- 꿀팁 내용 -->
+            <div class="ingredients-section">
+                <h2 class="section-label">내용</h2>
+                <div class="step-box">
+                    <p th:text="${tip.content}">꿀팁 내용이 여기에 표시됩니다.</p>
+                </div>
+            </div>
+
+            <!-- 조회수 / 좋아요 + 목록 보기 버튼 -->
+            <hr class="divider">
+            <div class="stats-and-btn">
+                <div class="recipe-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">조회수</span>
+                        <!-- 조회수 보여주는 곳 -->
+                        <span class="stat-value" th:text="${tip.viewCount}">0</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="stat-label">좋아요</span>
+                        <!-- 좋아요 수 보여주는 곳 -->
+                        <span class="stat-value" th:text="${tip.likeCount}">0</span>
+                    </div>
+                </div>
+                <a href="/tip/list" class="list-btn">목록 보기</a>
+            </div>
+
+        </div>
+
+
+        <!--------  댓글 섹션 시작입니다!! 댓글 여기서 부터 봐주세요 -------->
+        <!-- 섹션 2: 댓글 -->
+        <div class="detail-card">
+            <h2 class="section-label">댓글</h2>
+
+            <!-- 댓글 작성하는 부분 -->
+            <div class="comment-write">
+                <!-- 프로필 사진부분 (사진x ) -그냥 원으로 대체! -->
+                <div class="comment-avatar default-av"></div>
+                <div class="comment-write-body">
+                    <!-- 댓글 작성하는 (입력하는 부분) -->
+                    <textarea class="comment-input" placeholder="나만의 소감을 남겨주세요..."></textarea>
+
+                    <div class="comment-submit-row comment-submit-inline">
+                        <!-- 댓글 등록 버튼 -->
+                        <button class="btn-submit">등록</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 달린 댓글 확인하는 부분 -->
+            <div class="comment-list">
+                <div class="comment-item">
+                    <!-- 프로필 사진부분 (사진x ) -그냥 원으로 대체! -->
+                    <div class="comment-avatar av-orange">김</div>
+                    <div class="comment-body">
+                        <!-- 작성자 , 작성한 날짜 표시 -->
+                        <p class="comment-author">김요리 <span class="comment-time">2026.07.29</span></p>
+                        <!-- 댓글 내용 표시  -->
+                        <p class="comment-text">정말 유용한 꿀팁이에요!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+</html>

@@ -50,4 +50,7 @@ public class PostDto {
     // 작성자 이름
     private String memberName;
 
+    // 좋아요 수 (LIKE 테이블 COUNT)
+    private int likeCount;
+
 }
