@@ -134,8 +134,9 @@ public class MemberController {
         }
 
         model.addAttribute("member", loginMember);
-//        List<PostDto> myRecipes = postService.getRecipesByMemberId(loginMember.getId());
-//        model.addAttribute("myRecipes", myRecipes);
+        List<PostDto> myRecipes = postService.getRecipePost(loginMember.getId());
+
+        model.addAttribute("myRecipes", myRecipes);
 
         return "member/mypage";
     }
