@@ -17,5 +17,9 @@ public interface PostRepository {
     void update(PostDto post);
     // 게시글 삭제
     void deleteById(int id);
+    // 아이디로 게시글 조회
+    List<PostDto> findPostByUser(int memberId);
+    // 아이디로 레시피 게시글 조회
+    List<PostDto> findRecipePostByUser(int memberId);
 
 }

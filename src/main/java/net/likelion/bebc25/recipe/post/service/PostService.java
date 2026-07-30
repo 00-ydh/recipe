@@ -19,5 +19,9 @@ public interface PostService {
     void editPost(PostDto postDto);
     // 게시글 삭제
     void removePost(int id);
+    // 아이디를 매개변수로 글 조회
+    List<PostDto> getPosts(int memberId);
+    // 아이디를 매개변수로 레시피 글 조회
+    List<PostDto> getRecipePost(int memberId);
 
 }

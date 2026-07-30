@@ -134,5 +134,27 @@ public class JdbcPostRepository implements PostRepository {
         String sql = "DELETE FROM post WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
+
+    // 아이디로 게시글 목록 조회
+    @Override
+    public List<PostDto> findPostByUser(int memberId) {
+        String sql = "SELECT post.* , category.category_name, member.name FROM post " +
+                "LEFT JOIN category on post.category_id = category.id " +
+                "LEFT JOIN member on post.member_id = member.id " +
+                "WHERE post.member_id = ?";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper);
+    }
+
+    // 아이디로 레시피 게시글 목록 조회
+    @Override
+    public List<PostDto> findRecipePostByUser(int memberId) {
+        String sql = "SELECT post.* , category.category_name, member.name FROM post " +
+                "LEFT JOIN category on post.category_id = category.id " +
+                "LEFT JOIN member on post.member_id = member.id " +
+                "WHERE post.post_type = 1 AND post.member_id = ?";
+
+        return jdbcTemplate.query(sql, postDtoRowMapper);
+    }
 }
 
