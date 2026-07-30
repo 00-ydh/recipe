@@ -23,5 +23,7 @@ public interface PostService {
     List<PostDto> getPosts(int memberId);
     // 아이디를 매개변수로 레시피 글 조회
     List<PostDto> getRecipePost(int memberId);
+    // 아이디를 매개변수로 요리꿀팁 글 조회[[새로추가됨]]
+    List<PostDto> getTipPost(int memberId);
 
 }

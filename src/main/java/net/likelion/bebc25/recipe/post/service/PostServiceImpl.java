@@ -60,4 +60,10 @@ public class PostServiceImpl implements PostService {
         return postRepository.findRecipePostByUser(memberId);
     }
 
+//    요리꿀팁 게시글 추가함!
+    @Override
+    public List<PostDto> getTipPost(int memberId) {
+        return postRepository.findTipPostByUser(memberId);
+    }
+
 }
