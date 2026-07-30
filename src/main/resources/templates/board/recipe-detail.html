@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,8 @@
 </head>
 <body>
 
-
 <!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
-<div id="header-placeholder"></div>
+<div th:replace="~{header/header :: header}"></div>
 <script src="/header/load-header.js"></script>
 <!--header 끝-->
 
