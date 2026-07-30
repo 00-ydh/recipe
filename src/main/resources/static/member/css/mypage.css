@@ -124,24 +124,25 @@ input[type="radio"][name="tab"] {
     bottom: -1px;
 }
 
-/* 활성화 탭 표시 */
+/* 💡 [수정] 탭1 ~ 탭4 글자 색상 및 밑줄 활성화 */
 #tab1:checked ~ .tab-menu label[for="tab1"],
 #tab2:checked ~ .tab-menu label[for="tab2"],
-#tab3:checked ~ .tab-menu label[for="tab3"] {
+#tab3:checked ~ .tab-menu label[for="tab3"],
+#tab4:checked ~ .tab-menu label[for="tab4"] {
     color: #B23B15;
     border-bottom: 2px solid #B23B15;
 }
 
-/* 탭 전환 */
+/* 탭 전환 기본 설정 */
 .tab-content {
     display: none;
 }
 
-#tab1:checked ~ .content-my-posts,
-#tab2:checked ~ .content-scraps,
-#tab3:checked ~ .content-follows {
-    display: block;
-}
+/* 💡 [핵심 수정] nth-of-type을 사용해 순서대로 정확하게 탭과 컨텐츠 연결 */
+#tab1:checked ~ .tab-content:nth-of-type(1) { display: block; } /* 1. 내가 쓴 글 */
+#tab2:checked ~ .tab-content:nth-of-type(2) { display: block; } /* 2. 내가 쓴 꿀팁 */
+#tab3:checked ~ .tab-content:nth-of-type(3) { display: block; } /* 3. 스크랩한 레시피 */
+#tab4:checked ~ .tab-content:nth-of-type(4) { display: block; } /* 4. 팔로우 */
 
 /* 4. 컨텐츠 헤더 */
 .section-header {
