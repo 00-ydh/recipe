@@ -49,4 +49,15 @@ public class PostServiceImpl implements PostService {
     public void removePost(int id) {
 
     }
+
+    @Override
+    public List<PostDto> getPosts(int memberId) {
+        return postRepository.findPostByUser(memberId);
+    }
+
+    @Override
+    public List<PostDto> getRecipePost(int memberId) {
+        return postRepository.findRecipePostByUser(memberId);
+    }
+
 }
