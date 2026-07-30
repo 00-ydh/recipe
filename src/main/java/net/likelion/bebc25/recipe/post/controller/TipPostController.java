@@ -4,6 +4,9 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
+import net.likelion.bebc25.recipe.reply.dto.RequestDTO;
+import net.likelion.bebc25.recipe.reply.dto.ResponseDTO;
+import net.likelion.bebc25.recipe.reply.service.ReplyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +20,12 @@ import java.util.List;
 public class TipPostController {
 
     private final PostService postService;
+    private final ReplyService replyService;
 
-    public TipPostController(PostService postService) {
+    public TipPostController(PostService postService, ReplyService replyService) {
         this.postService = postService;
+        this.replyService = replyService;
+
     }
 
     // 요리 꿀팁 리스트 보여주는 컨트롤러
@@ -62,6 +68,10 @@ public class TipPostController {
     public String getTipDetail(@RequestParam("id") int id, Model model) {
         PostDto tip = postService.getPost(id);
         model.addAttribute("tip", tip);
+
+        List<ResponseDTO> replies = replyService.getRepliesByPostId((long) id);
+        model.addAttribute("replies", replies);
+
         return "board/tip-detail";
     }
 

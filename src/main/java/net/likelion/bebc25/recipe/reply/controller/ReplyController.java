@@ -23,6 +23,7 @@ public class ReplyController {
     public String writeReply(@RequestParam("boardType") String boardType,
                              @ModelAttribute RequestDTO requestDTO) {
 
+        requestDTO.setMemberId(1L);
         // 댓글 저장
         replyService.writeReply(requestDTO);
 
