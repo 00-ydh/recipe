@@ -46,7 +46,10 @@ public class RecipePostController {
 
     // recipe-details 화면 보여주는 컨트롤러
     @GetMapping("/detail")
-    public String getRecipeDetails(){
+    public String getRecipeDetails(@RequestParam("id") int id, Model model) {
+        PostDto postDto = postService.getPost(id);
+        model.addAttribute("post", postDto);
+
         return "board/recipe-detail";
     }
 

@@ -11,7 +11,7 @@
 
 <!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
 <div th:replace="~{header/header :: header}"></div>
-<script src="/header/load-header.js"></script>
+<!--<script src="/header/load-header.js"></script>-->
 <!--header 끝-->
 
 <main class="recipe-detail">
@@ -21,12 +21,12 @@
         <div class="recipe-hero">
             <img src="" alt="레시피 대표 이미지">
             <!--    레시피 카테고리(한식,중식,일식,양식 등)     -->
-            <span class="recipe-tag">한식</span>
+            <span class="recipe-tag" th:text="${post.categoryName}">한식</span>
         </div>
 
         <!-- 제목 + 액션 -->
         <div class="recipe-title-row">
-            <h1 class="recipe-title">매콤달콤 전통 비빔밥과 특제 고추장 소스</h1>
+            <h1 class="recipe-title" th:text="${post.title}">매콤달콤 전통 비빔밥과 특제 고추장 소스</h1>
             <div class="recipe-actions">
                 <!--  북마크 버튼-->
                 <button class="action-btn" title="북마크">
@@ -35,7 +35,7 @@
                     </svg>
                 </button>
                 <!--  좋아요 버튼 -->
-                <button class="action-btn" title="좋아요">
+                <button class="action-btn" th:text="${}" title="좋아요">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
@@ -51,12 +51,6 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                 작성자
             </span>
-            <!--   요리시간-->
-            <span class="meta-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                조리 4시간
-            </span>
-
         </div>
 
         <hr class="divider">
@@ -72,7 +66,6 @@
 
             </div>
         </div>
-
         <!-- 요리 순서 -->
         <div class="ingredients-section">
             <h2 class="section-label">요리 순서</h2>
