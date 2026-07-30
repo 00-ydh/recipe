@@ -21,26 +21,26 @@ public class RecipePostController {
     }
 
     // recipe-list 화면 보여주는 컨트롤러
-    @GetMapping("/list.html")
+    @GetMapping("/list")
     public String getRecipeList(Model model) {
 
         // 게시글 목록 조회(데이터)
         List<PostDto> recipePosts = postService.getRecipePosts();
         model.addAttribute("recipePosts", recipePosts);
 
-
         return "board/recipe-list";
     }
 
     // recipe-details 화면 보여주는 컨트롤러
-    @GetMapping("/detail.html")
+    @GetMapping("/detail")
     public String getRecipeDetails(){
         return "board/recipe-detail";
     }
 
     // recipe-write 화면 보여주는 컨트롤러
-    @GetMapping("/write.html")
+    @GetMapping("/write")
     public String getRecipeWriteList(){
+        //System.out.println(postDto.getCategoryId());
         return "board/recipe-write";
 
     }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/today")
 public class TodayMenuPostController {
     // todayMenu 화면 보여주는 컨트롤러
-    @GetMapping("/list.html")
+    @GetMapping("/list")
     public String getTodayMenu(){
         return "board/todayMenu";
     }

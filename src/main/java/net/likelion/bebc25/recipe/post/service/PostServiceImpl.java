@@ -21,11 +21,11 @@ public class PostServiceImpl implements PostService {
         return List.of();
     }
 
+    // 레시피 게시글
     @Override
     public List<PostDto> getRecipePosts() {
         return postRepository.findRecipePosts();
     }
-
     @Override
     public List<PostDto> getTipPosts(int type) {
         return postRepository.findTipPosts();
