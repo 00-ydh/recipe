@@ -34,20 +34,22 @@
     </div>
     <div class="recipe-list">
         <!-- 이 부분이 반복 됨 여길 each로 돌리면 된다.-->
-        <div class="recipe-card" th:each="post : ${recipePosts}">
-            <div class="image">
-                <img th:src="${post.mainImage}">
-            </div>
+        <a th:href="@{/recipe/{id}(id=${post.id})}" class="recipe-card" th:each="post : ${recipePosts}">
+            <div class="recipe-card">
+                <div class="image">
+                    <img th:src="${post.mainImage}">
+                </div>
 
-            <div class="content">
-                <span class="tag" th:text="${post.categoryName}">한식</span>
-                <h3 th:text="${post.title}">정통 전주 비빔밥의 비밀 레시피</h3>
-                <div class="writer">
-                    <span th:text="${post.memberName}">김셰프</span>
-                    <span>👁<span th:text="${post.viewCount}">1.2K</span></span>
+                <div class="content">
+                    <span class="tag" th:text="${post.categoryName}">한식</span>
+                    <h3 th:text="${post.title}">정통 전주 비빔밥의 비밀 레시피</h3>
+                    <div class="writer">
+                        <span th:text="${post.memberName}">김셰프</span>
+                        <span>👁<span th:text="${post.viewCount}">1.2K</span></span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 
     <div class="pagination">
