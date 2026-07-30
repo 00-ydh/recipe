@@ -54,7 +54,7 @@
     </div>
 
     <!-- 1. 내가 쓴 레시피 컨텐츠 -->
-    <div class="tab-content content-my-posts">
+    <div class="tab-content tab-content-1">
         <div class="section-header">
             <h3 class="section-title">내가 쓴 레시피</h3>
             <p class="section-desc">내가 쓴 레시피들을 한 눈에 볼 수 있어요! 수정 삭제 버튼을 클릭하시면 레시피를 수정하거나 삭제 할 수 있는 페이지로 이동합니다!</p>
@@ -89,7 +89,7 @@
     </div>
 
     <!-- 2. 내가 쓴 꿀팁 컨텐츠 -->
-    <div class="tab-content content-my-posts">
+    <div class="tab-content tab-content-2">
         <div class="section-header">
             <h3 class="section-title">내가 쓴 꿀팁</h3>
             <p class="section-desc">내가 쓴 꿀팁들을 한 눈에 볼 수 있어요! 수정 삭제 버튼을 클릭하시면 꿀팁 수정하거나 삭제 할 수 있는 페이지로 이동합니다!</p>
@@ -121,7 +121,7 @@
     </div>
 
     <!-- 2. 스크랩한 레시피 컨텐츠 -->
-    <div class="tab-content content-scraps">
+    <div class="tab-content tab-content-3">
         <div class="section-header">
             <h3 class="section-title">스크랩한 레시피</h3>
             <p class="section-desc">내가 스크랩한 레시피들을 한 눈에 볼 수 있어요!</p>
@@ -149,7 +149,7 @@
     </div>
 
     <!-- 3. 팔로우 목록 컨텐츠 -->
-    <div class="tab-content content-follows">
+    <div class="tab-content tab-content-4">
         <div class="section-header">
             <h3 class="section-title">내가 팔로우 한 목록 프로필</h3>
             <p class="section-desc">프로필을 클릭하시면 해당 프로필 페이지로 이동합니다!</p>
@@ -182,41 +182,3 @@
 
 </body>
 </html>
-
-
-<!--<div class="recipe-grid">-->
-<!--    &lt;!&ndash; 💡 게시글이 하나도 없을 때 보여줄 문구 (선택사항) &ndash;&gt;-->
-<!--    <p th:if="${#lists.isEmpty(myRecipes)}" class="empty-msg">작성한 레시피가 없습니다.</p>-->
-
-<!--    &lt;!&ndash; 💡 th:each로 레시피 리스트(myRecipes) 반복 출력 &ndash;&gt;-->
-<!--    <div class="recipe-card" th:each="recipe : ${myRecipes}">-->
-<!--        <div class="thumbnail-wrapper">-->
-<!--            &lt;!&ndash; 이미지 경로 연결 (기본 이미지 처리 예시) &ndash;&gt;-->
-<!--            <img th:src="${recipe.imageUrl != null ? recipe.imageUrl : '/images/jeyuk.jpg'}" alt="레시피 이미지">-->
-
-<!--            <div class="badge-edit-delete">-->
-<!--                &lt;!&ndash; 수정페이지 이동 및 삭제 URL 연결 &ndash;&gt;-->
-<!--                <a th:href="@{/recipe/edit/{id}(id=${recipe.id})}">수정</a>-->
-<!--                <span class="divider">|</span>-->
-<!--                <a th:href="@{/recipe/delete/{id}(id=${recipe.id})}"-->
-<!--                   onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>-->
-<!--            </div>-->
-
-<!--            <div class="top-badges">-->
-<!--                <span class="badge" th:text="'♥ ' + ${recipe.likeCount}">♥ 5</span>-->
-<!--                <span class="badge" th:text="'🔖 ' + ${recipe.scrapCount}">🔖 15</span>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="card-content">-->
-<!--            <span class="category-tag" th:text="${recipe.category}">한식</span>-->
-<!--            <h3 class="recipe-title" th:text="${recipe.title}">매콤 달콤 제육볶음 황금레시피</h3>-->
-<!--            <p class="author" th:text="${member.name}">작성자</p>-->
-<!--            <div class="card-footer">-->
-<!--                <span class="meta" th:text="'👁 ' + ${recipe.viewCount} + '   💬 ' + ${recipe.commentCount}">👁 1.2k &nbsp; 💬 45</span>-->
-<!--                <span class="date" th:text="${#temporals.format(recipe.createdAt, 'yyyy.MM.dd')}">2024.05.15</span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--</div>-->

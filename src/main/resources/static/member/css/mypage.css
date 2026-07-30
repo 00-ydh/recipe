@@ -139,10 +139,10 @@ input[type="radio"][name="tab"] {
 }
 
 /* 💡 [핵심 수정] nth-of-type을 사용해 순서대로 정확하게 탭과 컨텐츠 연결 */
-#tab1:checked ~ .tab-content:nth-of-type(1) { display: block; } /* 1. 내가 쓴 글 */
-#tab2:checked ~ .tab-content:nth-of-type(2) { display: block; } /* 2. 내가 쓴 꿀팁 */
-#tab3:checked ~ .tab-content:nth-of-type(3) { display: block; } /* 3. 스크랩한 레시피 */
-#tab4:checked ~ .tab-content:nth-of-type(4) { display: block; } /* 4. 팔로우 */
+#tab1:checked ~ .tab-content-1 { display: block; } /* tab1 선택 시 내가 쓴 레시피 표시 */
+#tab2:checked ~ .tab-content-2 { display: block; } /* tab2 선택 시 스크랩 표시 */
+#tab3:checked ~ .tab-content-3 { display: block; } /* tab3 선택 시 팔로우 표시 */
+#tab4:checked ~ .tab-content-4 { display: block; } /* 4. 팔로우 */
 
 /* 4. 컨텐츠 헤더 */
 .section-header {
