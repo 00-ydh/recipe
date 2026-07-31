@@ -117,21 +117,22 @@
                     <div class="comment-body">
                         <!-- 작성자, 작성한 날짜 표시 -->
                         <p class="comment-author">
-
                             <span th:text="${reply.name}">작성자</span>
                             <span class="comment-time" th:text="${#temporals.format(reply.createdAt, 'yyyy.MM.dd HH:mm')}">2026.07.29</span>
                         </p>
                         <!-- 댓글 내용 표시 -->
                         <p class="comment-text" th:text="${reply.content}">댓글 내용이 여기에 표시됩니다.</p>
 
-                        <!-- 댓글 삭제 버튼  -->
-                        <form action="/reply/delete" method="post" style="display:inline; float:right;">
-<!--                            //삭제할 대상의 고유 번호를 서버로 전달한다.-->
+                        <!-- 댓글 삭제 버튼 (본인이 작성한 댓글일 때만 노출) -->
+                        <form action="/reply/delete" method="post" style="display:inline; float:right;"
+                              th:if="${session.loginMember != null and reply.memberId == session.loginMember.id}">
+                            <!-- 삭제할 대상의 고유 번호를 서버로 전달한다. -->
                             <input type="hidden" name="id" th:value="${reply.id}" />
-<!--                            어떤 게시글에 달린 댓글인지 서버로 전달한다-->
+                            <!-- 어떤 게시글에 달린 댓글인지 서버로 전달한다 -->
                             <input type="hidden" name="postId" th:value="${tip.id}" />
-
+                            <!-- 어떤 게시판인지 알려주기 위한 boardType -->
                             <input type="hidden" name="boardType" value="tip" />
+
                             <button type="submit" style="border:none; background:none; color:#ff6b6b; cursor:pointer; font-size:12px;">삭제</button>
                         </form>
                     </div>

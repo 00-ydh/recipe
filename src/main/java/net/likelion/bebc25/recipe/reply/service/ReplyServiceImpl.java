@@ -22,12 +22,17 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public List<ResponseDTO> getRepliesByPostId(Long postId) {
+    public List<ResponseDTO> getRepliesByPostId(int postId) {
         return replyRepository.findByPostId(postId);
     }
 
     @Override
-    public void deleteReply(Long id) {
+    public void deleteReply(int id) {
         replyRepository.deleteById(id);
+    }
+
+    @Override
+    public ResponseDTO findById(int id) {
+        return replyRepository.findById(id); // 리포지토리(또는 DAO)를 호출해서 결과를 반환
     }
 }

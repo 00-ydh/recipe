@@ -10,8 +10,10 @@ public interface ReplyService {
     void writeReply(RequestDTO requestDTO);
 
     //특정 게시글의 댓글 목록 조회
-    List<ResponseDTO> getRepliesByPostId(Long postId);
+    List<ResponseDTO> getRepliesByPostId(int postId);
 
     //댓글 삭제
-    void deleteReply(Long id);
+    void deleteReply(int id);
+
+    ResponseDTO findById(int id);
 }

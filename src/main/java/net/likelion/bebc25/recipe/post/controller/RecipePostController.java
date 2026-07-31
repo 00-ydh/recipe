@@ -54,7 +54,7 @@ public class RecipePostController {
     public String getRecipeDetails(@RequestParam("id") int id, Model model) {
         PostDto postDto = postService.getRecipe(id);
         model.addAttribute("post", postDto);
-        List<ResponseDTO> replies = replyService.getRepliesByPostId((long) id);
+        List<ResponseDTO> replies = replyService.getRepliesByPostId( id);
         model.addAttribute("replies", replies);
         return "board/recipe-detail";
     }
