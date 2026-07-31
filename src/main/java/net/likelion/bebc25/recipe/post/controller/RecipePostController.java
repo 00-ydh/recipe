@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
+import net.likelion.bebc25.recipe.reply.dto.ResponseDTO;
+import net.likelion.bebc25.recipe.reply.service.ReplyService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,12 +26,15 @@ import java.util.UUID;
 @RequestMapping("/recipe")
 public class RecipePostController {
     private final PostService postService;
+    private final ReplyService replyService;
     // 다들 각자 설정
     //@Value("${file.upload-dir}")
     private final String uploadDir = Paths.get("D:","Programming","TUI_Editor","upload").toString();
 
-    public RecipePostController(PostService postService) {
+    public RecipePostController(PostService postService, ReplyService replyService) {
         this.postService = postService;
+        this.replyService = replyService;
+
     }
 
     // recipe-list 화면 보여주는 컨트롤러
@@ -49,7 +54,8 @@ public class RecipePostController {
     public String getRecipeDetails(@RequestParam("id") int id, Model model) {
         PostDto postDto = postService.getPost(id);
         model.addAttribute("post", postDto);
-
+        List<ResponseDTO> replies = replyService.getRepliesByPostId((long) id);
+        model.addAttribute("replies", replies);
         return "board/recipe-detail";
     }
 

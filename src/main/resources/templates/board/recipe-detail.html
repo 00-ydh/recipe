@@ -83,32 +83,58 @@
         </div>
 
         <hr class="divider">
-        <!-- 댓글 개수/ 테이블에 넣거나 빼거나-->
-        <div class="comment-section">
-            <h2 class="section-label">댓글 <span class="comment-count">12</span></h2>
+        <!--------  댓글 섹션 시작입니다!! 댓글 여기서 부터 봐주세요 -------->
+        <!-- 섹션 1: 댓글 -->
+        <div class="detail-card">
+            <h2 class="section-label">댓글</h2>
 
-            <div class="comment-write">
+            <!-- 댓글 작성하는 부분 -->
+            <form action="/reply/write" method="post" class="comment-write">
+                <!-- 어떤 게시글인지 알려주기 위한 postId (recipe.id 값을 넣어줌) -->
+                <input type="hidden" name="postId" th:value="${post.id}" />
+
+                <!-- 어떤 게시판인지 알려주기 위한 boardType (레시피 게시판이므로 recipe) -->
+                <input type="hidden" name="boardType" value="recipe" />
+
+                <!-- 프로필 사진부분 (사진x) - 그냥 원으로 대체! -->
                 <div class="comment-avatar default-av"></div>
-                <textarea class="comment-input" placeholder="나만의 소감을 남겨주세요..."></textarea>
-            </div>
-            <div class="comment-submit-row">
-                <button class="btn-submit">등록</button>
-            </div>
+                <div class="comment-write-body">
+                    <!-- 댓글 입력하는 부분 -->
+                    <textarea name="content" class="comment-input" placeholder="나만의 소감을 남겨주세요..." required></textarea>
 
-<!--            댓글 반복해야하는 부분-->
-            <div class="comment-list">
-                <div class="comment-item">
-                    <div class="comment-avatar av-orange">김</div>
-                    <div class="comment-body">
-                        <p class="comment-author">김요리 <span class="comment-time">46분 전</span></p>
-                        <p class="comment-text">고추장 소스 사용에 전통 한식처럼 이 밥을 먹어보세요. 설령 대신 해독하심 많이 다 넣겠 넣으면 탄탄해지요</p>
+                    <div class="comment-submit-row comment-submit-inline">
+                        <!-- 댓글 등록 버튼 -->
+                        <button type="submit" class="btn-submit">등록</button>
                     </div>
                 </div>
-                <div class="comment-item">
-                    <div class="comment-avatar av-blue">이</div>
+            </form>
+
+            <!-- 달린 댓글 확인하는 부분 (타임리프 반복문 적용) -->
+            <div class="comment-list">
+                <!-- replies 리스트를 돌면서 댓글 하나씩 출력 -->
+                <div class="comment-item" th:each="reply : ${replies}">
+
+                    <div class="comment-avatar av-orange" th:text="${#strings.substring(reply.name,0,1)}">김</div>
                     <div class="comment-body">
-                        <p class="comment-author">이연재 <span class="comment-time">30분 전</span></p>
-                        <p class="comment-text">오늘도 타이밍! 냠푸 식자 정말이오 있어요. 감사합니다</p>
+                        <!-- 작성자, 작성한 날짜 표시 -->
+                        <p class="comment-author">
+
+                            <span th:text="${reply.name}">작성자</span>
+                            <span class="comment-time" th:text="${#temporals.format(reply.createdAt, 'yyyy.MM.dd HH:mm')}">2026.07.29</span>
+                        </p>
+                        <!-- 댓글 내용 표시 -->
+                        <p class="comment-text" th:text="${reply.content}">댓글 내용이 여기에 표시됩니다.</p>
+
+                        <!-- 댓글 삭제 버튼  -->
+                        <form action="/reply/delete" method="post" style="display:inline; float:right;">
+                            <!--                            //삭제할 대상의 고유 번호를 서버로 전달한다.-->
+                            <input type="hidden" name="id" th:value="${reply.id}" />
+                            <!--                            어떤 게시글에 달린 댓글인지 서버로 전달한다-->
+                            <input type="hidden" name="postId" th:value="${post.id}" />
+
+                            <input type="hidden" name="boardType" value="recipe" />
+                            <button type="submit" style="border:none; background:none; color:#ff6b6b; cursor:pointer; font-size:12px;">삭제</button>
+                        </form>
                     </div>
                 </div>
             </div>
