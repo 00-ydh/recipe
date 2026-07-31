@@ -80,7 +80,7 @@ public class MemberController {
 
         if (loginMember != null) {
             session.setAttribute("loginMember", loginMember);
-            return "redirect:/member/mypage";
+            return "redirect:/";
         } else {
             model.addAttribute("errorMessage", "이메일 또는 비밀번호가 맞지 않습니다.");
             return "member/login";
@@ -202,6 +202,6 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "";
+        return "redirect:/";
     }
 }
