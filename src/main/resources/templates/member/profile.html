@@ -35,7 +35,7 @@
                     <h1 class="profile-name" th:text="${member.name}">키친마스터_정</h1>
                     <div class="profile-stats">
                         <div class="stat-item">
-                            <span class="stat-value">1,240</span>
+                            <span class="stat-value" th:text="${recipeCount}">1,240</span>
                             <span class="stat-label">등록레시피</span>
                         </div>
                         <div class="stat-divider"></div>
@@ -47,15 +47,31 @@
                 </div>
 
                 <!-- 팔로우 버튼 -->
-                <button class="follow-btn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="8.5" cy="7" r="4"/>
-                        <line x1="20" y1="8" x2="20" y2="14"/>
-                        <line x1="23" y1="11" x2="17" y2="11"/>
-                    </svg>
-                    팔로우
-                </button>
+                <form th:action="@{/follow}" method="post">
+                    <!-- Controller로 넘겨줄 데이터 (상대방 닉네임) -->
+                    <input type="hidden" name="targetMemberId" th:value="${member.id}">
+
+                    <!-- 1. 아직 팔로우 안 했을 때 (팔로우 버튼) -->
+                    <button type="submit" class="follow-btn" th:if="${!isFollowing}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <line x1="20" y1="8" x2="20" y2="14"/>
+                            <line x1="23" y1="11" x2="17" y2="11"/>
+                        </svg>
+                        팔로우
+                    </button>
+
+                    <!-- 2. 이미 팔로우 중일 때 (언팔로우 / 구독 해제 버튼) -->
+                    <button type="submit" class="follow-btn unfollow" th:if="${isFollowing}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <line x1="17" y1="11" x2="23" y2="11"/> <!-- 마이너스(-) 모양 아이콘 -->
+                        </svg>
+                        구독 해제
+                    </button>
+                </form>
 
             </div>
         </div>
@@ -89,7 +105,7 @@
                         <div class="recipe-bottom">
                             <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1.2k</span>
                             <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 45</span>
-                            <span class="recipe-date">2024.05.15</span>
+                            <span class="recipe-date" th:text="${#temporals.format(recipe.createdAt, 'yyyy.MM.dd')}">2024.05.15</span>
                         </div>
                     </div>
                     </a>

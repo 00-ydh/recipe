@@ -42,4 +42,11 @@ public interface MemberRepository {
      * @return 조회된 회원 정보 DTO, 없을 경우 null 반환
      */
     MemberDto findByEmail(String email);
+
+    /**
+     * 회원 별명을 기반으로 회원 정보를 조회합니다.
+     * @param name
+     * @return
+     */
+    MemberDto findByName(String name);
 }

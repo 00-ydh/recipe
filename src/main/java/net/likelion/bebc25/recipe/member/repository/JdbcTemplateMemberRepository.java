@@ -103,4 +103,15 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
             return null;
         }
     }
+
+    @Override
+    public MemberDto findByName(String name) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM member WHERE name = ?", memberDtoRowMapper, name);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+
 }

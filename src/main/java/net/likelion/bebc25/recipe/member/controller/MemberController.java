@@ -3,6 +3,8 @@ package net.likelion.bebc25.recipe.member.controller;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import net.likelion.bebc25.recipe.follow.dto.FollowDto;
+import net.likelion.bebc25.recipe.follow.service.FollowService;
 import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.member.service.MemberService;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
@@ -21,10 +23,12 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final PostService postService;
+    private final FollowService followService;
 
-    public MemberController(MemberService memberService, PostService postService) {
+    public MemberController(MemberService memberService, PostService postService, FollowService followService) {
         this.memberService = memberService;
         this.postService = postService;
+        this.followService = followService;
     }
 
     /**
@@ -142,12 +146,16 @@ public class MemberController {
             return "redirect:/member/login";
         }
 
-        model.addAttribute("member", loginMember);
+        List<PostDto> myFollowingRecipes = followService.myFollowingMembersRecipes(loginMember.getId());
         List<PostDto> myRecipes = postService.getRecipePost(loginMember.getId());
         List<PostDto> myTips = postService.getTipPost(loginMember.getId());
+        List<MemberDto> myFollowing = followService.myFollowingMembers(loginMember.getId());
 
+        model.addAttribute("member", loginMember);
         model.addAttribute("myRecipes", myRecipes);
         model.addAttribute("myTips", myTips);
+        model.addAttribute("myFollowing", myFollowing);
+        model.addAttribute("myFollowingRecipes", myFollowingRecipes);
 
         int recipeCount = myRecipes.size();
 
@@ -161,14 +169,29 @@ public class MemberController {
      * @param model 다른 회원의 레시피와 팁을 전달하는 Model 객체
      * @return 프로필 페이지 뷰 경로
      */
-    @GetMapping("/profile")
-    public String getProfileForm(@RequestParam(value = "memberId", required = false) Integer memberId, Model model) { // 임시
-        memberId = 1; // 임시
-        MemberDto memberDto = memberService.getMemberById(memberId);
-        List<PostDto> myRecipes = postService.getRecipePost(memberId);
+    @GetMapping("/profile/{name}")
+    public String getProfileForm(@PathVariable("name") String name, Model model, HttpSession session) { // 임시
+        MemberDto memberDto = memberService.getMemberByName(name);
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+        List<PostDto> myRecipes = postService.getRecipePost(memberDto.getId());
+
+
+        if (memberDto.getId() == loginMember.getId()) {
+            return "redirect:/member/mypage";
+        }
+
+        int recipeCount = myRecipes.size();
+        boolean isFollowing = false;
+
+        if (followService.findFollowById(loginMember.getId(), memberDto.getId()) != null) {
+            isFollowing = true;
+        }
 
         model.addAttribute("member", memberDto);
         model.addAttribute("myRecipes", myRecipes);
+        model.addAttribute("isFollowing", isFollowing);
+        model.addAttribute("recipeCount", recipeCount);
+
 
         return "member/profile";
     }
