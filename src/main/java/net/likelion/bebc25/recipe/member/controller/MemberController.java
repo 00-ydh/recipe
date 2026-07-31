@@ -149,6 +149,10 @@ public class MemberController {
         model.addAttribute("myRecipes", myRecipes);
         model.addAttribute("myTips", myTips);
 
+        int recipeCount = myRecipes.size();
+
+        model.addAttribute("recipeCount", recipeCount);
+
         return "member/mypage";
     }
 

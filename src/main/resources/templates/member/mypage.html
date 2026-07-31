@@ -28,7 +28,7 @@
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">공유된 레시피</span>
-                    <span class="stat-num">12</span>
+                    <span class="stat-num" th:text="${recipeCount}">12</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-label">스크랩한 레시피</span>
@@ -88,8 +88,8 @@
                     <h3 class="recipe-title" th:text="${recipe.title}">매콤 달콤 제육볶음 황금레시피</h3>
                     <p class="author" th:text="${member.name}">작성자......</p>
                     <div class="card-footer">
-                        <span class="meta">👁 1.2k &nbsp; 💬 45</span>
-                        <span class="date">2024.05.15</span>
+                        <span class="meta" th:text="${recipe.viewCount}">👁 1.2k &nbsp; 💬 45</span>
+                        <span class="date" th:text="${#temporals.format(recipe.createdAt, 'yyyy.MM.dd')}">2024.05.15</span>
                     </div>
                 </div>
             </div>
@@ -135,9 +135,14 @@
                 </a>
 
                 <!-- 화살표 꾸밈요소 데이터 채울 것 x  -->
-                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"/>
-                </svg>
+                <div class="tip-actions">
+                <a th:href="@{/tip/edit(id=${tip.id})}">수정</a>
+                <span class="divider">|</span>
+                <a th:href="@{/tip/delete(id=${tip.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                </div>
+<!--                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <polyline points="9 18 15 12 9 6"/>-->
+<!--                </svg>-->
             </div>
 
 
