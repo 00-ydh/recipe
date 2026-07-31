@@ -161,3 +161,70 @@ h2{
 .submit-btn:hover{
     background:#c96340;
 }
+
+/* ===== 삭제 확인 모달 ===== */
+/* 모달 배경 (전체 화면 반투명 오버레이) */
+.modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+}
+
+/* 모달 흰 카드 박스 */
+.modal-box{
+    background:#fff;
+    border-radius:14px;
+    padding:36px 40px;
+    width:440px;
+    text-align:center;
+    box-shadow:0 8px 32px rgba(0,0,0,0.15);
+}
+
+/* 모달 메인 질문 텍스트 */
+.modal-title{
+    font-size:16px;
+    font-weight:600;
+    color:#1A1A1A;
+    margin-bottom:8px;
+}
+
+/* 모달 부가 설명 텍스트 */
+.modal-desc{
+    font-size:13px;
+    color:#aaa;
+    margin-bottom:28px;
+}
+
+/* 모달 버튼 묶음 */
+.modal-btn-row{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+}
+
+/* 모달 취소 버튼 */
+.modal-cancel-btn{
+    padding:10px 24px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    background:#fff;
+    color:#555;
+    font-size:14px;
+    cursor:pointer;
+}
+
+/* 모달 삭제 확인 버튼 - submit-btn 과 동일한 색상 */
+.modal-delete-btn{
+    padding:10px 24px;
+    border:none;
+    border-radius:8px;
+    background:#F06638;
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+}

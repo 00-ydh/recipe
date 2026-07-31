@@ -89,6 +89,13 @@
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = '';
 
+        // 페이지가 1개 이하면 페이지네이션 숨김
+        if (totalPages <= 1) {
+            pagination.style.display = 'none';
+            return;
+        }
+        pagination.style.display = '';
+
         // 이전 버튼
         const prev = document.createElement('button');
         prev.textContent = '〈';
