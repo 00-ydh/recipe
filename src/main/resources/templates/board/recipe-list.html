@@ -34,7 +34,7 @@
     </div>
     <div class="recipe-list">
         <!-- 이 부분이 반복 됨 여길 each로 돌리면 된다.-->
-        <a th:href="@{/recipe/{id}(id=${post.id})}" class="recipe-card" th:each="post : ${recipePosts}">
+        <a th:href="@{/recipe/detail(id=${post.id})}" class="recipe-card" th:each="post : ${recipePosts}">
             <div class="recipe-card">
                 <div class="image">
                     <img th:src="${post.mainImage}">
