@@ -1,47 +1,42 @@
-﻿/* =====================================================
-   레시피 작성하기 페이지 전용 CSS
-   - /recipe/write : 레시피 작성
-===================================================== */
+﻿/* 레시피 작성/수정 페이지 전용 CSS
+   - /recipe/write
+   - /recipe/edit
+*/
 
-/* ===== 기본 초기화 ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Pretendard", sans-serif;
-}
-
+/* 페이지 배경 (common.css 미적용으로 직접 지정) */
 body {
-    background: #f8f3ef;
+    background-color: #FAF4F0;
 }
 
-/* 페이지 전체 컨테이너 */
+/* 전체 흰 카드 컨테이너 */
 .container {
     width: 1200px;
     margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
-/* ===== 페이지 제목 ===== */
-/* 메인 페이지 섹션 제목과 동일한 스타일 */
+/* 페이지 제목 */
 h2 {
-    font-size: 34px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #58413A;
     margin-bottom: 8px;
 }
 
-/* 제목 아래 설명 텍스트 */
+/* 제목 아래 설명 문구 */
 .sub-title {
-    color: #777;
-    margin-bottom: 35px;
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 40px;
 }
 
-/* ===== 작성 폼 박스 ===== */
-/* 흰 카드 형태의 작성 폼 영역 */
+/* 폼 전체 영역 */
 .write-box {
-    width: 1200px;
-    background: #fff;
-    border-radius: 12px;
-    padding: 35px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    width: 100%;
+    padding: 10px 0;
 }
 
 /* 폼 항목 간 간격 */
@@ -54,13 +49,11 @@ h2 {
     display: block;
     font-weight: 600;
     margin-bottom: 10px;
-    color: #555;
 }
 
-/* ===== 이미지 업로드 영역 ===== */
-/* 점선 테두리 드래그앤드롭 영역 */
+/* 이미지 업로드 영역 */
 .upload-box {
-    height: 140px;
+    height: 180px;
     border: 2px dashed #f1b89b;
     border-radius: 10px;
     display: flex;
@@ -71,24 +64,33 @@ h2 {
     color: #888;
 }
 
-/* 카메라 이모지 아이콘 */
+/* 업로드 박스 안 제목 텍스트 */
 .camera {
-    font-size: 45px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #888;
     margin-bottom: 10px;
+    text-align: center;
 }
 
-/* ===== 텍스트 입력창 ===== */
-/* 제목 등 텍스트 입력 공통 스타일 */
-input[type=text] {
-    width:100%;
-    height:55px;
-    border:1px solid #eaded7;
-    border-radius:8px;
-    padding:15px;
-    outline:none;
+/* 업로드 박스 안 설명 텍스트 */
+.upload-box p {
+    font-size: 15px;
+    color: #888;
+    text-align: center;
 }
 
-/* ===== 카테고리 선택 드롭다운 ===== */
+/* 텍스트 입력창 */
+.form-group input[type=text] {
+    width: 100%;
+    height: 55px;
+    border: 1px solid #eaded7;
+    border-radius: 8px;
+    padding: 15px;
+    outline: none;
+}
+
+/* 카테고리 드롭다운 */
 .category-select {
     width: 100%;
     padding: 14px 16px;
@@ -100,50 +102,55 @@ input[type=text] {
     cursor: pointer;
 }
 
-/* 포커스 시 테두리 주황색 강조 */
-.category-select:focus,input[type=text]:focus {
+/* 포커스 시 테두리 강조 */
+.category-select:focus,
+.form-group input[type=text]:focus {
     outline: none;
     border-color: #ff6b35;
 }
 
-/* ===== 하단 버튼 영역 ===== */
-/* 취소/등록 버튼 양쪽 배치 */
-.button-group {
-    margin-top: 45px;
-    display: flex;
-    justify-content: space-between;
+/* 유효성 검사 에러 */
+.field-error {
+    display: block;
+    color: #e53935;
+    font-size: 13px;
+    margin-top: 6px;
 }
 
-/* 취소 버튼 (흰 배경, 테두리) */
+/* 하단 버튼 영역 */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+/* 취소 버튼 */
 .cancel-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 180px;
     height: 55px;
-    background: #fff;
-    border: 1px solid #ccc;
+    background: white;
+    border: 1.5px solid #C9BDB6;
     border-radius: 8px;
-    color: #333;
+    color: #888;
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
 }
 
-/* 취소 버튼 호버 시 배경 살짝 어둡게 */
-
-/* 등록 버튼 (주황색) */
+/* 등록 / 수정 버튼 */
 .submit-btn {
     width: 320px;
     height: 55px;
     border: none;
     border-radius: 8px;
-    background: #ff6b35;
-    color: #fff;
+    background: #F06638;
+    color: white;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    box-shadow: 0 5px 15px rgba(255,107,53,.3);
+    box-shadow: 0 4px 12px rgba(224,117,80,.25);
 }
-
-/* 등록 버튼 호버 시 배경 어둡게 */

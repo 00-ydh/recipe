@@ -1,5 +1,5 @@
-﻿/* 레시피 상세 페이지 전용 CSS
-   - /recipe/detail
+﻿/* 요리 꿀팁 상세 페이지 전용 CSS
+   - /tip/detail
 */
 
 /* 흰 카드 컨테이너 */
@@ -10,6 +10,13 @@
     padding: 40px 36px 80px;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+/* 꿀팁 전용 컨테이너 배경 */
+.tip-container {
+    background-color: #FAF4F0;
+    box-shadow: none;
+    padding: 0;
 }
 
 /* 제목 + 액션 버튼 한 줄 배치 */
@@ -119,6 +126,25 @@
     font-size: 18px;
     font-weight: 700;
     color: #E07550;
+}
+
+/* 통계 + 목록 버튼 가로 배치 */
+.stats-and-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 목록 보기 버튼 */
+.list-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid #E07550;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #E07550;
+    text-decoration: none;
 }
 
 /* 댓글 작성 행 */
@@ -242,35 +268,4 @@
     padding: 36px 40px;
     margin-bottom: 20px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-}
-
-/* 상단 대표 이미지 */
-.recipe-hero {
-    position: relative;
-    width: 100%;
-    height: 380px;
-    border-radius: 16px;
-    overflow: hidden;
-    background-color: #D4C4B0;
-    margin-bottom: 24px;
-}
-
-.recipe-hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* 이미지 위 카테고리 태그 */
-.recipe-tag {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    background-color: #E07550;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 999px;
 }

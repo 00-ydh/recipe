@@ -1,28 +1,13 @@
-﻿/* =====================================================
-   레시피 목록 페이지 전용 CSS
-   - /recipe/list : 레시피 게시글 목록
-===================================================== */
+﻿/* 레시피 목록 페이지 전용 CSS
+   - /recipe/list
+*/
 
-/* ===== 기본 초기화 ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Pretendard", sans-serif;
-}
-
-body {
-    background: #f7f2ef;
-}
-
-/* ===== 레이아웃 ===== */
-/* 전체 컨테이너 */
 .container {
     width: 1200px;
     margin: 40px auto;
 }
 
-/* 페이지 제목 + 등록 버튼 한 줄 양쪽 배치 */
+/* 제목 + 등록 버튼 양쪽 배치 */
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -34,8 +19,7 @@ body {
     margin-bottom: 0;
 }
 
-/* ===== 카테고리 필터 ===== */
-/* 카테고리 버튼 묶음 흰 영역 */
+/* 카테고리 필터 */
 .category {
     background: #fff;
     padding: 20px;
@@ -43,7 +27,6 @@ body {
     margin-bottom: 30px;
 }
 
-/* 카테고리 개별 버튼 */
 .category button {
     border: 1px solid #ddd;
     background: #fff;
@@ -53,15 +36,14 @@ body {
     cursor: pointer;
 }
 
-/* 선택된 카테고리 버튼 (주황-빨간 강조) */
+/* 선택된 카테고리 버튼 */
 .category .active {
     background: #b34712;
     color: white;
     border: none;
 }
 
-/* ===== 상단 정보 / 정렬 ===== */
-/* 총 게시글 수 + 정렬 버튼 한 줄 양쪽 배치 */
+/* 총 게시글 수 + 정렬 버튼 */
 .top-info {
     display: flex;
     justify-content: space-between;
@@ -69,13 +51,11 @@ body {
     margin-bottom: 25px;
 }
 
-/* 총 게시글 수 강조 색상 */
 .top-info span {
     color: #d85b1d;
     font-weight: bold;
 }
 
-/* 정렬 버튼 (최신순 / 조회순) */
 .sort button {
     padding: 8px 16px;
     margin-left: 8px;
@@ -85,7 +65,6 @@ body {
     cursor: pointer;
 }
 
-/* ===== 레시피 카드 목록 ===== */
 /* 카드 4열 그리드 */
 .recipe-list {
     display: grid;
@@ -93,7 +72,7 @@ body {
     gap: 20px;
 }
 
-/* 개별 레시피 카드 */
+/* 레시피 카드 */
 .recipe-card {
     background: white;
     border-radius: 12px;
@@ -101,7 +80,7 @@ body {
     box-shadow: 0 3px 10px rgba(0,0,0,.08);
 }
 
-/* 카드 이미지 영역 */
+/* 카드 상단 이미지 영역 */
 .image {
     position: relative;
 }
@@ -112,12 +91,12 @@ body {
     object-fit: cover;
 }
 
-/* 카드 텍스트 내용 영역 */
+/* 카드 하단 텍스트 영역 */
 .content {
     padding: 18px;
 }
 
-/* 카테고리 태그 (한식, 양식 등) */
+/* 카테고리 태그 */
 .tag {
     background: #ffe7d6;
     color: #d85b1d;
@@ -126,14 +105,14 @@ body {
     font-size: 12px;
 }
 
-/* 레시피 제목 */
+/* 카드 제목 */
 .content h3 {
     margin: 15px 0;
     font-size: 20px;
     line-height: 1.5;
 }
 
-/* 작성자 + 조회수 한 줄 양쪽 배치 */
+/* 작성자 + 날짜 */
 .writer {
     display: flex;
     justify-content: space-between;
@@ -141,7 +120,7 @@ body {
     font-size: 13px;
 }
 
-/* ===== 페이지네이션 ===== */
+/* 페이지네이션 */
 .pagination {
     display: flex;
     justify-content: center;
@@ -149,7 +128,6 @@ body {
     margin: 50px 0;
 }
 
-/* 페이지 번호 버튼 */
 .pagination button {
     width: 35px;
     height: 35px;
@@ -159,14 +137,14 @@ body {
     cursor: pointer;
 }
 
-/* 현재 페이지 버튼 강조 */
+/* 현재 페이지 버튼 */
 .pagination .active {
     background: #b34712;
     color: white;
     border: none;
 }
 
-/* ===== 레시피 등록 버튼 ===== */
+/* 레시피 등록 버튼 */
 .write-btn {
     display: inline-block;
     padding: 12px 22px;
@@ -176,4 +154,3 @@ body {
     border-radius: 10px;
     font-weight: 600;
 }
-

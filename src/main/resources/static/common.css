@@ -1,22 +1,18 @@
-/* =====================================================
-   공통 CSS — 전 페이지 적용
-   - Pretendard 웹폰트
-   - Box-sizing / 여백 초기화 (Reset)
-   - body 기본 폰트 · 배경색 · 글자색
-   - a 태그 밑줄 제거 · 색상 상속
-===================================================== */
+﻿/* 공통 CSS
+   - 전 페이지 공용
+*/
 
 /* Pretendard 웹폰트 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
-/* 모든 요소 여백/패딩 초기화, 박스 크기 계산 방식 통일 */
+/* 기본 초기화 */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* 전체 기본 폰트, 배경색(베이지), 글자색 설정 */
+/* 전체 기본 폰트, 배경색, 글자색 */
 body {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #FAF6F1;

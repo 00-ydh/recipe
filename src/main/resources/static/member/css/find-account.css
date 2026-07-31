@@ -1,9 +1,8 @@
-﻿/* =====================================================
-   비밀번호 찾기 페이지 전용 CSS
-   - /member/find-account : 이메일 + 이름 입력 → 비밀번호 조회
-===================================================== */
+﻿/* 비밀번호 찾기 페이지 전용 CSS
+   - /member/find-account
+*/
 
-/* ===== 기본 초기화 ===== */
+/* 기본 초기화 */
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +19,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== 카드 컨테이너 ===== */
+
 /* 흰 카드 박스 (최대 너비 420px) */
 .card {
     background-color: #FFFFFF;
@@ -36,11 +35,11 @@ body {
     text-align: center;
     font-size: 22px;
     font-weight: 700;
-    color: #222222;
+    color: #58413A;
     margin-bottom: 32px;
 }
 
-/* ===== 폼 요소 ===== */
+
 /* 입력 항목 간 간격 */
 .form-group {
     margin-bottom: 20px;
@@ -73,7 +72,7 @@ body {
     color: #B0A8A2;
 }
 
-/* ===== 버튼 ===== */
+
 /* 주황색 조회 버튼 */
 .btn-primary {
     width: 100%;
@@ -88,7 +87,7 @@ body {
     cursor: pointer;
 }
 
-/* ===== 조회 결과 박스 ===== */
+
 /* 비밀번호 조회 결과를 표시하는 박스 */
 .result-box {
     margin-top: 16px;
@@ -101,7 +100,7 @@ body {
     color: #222222;
 }
 
-/* ===== 하단 링크 ===== */
+
 /* 로그인 / 회원가입 이동 링크 영역 */
 .bottom-links {
     margin-top: 24px;

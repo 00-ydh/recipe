@@ -52,7 +52,8 @@
         <div class="button-box">
             <!-- 새 글이면 취소하기, 수정이면 삭제하기 -->
             <button th:if="${postForm.id == 0}" type="button" class="cancel-btn" onclick="history.back()">취소하기</button>
-            <button th:if="${postForm.id != 0}" type="button" class="cancel-btn" onclick="openDeleteModal()">삭제하기</button>
+            <button th:if="${postForm.id != 0}" type="button" class="cancel-btn"
+                    onclick="if(confirm('정말 게시글을 삭제하시겠습니까?')) document.getElementById('deleteForm').submit()">삭제하기</button>
             <!-- 등록/수정 버튼: 새 글이면 '꿀팁 등록하기', 수정이면 '꿀팁 수정하기' -->
             <button type="submit" class="submit-btn" th:text="${postForm.id == 0} ? '꿀팁 등록하기' : '꿀팁 수정하기'">꿀팁 등록하기</button>
         </div>
@@ -60,34 +61,11 @@
     </form>
 </div>
 
-<!-- 삭제 확인 모달 -->
-<div id="deleteModal" class="modal-overlay">
-    <div class="modal-box">
-        <p class="modal-title">게시글을 삭제하시겠습니까?</p>
-        <p class="modal-desc">삭제된 글은 복구할 수 없습니다.</p>
-        <div class="modal-btn-row">
-            <button onclick="closeDeleteModal()" class="modal-cancel-btn">취소</button>
-            <form th:action="@{/tip/delete}" method="POST" style="margin:0;">
-                <input type="hidden" name="id" th:value="${postForm.id}">
-                <button type="submit" class="modal-delete-btn">삭제</button>
-            </form>
-        </div>
-    </div>
-</div>
+<!-- 삭제용 hidden form -->
+<form id="deleteForm" th:action="@{/tip/delete}" method="POST" style="display:none;">
+    <input type="hidden" name="id" th:value="${postForm.id}">
+</form>
 
-<script>
-    function openDeleteModal() {
-        const modal = document.getElementById('deleteModal');
-        modal.style.display = 'flex';
-    }
-    function closeDeleteModal() {
-        const modal = document.getElementById('deleteModal');
-        modal.style.display = 'none';
-    }
-    document.getElementById('deleteModal').addEventListener('click', function(e) {
-        if (e.target === this) closeDeleteModal();
-    });
-</script>
 
 <!-- Toast UI Editor JS -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
@@ -102,6 +80,7 @@
         // markdown모드에서만 쓸모 있는 기능
         // previewStyle: 'vertical',
         hideModeSwitch : true,  // wysiwyg/markdown 전환 버튼 숨기기
+        placeholder: '요리 꿀팁 내용을 입력해 주세요.',
 
         // Toast UI 함수
         // hooks: 특정 이벤트가 발생하면 실행되는 함수
