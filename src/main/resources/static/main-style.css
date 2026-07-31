@@ -1,25 +1,8 @@
-
-/* ===== Reset & Base ===== */
-/* 모든 요소 여백/패딩 초기화, 박스 크기 계산 방식 통일 */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* 전체 기본 폰트, 배경색(베이지), 글자색 설정 */
-body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #FAF6F1;
-    color: #333;
-    line-height: 1.5;
-}
-
-/* 링크 밑줄 제거, 부모 색상 상속 */
-a {
-    text-decoration: none;
-    color: inherit;
-}
+﻿/* =====================================================
+   메인 페이지 + 공용 CSS
+   - /  : 메인(홈) 페이지
+   - 공통 레이아웃, 버튼, 카드, 푸터 등 전역 스타일 포함
+===================================================== */
 
 /* ===== Layout ===== */
 /* 최대 너비 1200px, 가운데 정렬 - 모든 페이지 공통 레이아웃 */
@@ -29,7 +12,7 @@ a {
     padding: 0 24px;
 }
 
-/* ===== Shared Section Styles ===== */
+/* ===== 공통 섹션 스타일 ===== */
 /* 각 섹션 상하 여백 */
 section {
     padding: 50px 0;
@@ -73,7 +56,7 @@ section {
     margin-top: 3px;
 }
 
-/* "더보기" 버튼 */
+/* "더보기" 버튼 (어두운 갈색 pill 형태) */
 .more-link {
     font-size: 13px;
     color: white;
@@ -82,16 +65,10 @@ section {
     border: 1.5px solid #58413A;
     border-radius: 20px;
     padding: 7px 16px;
-    transition: background-color 0.2s;
     white-space: nowrap;
 }
 
-.more-link:hover {
-    background-color: #3e2d28;
-    border-color: #3e2d28;
-}
-
-/* ===== Primary Button ===== */
+/* ===== 공통 버튼 ===== */
 /* 주황색 공통 버튼 */
 .btn-primary {
     background-color: #E07550;
@@ -102,15 +79,10 @@ section {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
-.btn-primary:hover {
-    background-color: #c96340;
-}
-
-/* ===== Hall of Fame ===== */
-/* 명예의 전당 섹션 - 인기 레시피 TOP3 */
+/* ===== 명예의 전당 섹션 ===== */
+/* 인기 레시피 TOP3 - 베이지 배경 */
 .hall-of-fame {
     background-color: #FAF6F1;
 }
@@ -129,13 +101,7 @@ section {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
-}
-
-.fame-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 /* 카드 이미지 영역 - 이미지 없을 때 배경색으로 대체 */
@@ -145,6 +111,7 @@ section {
     background-color: #C4956A;
 }
 
+/* 2, 3번 카드 이미지 배경색 */
 .fame-img-wrap.img-2 { background-color: #7B9E7B; }
 .fame-img-wrap.img-3 { background-color: #A0856A; }
 
@@ -180,6 +147,7 @@ section {
     padding: 14px 16px 16px;
 }
 
+/* 카드 레시피 제목 */
 .fame-title {
     font-size: 17px;
     font-weight: 700;
@@ -188,14 +156,15 @@ section {
     line-height: 1.4;
 }
 
+/* 카드 작성자 이름 */
 .fame-author {
     font-size: 13px;
     color: #A89D9A;
     margin-bottom: 4px;
 }
 
-/* ===== Influencer Banner ===== */
-/* 인플루언서 소개 배너 */
+/* ===== 인플루언서 배너 ===== */
+/* 인플루언서 소개 배너 - 연한 살구색 배경 */
 .influencer-banner {
     background-color: #FAEAE0;
     border-radius: 16px;
@@ -205,10 +174,12 @@ section {
     gap: 48px;
 }
 
+/* 배너 왼쪽 소개 텍스트 영역 */
 .influencer-intro {
     min-width: 160px;
 }
 
+/* "이달의 인플루언서" 강조 레이블 */
 .inf-label {
     font-size: 20px;
     font-weight: 700;
@@ -216,6 +187,7 @@ section {
     margin-bottom: 6px;
 }
 
+/* 인플루언서 설명 텍스트 */
 .inf-desc {
     font-size: 13px;
     color: #888;
@@ -230,6 +202,7 @@ section {
     gap: 12px;
 }
 
+/* 인플루언서 항목 하나 (가운데 정렬) */
 .influencer-item {
     text-align: center;
 }
@@ -251,13 +224,14 @@ section {
     cursor: pointer;
 }
 
-/* 아바타 색상 (1~5번) */
+/* 아바타 배경색 (1~5번) */
 .av1 { background-color: #C4956A; }
 .av2 { background-color: #7B9E7B; }
 .av3 { background-color: #9B7BB0; }
 .av4 { background-color: #B07B5B; }
 .av5 { background-color: #8B9BB0; }
 
+/* 인플루언서 닉네임 */
 .inf-name {
     font-size: 14px;
     font-weight: 700;
@@ -265,17 +239,19 @@ section {
     margin-bottom: 3px;
 }
 
+/* 인플루언서 팔로워 수 */
 .inf-count {
     font-size: 12px;
     color: #aaa;
 }
 
-/* ===== Recommended Recipes ===== */
-/* 추천 레시피 섹션 - 5열 그리드 */
+/* ===== 추천 레시피 섹션 ===== */
+/* 흰 배경, 5열 카드 그리드 */
 .recommended-recipes {
     background-color: #ffffff;
 }
 
+/* 레시피 카드 5열 그리드 */
 .recipe-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -289,13 +265,7 @@ section {
     overflow: hidden;
     border: 1.5px solid #EDE8E2;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
-}
-
-.recipe-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.11);
 }
 
 /* 카드 이미지 영역 */
@@ -305,7 +275,7 @@ section {
     height: 150px;
 }
 
-/* 이미지 없을 때 배경색으로 대체 */
+/* 썸네일 이미지 (없을 때 배경색으로 대체) */
 .recipe-img {
     width: 100%;
     height: 150px;
@@ -326,7 +296,7 @@ section {
     margin-bottom: 6px;
 }
 
-/* 이미지 위 조회수/댓글수 표시 */
+/* 이미지 위 우측 상단 좋아요/북마크 수 */
 .recipe-img-stats {
     position: absolute;
     top: 8px;
@@ -336,6 +306,7 @@ section {
     gap: 6px;
 }
 
+/* 각 수치 칩 (반투명 검정 배경) */
 .recipe-img-stats span {
     display: flex;
     align-items: center;
@@ -361,6 +332,7 @@ section {
     margin-top: 6px;
 }
 
+/* 조회수 / 댓글수 (아이콘 + 숫자) */
 .recipe-views,
 .recipe-cmt {
     display: flex;
@@ -370,13 +342,14 @@ section {
     color: #aaa;
 }
 
+/* 날짜 (오른쪽 끝 정렬) */
 .recipe-date {
     font-size: 11px;
     color: #bbb;
     margin-left: auto;
 }
 
-/* 레시피 카드 이미지 없을 때 배경색 (10가지) */
+/* 이미지 없을 때 배경색 10가지 */
 .rc1  { background-color: #C4956A; }
 .rc2  { background-color: #7B9E7B; }
 .rc3  { background-color: #B07B5B; }
@@ -401,13 +374,14 @@ section {
     overflow: hidden;
 }
 
+/* 작성자 이름 */
 .recipe-author {
     font-size: 12px;
     color: #A89D9A;
 }
 
-/* ===== Cooking Tips ===== */
-/* 요리 꿀팁 섹션 - 3열 그리드 */
+/* ===== 요리 꿀팁 섹션 ===== */
+/* 연한 주황 배경, 3열 카드 그리드 */
 .cooking-tips {
     background-color: #FEF0E6;
 }
@@ -416,6 +390,7 @@ section {
     margin-bottom: 2px;
 }
 
+/* 꿀팁 카드 3열 그리드 */
 .tips-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -428,23 +403,19 @@ section {
     border-radius: 12px;
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     display: flex;
     flex-direction: column;
 }
 
-.tip-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-
+/* 꿀팁 작성일 */
 .tip-date {
     font-size: 12px;
     color: #bbb;
     margin-bottom: 10px;
 }
 
+/* 꿀팁 제목 */
 .tip-title {
     font-size: 16px;
     font-weight: 700;
@@ -465,21 +436,16 @@ section {
     overflow: hidden;
 }
 
-/* "더 읽기" 링크 */
+/* "더 읽기" 링크 (카드 하단 오른쪽 정렬) */
 .read-more {
     font-size: 13px;
     font-weight: 600;
     color: #E07550;
-    transition: color 0.2s;
     margin-top: auto;
     align-self: flex-end;
 }
 
-.read-more:hover {
-    color: #c96340;
-}
-
-/* ===== Footer ===== */
+/* ===== 푸터 ===== */
 /* 하단 푸터 - 어두운 배경 */
 .site-footer {
     background-color: #2E2A27;
@@ -498,6 +464,7 @@ section {
     margin-bottom: 20px;
 }
 
+/* 푸터 로고 */
 .footer-logo {
     font-size: 22px;
     font-weight: 700;
@@ -505,34 +472,32 @@ section {
     margin-bottom: 10px;
 }
 
+/* 푸터 서비스 설명 텍스트 */
 .footer-desc {
     font-size: 13px;
     color: #999;
     line-height: 1.8;
 }
 
-/* 푸터 네비 링크 */
+/* 푸터 네비 링크 목록 */
 .footer-nav {
     display: flex;
     gap: 30px;
 }
 
+/* 푸터 네비 링크 */
 .footer-nav a {
     font-size: 14px;
     color: #aaa;
-    transition: color 0.2s;
 }
 
-.footer-nav a:hover {
-    color: white;
-}
-
-/* 공유 버튼 */
+/* 공유 버튼 영역 */
 .footer-share {
     display: flex;
     align-items: flex-start;
 }
 
+/* 공유 아이콘 버튼 */
 .share-btn {
     background: rgba(255, 255, 255, 0.08);
     border: none;
@@ -544,12 +509,6 @@ section {
     justify-content: center;
     color: #ccc;
     cursor: pointer;
-    transition: background 0.2s;
-}
-
-.share-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
 }
 
 /* 저작권 텍스트 */

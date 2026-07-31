@@ -1,30 +1,10 @@
-/* =====================================================
+﻿/* =====================================================
    레시피 상세 페이지 + 요리 꿀팁 상세 페이지 공용 CSS
    - /recipe/detail  : 레시피 상세
    - /tip/detail     : 요리 꿀팁 상세
 ===================================================== */
 
-
 /* ===== 공용 ===== */
-
-/* Reset & Base */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #FAF6F1;
-    color: #333;
-    line-height: 1.5;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
 
 /* 흰 카드 컨테이너 */
 .container {
@@ -72,11 +52,6 @@ a {
     border-radius: 6px;
     display: flex;
     align-items: center;
-    transition: color 0.2s;
-}
-
-.action-btn:hover {
-    color: #E07550;
 }
 
 /* 작성자 / 조리 시간 등 메타 정보 한 줄 */
@@ -114,7 +89,7 @@ a {
 .step-box img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
+
 }
 
 /* 순서 / 팁 내용 박스 */
@@ -205,7 +180,6 @@ a {
     resize: none;
     height: 80px;
     outline: none;
-    transition: border-color 0.2s;
 }
 
 .comment-input::placeholder {
@@ -234,11 +208,6 @@ a {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.btn-submit:hover {
-    background-color: #c96340;
 }
 
 /* 댓글 목록 */
@@ -282,7 +251,6 @@ a {
     line-height: 1.6;
     margin-bottom: 8px;
 }
-
 
 /* ===== 레시피 상세 페이지 전용 ===== */
 
@@ -348,7 +316,6 @@ a {
     flex-shrink: 0;
 }
 
-
 /* ===== 요리 꿀팁 상세 페이지 전용 ===== */
 
 /* 댓글 입력창 + 등록 버튼 세로 묶음 */
@@ -383,10 +350,6 @@ a {
     border-radius: 8px;
     font-size: 14px;
     text-decoration: none;
-}
-
-.list-btn:hover {
-    background: #3e2d28;
 }
 
 /* 게시글 / 댓글을 별도 카드 박스로 분리 */

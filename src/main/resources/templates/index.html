@@ -26,7 +26,7 @@
             <!-- 섹션 제목 + 레시피 올리기 버튼 -->
             <div class="section-header">
                 <h2 class="section-title">
-                    <span class="title-icon">🏆</span> 명예의 전당
+                    명예의 전당
                 </h2>
             </div>
 
@@ -146,7 +146,7 @@
             <!-- 섹션 제목 박스 -->
             <div class="section-title-box">
                 <div>
-                    <h2 class="section-title"><span class="title-icon">🍽️</span> 이달의 추천 레시피</h2>
+                    <h2 class="section-title">이달의 추천 레시피</h2>
                     <p class="section-desc">이번 달 추천을 가장 많이 받은 레시피를 모아봤어요!</p>
                 </div>
                 <a th:href="@{/recipe/list}" class="more-link">더 보기 →</a>
@@ -369,7 +369,7 @@
             <!-- 섹션 제목 박스 -->
             <div class="section-title-box">
                 <div>
-                    <h2 class="section-title">✨ 최신 요리 꿀팁</h2>
+                    <h2 class="section-title">최신 요리 꿀팁</h2>
                     <p class="section-desc">당신만의 소중한 요리 꿀팁을 공유해보세요!</p>
                 </div>
                 <a href="/tip/list" class="more-link">더 보기 →</a>
@@ -452,18 +452,5 @@
     </div>
 </footer>
 
-<script>
-    const userMenuBtn = document.getElementById('userMenuBtn');
-    const userDropdown = document.getElementById('userDropdown');
-
-    userMenuBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        userDropdown.classList.toggle('open');
-    });
-
-    document.addEventListener('click', function () {
-        userDropdown.classList.remove('open');
-    });
-</script>
 </body>
 </html>
