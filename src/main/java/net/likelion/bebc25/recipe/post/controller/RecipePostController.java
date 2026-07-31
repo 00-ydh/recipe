@@ -52,7 +52,7 @@ public class RecipePostController {
     // recipe-details 화면 보여주는 컨트롤러
     @GetMapping("/detail")
     public String getRecipeDetails(@RequestParam("id") int id, Model model) {
-        PostDto postDto = postService.getPost(id);
+        PostDto postDto = postService.getRecipe(id);
         model.addAttribute("post", postDto);
         List<ResponseDTO> replies = replyService.getRepliesByPostId((long) id);
         model.addAttribute("replies", replies);

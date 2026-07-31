@@ -101,8 +101,6 @@ public class JdbcPostRepository implements PostRepository {
     }
 
 
-
-
     // 게시글 등록
     //  post.getCategoryId() == 0 ? null : post.getCategoryId() - 오류
     @Override
@@ -165,6 +163,16 @@ public class JdbcPostRepository implements PostRepository {
                 "WHERE p.post_type = 2 AND p.member_id = ?";
 
         return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
+    }
+
+    // 레시피 게시글 조회 (post_type = 1)
+    @Override
+    public PostDto findRecipePostByPostId(int postId) {
+        String sql = "SELECT post.* , category.category_name, member.name FROM post " +
+                "LEFT JOIN category on post.category_id = category.id " +
+                "LEFT JOIN member on post.member_id = member.id " +
+                "WHERE post.post_type = 1 AND post.id = ?";
+        return jdbcTemplate.queryForObject(sql, postDtoRowMapper, postId);
     }
 }
 

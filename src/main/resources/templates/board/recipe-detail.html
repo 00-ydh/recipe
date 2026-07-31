@@ -16,10 +16,9 @@
 
 <main class="recipe-detail">
     <div class="container">
-
         <!-- 히어로 이미지 -->
         <div class="recipe-hero">
-            <img th:scr="${post.mainImage}" alt="레시피 대표 이미지">
+            <img th:src="${post.mainImage}" alt="레시피 대표 이미지">
             <!--    레시피 카테고리(한식,중식,일식,양식 등)     -->
             <span class="recipe-tag" th:text="${post.categoryName}">한식</span>
         </div>
