@@ -68,8 +68,11 @@
         <div class="recipe-grid">
             <div class="recipe-card" th:each="recipe : ${myRecipes}">
                 <div class="thumbnail-wrapper">
+                    <a th:href="@{/recipe/detail(id=${recipe.id})}">
                     <!-- 메인 이미지 (이미지 경로 없으면 기본 이미지 사용) -->
-                    <img th:src="${recipe.mainImage != null ? recipe.mainImage : '/images/default.jpg'}" alt="레시피 이미지">
+                        <img src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
+                    </a>
+
                     <div class="badge-edit-delete">
                         <a href="#">수정</a>
                         <span class="divider">|</span>
@@ -103,11 +106,11 @@
 
         <div class="tip-list">
             <!-- 꿀팁 게시글 목록 반복 출력  -->
-            <div class="tip-card" >
-
+            <div class="tip-card" th:each="tip : ${myTips}">
+                <a th:href="@{/tip/detail(id=${tip.id})}">
                 <div class="tip-info">
                     <!--요리 꿀팁 제목나오는 부분 (title) -- !참고 : tip.list.html -->
-                    <h3 >요리 꿀팁 게시글 제목</h3>
+                    <h3 th:text="${tip.title}">요리 꿀팁 게시글 제목</h3>
 
                     <!-- 작성자, 작성일, 조회수 -->
                     <div class="meta">
@@ -115,20 +118,21 @@
                     <!-- svg 태그는 아이콘 입니다!-->
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                         <!--작성자 나오는 부분 -- !참고 : tip.list.html -->
-                        <span>작성자</span>
+                        <span th:text="${member.name}">작성자</span>
                     </span>
                         <span>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                           <!--작성일 나오는 부분 -- !참고 : tip.list.html -->
-                        <span>2024.05.20</span>
+                        <span th:text="${#temporals.format(tip.createdAt, 'yyyy.MM.dd')}">2024.05.20</span>
                     </span>
                         <span>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             <!--조회수 나오는 부분 -- !참고 : tip.list.html -->
-                        <span >0</span>
+                        <span th:text="${tip.viewCount}">0</span>
                     </span>
                     </div>
                 </div>
+                </a>
 
                 <!-- 화살표 꾸밈요소 데이터 채울 것 x  -->
                 <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

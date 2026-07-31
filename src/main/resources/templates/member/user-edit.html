@@ -23,7 +23,6 @@
                     <i class="fa-regular fa-envelope icon"></i>
                     <input type="email" id="email" th:field="*{email}" readonly>
                 </div>
-                <button type="button" class="btn-sub">이메일 수정</button>
             </div>
         </div>
 
@@ -33,10 +32,11 @@
             <div class="input-row">
                 <div class="input-box">
                     <i class="fa-regular fa-user icon"></i>
-                    <input type="text" id="nickname" th:field="*{name}" value="냉장고마스터">
+                    <input type="text" id="nickname" th:field="*{name}">
                 </div>
                 <button type="submit" class="btn-sub" th:formaction="@{/member/edit/name}">별명 수정</button>
             </div>
+            <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">에러 메시지</div>
         </div>
 
         <!-- 비밀번호 그룹 -->
@@ -45,14 +45,15 @@
             <div class="input-row">
                 <div class="input-box">
                     <i class="fa-solid fa-lock icon"></i>
-                    <input type="password" id="password" th:field="*{password}" value="********">
+                    <input type="password" id="password" th:field="*{password}">
                 </div>
                 <button type="submit" class="btn-sub" th:formaction="@{/member/edit/password}">비밀번호 수정</button>
             </div>
+            <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">에러 메시지</div>
         </div>
 
         <!-- 하단 탈퇴하기 버튼 -->
-        <button type="button" class="btn-danger">탈퇴하기</button>
+        <button type="submit" class="btn-danger" th:formaction="@{/member/delete}" onclick="return confirm('정말로 탈퇴하시겠습니까?');">탈퇴하기</button>
     </form>
 </div>
 
