@@ -33,6 +33,9 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MemberDto login(String email, String password) {
         MemberDto memberDto = memberRepository.findByEmail(email);
@@ -44,6 +47,9 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String findPassword(String email, String name) {
         MemberDto memberDto = memberRepository.findByEmail(email);
@@ -61,12 +67,24 @@ public class MemberServiceImpl implements MemberService{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void editMember(MemberDto memberDto) {
         memberRepository.update(memberDto);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public MemberDto getMemberById(int id) {
         return memberRepository.findById(id);
+    }
+
+    @Override
+    public void deleteMemberById(int id) {
+        memberRepository.deleteById(id);
     }
 }

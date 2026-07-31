@@ -31,6 +31,16 @@ public interface MemberService {
      */
     void editMember(MemberDto memberDto);
 
-// 임시
+    /**
+     * 회원 고유 식별자를 기반으로 회원 정보 DTO를 검색하여 가져옵니다.
+     * @param id 회원 고유 식별자
+     * @return 회원 정보 DTO
+     */
     MemberDto getMemberById(int id);
+
+    /**
+     * 회원 고유 식별자를 기반으로 회원 정보를 삭제합니다.
+     * @param id 회원 고유 식별자
+     */
+    void deleteMemberById(int id);
 }
