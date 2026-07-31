@@ -1,7 +1,6 @@
-﻿/* =====================================================
-   프로필 페이지 전용 CSS
-   - /member/profile : 타인의 프로필 + 레시피 목록 조회
-===================================================== */
+﻿/* 프로필 페이지 전용 CSS
+   - /member/profile
+*/
 
 /* 페이지 전체 상하 여백 */
 .mypage-wrap {
@@ -9,7 +8,6 @@
     padding-bottom: 64px;
 }
 
-/* ===== 프로필 섹션 ===== */
 /* 아바타 + 이름 + 통계 + 팔로우 버튼을 담는 흰 카드 */
 .profile-section {
     background-color: white;
@@ -67,7 +65,7 @@
     gap: 2px;
 }
 
-/* 통계 숫자 (주황 강조) */
+/* 통계 숫자 */
 .stat-value {
     font-size: 20px;
     font-weight: 700;
@@ -87,8 +85,7 @@
     background-color: #EDE8E2;
 }
 
-/* ===== 팔로우 버튼 ===== */
-/* 주황색 pill 형태 팔로우 버튼 */
+/* 팔로우 버튼 */
 .follow-btn {
     display: flex;
     align-items: center;
@@ -105,7 +102,6 @@
     font-family: inherit;
 }
 
-/* ===== 레시피 목록 섹션 ===== */
 /* 프로필 하단 레시피 목록 배경 */
 .mypage-recipes {
     background-color: #FAF6F1;
@@ -130,7 +126,7 @@
     color: #aaa;
 }
 
-/* 레시피 카드 그리드 (반응형 — 최소 240px) */
+/* 레시피 카드 그리드 */
 .recipe-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

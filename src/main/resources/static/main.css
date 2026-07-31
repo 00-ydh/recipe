@@ -1,24 +1,20 @@
-﻿/* =====================================================
-   메인 페이지 + 공용 CSS
-   - /  : 메인(홈) 페이지
-   - 공통 레이아웃, 버튼, 카드, 푸터 등 전역 스타일 포함
-===================================================== */
+﻿/* 메인 페이지 + 공용 CSS
+   - /
+*/
 
-/* ===== Layout ===== */
-/* 최대 너비 1200px, 가운데 정렬 - 모든 페이지 공통 레이아웃 */
+/* 최대 너비 1200px, 가운데 정렬 */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
-/* ===== 공통 섹션 스타일 ===== */
 /* 각 섹션 상하 여백 */
 section {
     padding: 50px 0;
 }
 
-/* 섹션 제목 + "더보기" 링크를 양쪽으로 배치 */
+/* 섹션 제목 + "더보기" 링크 양쪽 배치 */
 .section-header {
     display: flex;
     align-items: center;
@@ -26,7 +22,7 @@ section {
     margin-bottom: 24px;
 }
 
-/* 섹션 제목 텍스트 스타일 */
+/* 섹션 제목 */
 .section-title {
     font-size: 30px;
     font-weight: 700;
@@ -36,7 +32,7 @@ section {
     gap: 8px;
 }
 
-/* 섹션 제목 옆 이모지 아이콘 크기 */
+/* 섹션 제목 옆 이모지 아이콘 */
 .title-icon {
     font-size: 20px;
 }
@@ -56,7 +52,7 @@ section {
     margin-top: 3px;
 }
 
-/* "더보기" 버튼 (어두운 갈색 pill 형태) */
+/* "더보기" 버튼 */
 .more-link {
     font-size: 13px;
     color: white;
@@ -68,7 +64,6 @@ section {
     white-space: nowrap;
 }
 
-/* ===== 공통 버튼 ===== */
 /* 주황색 공통 버튼 */
 .btn-primary {
     background-color: #E07550;
@@ -81,8 +76,7 @@ section {
     cursor: pointer;
 }
 
-/* ===== 명예의 전당 섹션 ===== */
-/* 인기 레시피 TOP3 - 베이지 배경 */
+/* 명예의 전당 섹션 - 인기 레시피 TOP3 */
 .hall-of-fame {
     background-color: #FAF6F1;
 }
@@ -104,7 +98,7 @@ section {
     cursor: pointer;
 }
 
-/* 카드 이미지 영역 - 이미지 없을 때 배경색으로 대체 */
+/* 카드 이미지 영역 */
 .fame-img-wrap {
     position: relative;
     height: 210px;
@@ -121,7 +115,7 @@ section {
     object-fit: cover;
 }
 
-/* 1, 2, 3등 뱃지 (이미지 위 왼쪽 상단) */
+/* 1, 2, 3등 뱃지 */
 .rank-badge {
     position: absolute;
     top: 12px;
@@ -163,8 +157,7 @@ section {
     margin-bottom: 4px;
 }
 
-/* ===== 인플루언서 배너 ===== */
-/* 인플루언서 소개 배너 - 연한 살구색 배경 */
+/* 인플루언서 배너 */
 .influencer-banner {
     background-color: #FAEAE0;
     border-radius: 16px;
@@ -179,7 +172,7 @@ section {
     min-width: 160px;
 }
 
-/* "이달의 인플루언서" 강조 레이블 */
+/* "이달의 인플루언서" 레이블 */
 .inf-label {
     font-size: 20px;
     font-weight: 700;
@@ -202,12 +195,12 @@ section {
     gap: 12px;
 }
 
-/* 인플루언서 항목 하나 (가운데 정렬) */
+/* 인플루언서 항목 하나 */
 .influencer-item {
     text-align: center;
 }
 
-/* 인플루언서 프로필 원형 아바타 */
+/* 인플루언서 원형 아바타 */
 .inf-avatar {
     width: 100px;
     height: 100px;
@@ -224,7 +217,7 @@ section {
     cursor: pointer;
 }
 
-/* 아바타 배경색 (1~5번) */
+/* 아바타 배경색 */
 .av1 { background-color: #C4956A; }
 .av2 { background-color: #7B9E7B; }
 .av3 { background-color: #9B7BB0; }
@@ -245,8 +238,7 @@ section {
     color: #aaa;
 }
 
-/* ===== 추천 레시피 섹션 ===== */
-/* 흰 배경, 5열 카드 그리드 */
+/* 추천 레시피 섹션 */
 .recommended-recipes {
     background-color: #ffffff;
 }
@@ -275,7 +267,7 @@ section {
     height: 150px;
 }
 
-/* 썸네일 이미지 (없을 때 배경색으로 대체) */
+/* 썸네일 이미지 */
 .recipe-img {
     width: 100%;
     height: 150px;
@@ -284,7 +276,7 @@ section {
     background-color: #D4C4B0;
 }
 
-/* 카테고리 태그 (한식, 양식 등) */
+/* 카테고리 태그 */
 .recipe-category-tag {
     display: inline-block;
     background: #ffe7d6;
@@ -306,7 +298,7 @@ section {
     gap: 6px;
 }
 
-/* 각 수치 칩 (반투명 검정 배경) */
+/* 각 수치 칩 */
 .recipe-img-stats span {
     display: flex;
     align-items: center;
@@ -332,7 +324,7 @@ section {
     margin-top: 6px;
 }
 
-/* 조회수 / 댓글수 (아이콘 + 숫자) */
+/* 조회수 / 댓글수 */
 .recipe-views,
 .recipe-cmt {
     display: flex;
@@ -342,14 +334,14 @@ section {
     color: #aaa;
 }
 
-/* 날짜 (오른쪽 끝 정렬) */
+/* 날짜 */
 .recipe-date {
     font-size: 11px;
     color: #bbb;
     margin-left: auto;
 }
 
-/* 이미지 없을 때 배경색 10가지 */
+/* 이미지 없을 때 배경색 */
 .rc1  { background-color: #C4956A; }
 .rc2  { background-color: #7B9E7B; }
 .rc3  { background-color: #B07B5B; }
@@ -361,7 +353,7 @@ section {
 .rc9  { background-color: #7B9B8B; }
 .rc10 { background-color: #9B7B6B; }
 
-/* 레시피 제목 - 2줄 초과 시 말줄임(...) */
+/* 레시피 제목 (2줄 말줄임) */
 .recipe-title {
     font-size: 13px;
     font-weight: 600;
@@ -380,8 +372,7 @@ section {
     color: #A89D9A;
 }
 
-/* ===== 요리 꿀팁 섹션 ===== */
-/* 연한 주황 배경, 3열 카드 그리드 */
+/* 요리 꿀팁 섹션 */
 .cooking-tips {
     background-color: #FEF0E6;
 }
@@ -424,7 +415,7 @@ section {
     line-height: 1.4;
 }
 
-/* 꿀팁 설명 - 2줄 초과 시 말줄임(...) */
+/* 꿀팁 설명 (2줄 말줄임) */
 .tip-desc {
     font-size: 14px;
     color: #888;
@@ -436,7 +427,7 @@ section {
     overflow: hidden;
 }
 
-/* "더 읽기" 링크 (카드 하단 오른쪽 정렬) */
+/* "더 읽기" 링크 */
 .read-more {
     font-size: 13px;
     font-weight: 600;
@@ -445,8 +436,7 @@ section {
     align-self: flex-end;
 }
 
-/* ===== 푸터 ===== */
-/* 하단 푸터 - 어두운 배경 */
+/* 푸터 */
 .site-footer {
     background-color: #2E2A27;
     color: #ccc;
@@ -472,7 +462,7 @@ section {
     margin-bottom: 10px;
 }
 
-/* 푸터 서비스 설명 텍스트 */
+/* 푸터 서비스 설명 */
 .footer-desc {
     font-size: 13px;
     color: #999;
@@ -516,4 +506,11 @@ section {
     text-align: right;
     font-size: 13px;
     color: #666;
+}
+
+/* 팀원 크레딧 */
+.footer-made-by {
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
 }

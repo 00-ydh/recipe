@@ -10,6 +10,6 @@ public class TodayMenuPostController {
     // todayMenu 화면 보여주는 컨트롤러
     @GetMapping("/list")
     public String getTodayMenu(){
-        return "board/todayMenu";
+        return "board/today-menu";
     }
 }

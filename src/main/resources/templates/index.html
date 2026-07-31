@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인페이지</title>
-    <link rel="stylesheet" href="main-style.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
 
+<!--header 삽입 코드 한줄 !-->
 <div th:replace="~{header/header :: header}"></div>
 
 
@@ -23,11 +24,12 @@
     <section class="hall-of-fame">
         <div class="container">
 
-            <!-- 섹션 제목 + 레시피 올리기 버튼 -->
-            <div class="section-header">
-                <h2 class="section-title">
-                    명예의 전당
-                </h2>
+            <!-- 섹션 제목 -->
+            <div class="section-title-box">
+                <div>
+                    <h2 class="section-title">명예의 전당</h2>
+                    <p class="section-desc">가장 많은 인기 레시피 TOP 3!</p>
+                </div>
             </div>
 
             <!-- 인기 레시피 카드 3개 -->
@@ -436,9 +438,9 @@
 
             <!-- 푸터 네비게이션 -->
             <nav class="footer-nav">
-                <a href="#">홈</a>
-                <a href="#">레시피</a>
-                <a href="#">요리 팁</a>
+                <a th:href="@{/}">홈</a>
+                <a th:href="@{/recipe/list}">레시피</a>
+                <a th:href="@{/tip/list}">요리 꿀팁</a>
                 <a href="#">개인정보 처리방침</a>
                 <a href="#">이용약관</a>
             </nav>
@@ -448,6 +450,7 @@
         <!-- 저작권 -->
         <div class="footer-bottom">
             <p>© 2026 냉부. All rights reserved</p>
+            <p class="footer-made-by">Made by 유동훈, 이유림, 이지원, 최원일</p>
         </div>
     </div>
 </footer>

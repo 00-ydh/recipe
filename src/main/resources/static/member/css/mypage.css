@@ -1,48 +1,40 @@
-﻿/* =====================================================
-   마이페이지 전용 CSS
-   - /member/mypage : 내 레시피 / 꿀팁 / 스크랩 / 팔로우 탭
-===================================================== */
+﻿/* 마이페이지 전용 CSS
+   - /member/mypage
+*/
 
-/* ===== 기본 초기화 ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
+/* common.css가 header 프래그먼트로 포함되므로 * reset 생략
+   body 배경색만 페이지 전용으로 덮어씀 */
 body {
     background-color: #FAF4F0;
 }
 
-/* 페이지 전체를 감싸는 최대 너비 컨테이너 */
+/* 페이지 전체 최대 너비 컨테이너 */
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 40px 0px;
 }
 
-/* ===== 1. 페이지 상단 타이틀 ===== */
+/* 페이지 상단 타이틀 */
 .page-header {
     margin-bottom: 24px;
 }
 
 /* 페이지 대제목 */
 .page-title {
-    font-size: 22px;
-    font-weight: 800;
-    color: #111111;
+    font-size: 30px;
+    font-weight: 700;
+    color: #58413A;
     margin-bottom: 6px;
 }
 
-/* 페이지 부제목 / 설명 */
+/* 페이지 부제목 */
 .page-desc {
-    font-size: 13px;
-    color: #777777;
+    font-size: 14px;
+    color: #999;
 }
 
-/* ===== 2. 프로필 카드 ===== */
-/* 사용자 닉네임 / 통계 / 버튼을 가로로 배치하는 흰 카드 */
+/* 사용자 닉네임 / 통계 / 버튼 가로 배치 흰 카드 */
 .profile-card {
     background-color: #FFFFFF;
     border-radius: 12px;
@@ -75,13 +67,13 @@ body {
     gap: 4px;
 }
 
-/* 통계 라벨 (예: "레시피", "팔로워") */
+/* 통계 라벨 */
 .stat-label {
     font-size: 11px;
     color: #888888;
 }
 
-/* 통계 숫자 (굵고 주황-빨간 색) */
+/* 통계 숫자 */
 .stat-num {
     font-size: 18px;
     font-weight: 800;
@@ -119,8 +111,7 @@ body {
     cursor: pointer;
 }
 
-/* ===== 3. 탭 제어 (라디오 버튼 기반 탭 전환) ===== */
-/* 실제 라디오 버튼은 화면에 보이지 않게 숨김 */
+/* 탭 라디오 버튼 숨김 */
 input[type="radio"][name="tab"] {
     display: none;
 }
@@ -144,8 +135,7 @@ input[type="radio"][name="tab"] {
     bottom: -1px;
 }
 
-/* 선택된 탭의 글자 색상 + 하단 밑줄 활성화
-   (라디오 버튼 checked 상태를 ~ 형제 선택자로 탭 label에 연결) */
+/* 선택된 탭 강조 (라디오 checked → 형제 label 연결) */
 #tab1:checked ~ .tab-menu label[for="tab1"],
 #tab2:checked ~ .tab-menu label[for="tab2"],
 #tab3:checked ~ .tab-menu label[for="tab3"],
@@ -159,13 +149,13 @@ input[type="radio"][name="tab"] {
     display: none;
 }
 
-/* 각 라디오 선택 시 해당 탭 컨텐츠만 표시 */
-#tab1:checked ~ .tab-content-1 { display: block; } /* 내가 쓴 레시피 */
-#tab2:checked ~ .tab-content-2 { display: block; } /* 내가 쓴 꿀팁 */
-#tab3:checked ~ .tab-content-3 { display: block; } /* 스크랩한 레시피 */
-#tab4:checked ~ .tab-content-4 { display: block; } /* 팔로우 */
+/* 각 라디오 선택 시 해당 탭만 표시 */
+#tab1:checked ~ .tab-content-1 { display: block; }
+#tab2:checked ~ .tab-content-2 { display: block; }
+#tab3:checked ~ .tab-content-3 { display: block; }
+#tab4:checked ~ .tab-content-4 { display: block; }
 
-/* ===== 4. 탭 컨텐츠 섹션 헤더 ===== */
+/* 탭 섹션 헤더 */
 .section-header {
     margin-bottom: 24px;
 }
@@ -174,19 +164,18 @@ input[type="radio"][name="tab"] {
 .section-title {
     font-size: 20px;
     font-weight: 800;
-    color: #333333;
+    color: #58413A;
     margin-bottom: 8px;
 }
 
-/* 섹션 부제목 / 설명 */
+/* 섹션 부제목 */
 .section-desc {
     font-size: 13px;
     color: #888888;
     line-height: 1.4;
 }
 
-/* ===== 5. 레시피 그리드 (내가 쓴 레시피 탭 - 탭1) ===== */
-/* 4열 카드 격자 레이아웃 */
+/* 레시피 카드 4열 그리드 */
 .recipe-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -201,7 +190,6 @@ input[type="radio"][name="tab"] {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     border: 1.5px solid #e8d8cf;
-
 }
 
 /* 카드 썸네일 이미지 영역 */
@@ -217,7 +205,7 @@ input[type="radio"][name="tab"] {
     object-fit: cover;
 }
 
-/* 썸네일 좌측 상단 [수정 | 삭제] 주황색 배지 */
+/* 썸네일 좌측 상단 [수정 | 삭제] 배지 */
 .badge-edit-delete {
     position: absolute;
     top: 10px;
@@ -232,11 +220,10 @@ input[type="radio"][name="tab"] {
     gap: 6px;
 }
 
-/* 배지 안의 수정 / 삭제 링크 */
+/* 배지 안 수정 / 삭제 링크 */
 .badge-edit-delete a {
     color: #FFFFFF;
     text-decoration: none;
-    /*font-weight: 600;*/
 }
 
 /* 수정 | 삭제 구분선 */
@@ -245,7 +232,7 @@ input[type="radio"][name="tab"] {
     opacity: 0.7;
 }
 
-/* 썸네일 우측 상단 좋아요 / 북마크 수 배지 묶음 */
+/* 썸네일 우측 상단 좋아요 / 북마크 배지 묶음 */
 .top-badges {
     position: absolute;
     top: 10px;
@@ -269,7 +256,7 @@ input[type="radio"][name="tab"] {
     padding: 14px 12px;
 }
 
-/* 카테고리 태그 (한식, 양식 등) */
+/* 카테고리 태그 */
 .category-tag {
     font-size: 10px;
     color: #E25B2D;
@@ -281,7 +268,7 @@ input[type="radio"][name="tab"] {
     margin-bottom: 6px;
 }
 
-/* 레시피 제목 - 한 줄 초과 시 말줄임 */
+/* 레시피 제목 (한 줄 말줄임) */
 .recipe-title {
     font-size: 13px;
     font-weight: 700;
@@ -292,8 +279,7 @@ input[type="radio"][name="tab"] {
     text-overflow: ellipsis;
 }
 
-/* ===== 6. 팔로우 그리드 (팔로우 탭 - 탭4 상단) ===== */
-/* 팔로우한 사람들을 5열 원형 아바타로 나열 */
+/* 팔로우 그리드 (5열 원형 아바타) */
 .follow-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -329,14 +315,14 @@ input[type="radio"][name="tab"] {
     color: #333;
 }
 
-/* 작성자 표기 (소형 서브 텍스트) */
+/* 작성자 표기 */
 .author {
     font-size: 11px;
     color: #A09890;
     margin-bottom: 12px;
 }
 
-/* 카드 하단 정보 행 (날짜 등) */
+/* 카드 하단 정보 행 */
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -350,7 +336,7 @@ input[type="radio"][name="tab"] {
     color: #666666;
 }
 
-/* 탭 컨텐츠 내부 흰 카드 박스 (팔로우 탭 등에서 사용) */
+/* 탭 컨텐츠 내부 흰 카드 박스 */
 .content-card {
     background-color: #FFFFFF;
     border-radius: 12px;
@@ -358,23 +344,19 @@ input[type="radio"][name="tab"] {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
-.follow-list-grid{
+/* 구독한 사람 최신 레시피 목록 (1열) */
+.follow-list-grid {
     grid-template-columns: repeat(1, 1fr);
 }
 
-/* =====================================================
-   main-style.css 레시피 카드 CSS 복붙
-   (profile.html 과 동일한 카드 구조 - 스크랩/팔로우 탭에서 사용)
-===================================================== */
-
-/* 카드 이미지 영역 (오버플로우 숨김) */
+/* 스크랩 탭 레시피 카드 이미지 영역 */
 .recipe-img-wrap {
     position: relative;
     overflow: hidden;
     height: 150px;
 }
 
-/* 썸네일 이미지 (없을 때 배경색으로 대체) */
+/* 썸네일 이미지 */
 .recipe-img {
     width: 100%;
     height: 150px;
@@ -393,7 +375,7 @@ input[type="radio"][name="tab"] {
     gap: 6px;
 }
 
-/* 각 수치 칩 (반투명 검정 배경) */
+/* 각 수치 칩 */
 .recipe-img-stats span {
     display: flex;
     align-items: center;
@@ -411,7 +393,7 @@ input[type="radio"][name="tab"] {
     padding: 10px 12px 12px;
 }
 
-/* 카테고리 태그 (한식, 양식 등 pill 형태) */
+/* 카테고리 태그 (pill 형태) */
 .recipe-category-tag {
     display: inline-block;
     background: #ffe7d6;
@@ -423,7 +405,7 @@ input[type="radio"][name="tab"] {
     margin-bottom: 6px;
 }
 
-/* 레시피 제목 - 2줄 초과 시 말줄임 처리 */
+/* 레시피 제목 (2줄 말줄임) */
 .recipe-title {
     font-size: 13px;
     font-weight: 600;
@@ -442,7 +424,7 @@ input[type="radio"][name="tab"] {
     color: #A89D9A;
 }
 
-/* 조회수 + 댓글 수 + 날짜 한 줄 배치 */
+/* 조회수 + 댓글 수 + 날짜 한 줄 */
 .recipe-bottom {
     display: flex;
     align-items: center;
@@ -450,7 +432,7 @@ input[type="radio"][name="tab"] {
     margin-top: 6px;
 }
 
-/* 조회수 / 댓글 수 (아이콘 + 숫자) */
+/* 조회수 / 댓글 수 */
 .recipe-views,
 .recipe-cmt {
     display: flex;
@@ -460,14 +442,14 @@ input[type="radio"][name="tab"] {
     color: #aaa;
 }
 
-/* 날짜 (오른쪽 끝 정렬) */
+/* 날짜 */
 .recipe-date {
     font-size: 11px;
     color: #bbb;
     margin-left: auto;
 }
 
-/* 이미지 없을 때 사용하는 배경색 10가지 */
+/* 이미지 없을 때 카드 배경색 */
 .rc1  { background-color: #C4956A; }
 .rc2  { background-color: #7B9E7B; }
 .rc3  { background-color: #B07B5B; }
@@ -478,11 +460,6 @@ input[type="radio"][name="tab"] {
 .rc8  { background-color: #8B6B7B; }
 .rc9  { background-color: #7B9B8B; }
 .rc10 { background-color: #9B7B6B; }
-
-/* =====================================================
-   tip-list.css 꿀팁 카드 CSS 복붙
-   (내가 쓴 꿀팁 탭 - 탭2에서 사용)
-===================================================== */
 
 /* 꿀팁 카드 세로 목록 */
 .tip-list {
@@ -525,12 +502,7 @@ input[type="radio"][name="tab"] {
     gap: 4px;
 }
 
-/* 카드 오른쪽 화살표 아이콘 */
-.arrow {
-    color: #58413A;
-    flex-shrink: 0;
-}
-
+/* 꿀팁 카드 수정 / 삭제 액션 버튼 */
 .tip-actions {
     display: flex;
     align-items: center;
@@ -545,105 +517,39 @@ input[type="radio"][name="tab"] {
     text-decoration: none;
 }
 
-.tip-actions a:hover {
-    color: #E07550; /* 호버 시 강조 색상 */
-}
-
+/* 수정 | 삭제 구분선 */
 .tip-actions .divider {
     color: #ddd;
     font-size: 11px;
 }
 
-/* ===== 아바타 배경색 (이니셜 원형 아바타용) ===== */
+/* 아바타 배경색 */
 .bg-orange       { background-color: #F06638; }
 .bg-green        { background-color: #4CAF50; }
 .bg-yellow       { background-color: #FFC107; }
 .bg-gray         { background-color: #9E9E9E; }
 .bg-light-orange { background-color: #FF8C00; }
 
-/* ===== 팔로우 탭 - 프로필 아이템 링크 스타일 ===== */
-/* a 태그로 감싼 follow-item 의 기본 링크 스타일 제거 */
+/* follow-item a 태그 링크 스타일 제거 */
 a.follow-item {
     text-decoration: none;
     color: inherit;
 }
 
-/* ===== 팔로우 탭 - 팔로우한 사람의 최신 레시피 카드 목록 ===== */
-/* 가로형 레시피 카드 세로 목록 */
-.follow-recipe-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-/* 가로형 레시피 카드 (이미지 왼쪽 + 텍스트 오른쪽) */
-.follow-recipe-card {
-    display: flex;
-    border: 1px solid #EBE6E3;
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    background: #fff;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-/*팔로우한 레시피들은 .. 배열이 달라서 이미지 크기 및 영역 변경완료*/
+/* 팔로우 탭 이미지 높이 (구독 레시피 목록) */
 .follow-img-wrap {
-
     height: 400px;
 }
 
 .follow-img {
-
     height: 400px;
 }
 
-/* 카드 왼쪽 이미지 영역 */
-.follow-recipe-thumb {
-    width: 200px;
-    min-height: 130px;
-    background-color: #e9ecef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #aaa;
-    font-size: 13px;
-    flex-shrink: 0;
-}
-
-/* 카드 오른쪽 텍스트 영역 */
-.follow-recipe-info {
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-}
-
-/* 레시피 제목 */
-.follow-recipe-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #222;
-}
-
-/* 작성자 이름 (주황 강조) */
-.follow-recipe-author {
-    font-size: 13px;
-    color: #E25B2D;
-    font-weight: 600;
-}
-
-/* 날짜 / 조회수 등 부가 정보 */
-.follow-recipe-meta {
-    font-size: 12px;
-    color: #888;
-}
 /* 삭제 버튼 */
 .delete-form {
     display: inline;
 }
+
 .delete-btn {
     background: none;
     border: none;
