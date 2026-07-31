@@ -74,9 +74,12 @@
                     </a>
 
                     <div class="badge-edit-delete">
-                        <a href="#">수정</a>
+                        <a th:href="@{/recipe/edit(id=${recipe.id})}" class="badge-btn">수정</a>
                         <span class="divider">|</span>
-                        <a href="#">삭제</a>
+                        <form method="POST" th:action="@{/recipe/delete(id=${recipe.id})}" class="delete-form">
+                            <input type="hidden" name="id" th:value="${recipe.id}">
+                            <button type="submit"  class="delete-btn" onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</button>
+                        </form>
                     </div>
                     <div class="top-badges">
                         <span class="badge">♥ 5</span>

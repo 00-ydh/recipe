@@ -82,6 +82,31 @@ public class RecipePostController {
         return "redirect:/recipe/list";
     }
 
+    // 레시피 게시글을 수정하는 화면으로 가는 컨트롤러
+    @GetMapping("/edit")
+    public String getRecipeEditForm(@RequestParam("id") int id, Model model){
+        PostDto post = postService.getRecipe(id);
+        model.addAttribute("recipePostForm", post);
+        return "board/recipe-write";
+    }
+
+    // 레시피 게시글을 수정 요청을 처리하는 컨트롤러
+    @PostMapping("/edit")
+    public String editRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "board/recipe-write";
+        }
+        postService.editPost(post);
+        return "redirect:/member/mypage";
+    }
+
+    // 레시피 게시글을 삭제 요청을 처리하는 컨트롤러
+    @PostMapping("/delete")
+    public String deleteRecipePost(@RequestParam int id){
+        postService.removePost(id);
+        return "redirect:/member/mypage";
+    }
+
     @PostMapping("/image-upload")
     @ResponseBody
     public String uploadEditorImage(@RequestParam("image") MultipartFile image){
