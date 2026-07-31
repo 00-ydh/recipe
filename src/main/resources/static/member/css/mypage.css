@@ -531,6 +531,29 @@ input[type="radio"][name="tab"] {
     flex-shrink: 0;
 }
 
+.tip-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #888;
+    margin-left: 16px;
+}
+
+.tip-actions a {
+    color: #666;
+    text-decoration: none;
+}
+
+.tip-actions a:hover {
+    color: #E07550; /* 호버 시 강조 색상 */
+}
+
+.tip-actions .divider {
+    color: #ddd;
+    font-size: 11px;
+}
+
 /* ===== 아바타 배경색 (이니셜 원형 아바타용) ===== */
 .bg-orange       { background-color: #F06638; }
 .bg-green        { background-color: #4CAF50; }
