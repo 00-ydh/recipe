@@ -87,4 +87,9 @@ public class MemberServiceImpl implements MemberService{
     public void deleteMemberById(int id) {
         memberRepository.deleteById(id);
     }
+
+    @Override
+    public MemberDto getMemberByName(String name) {
+        return memberRepository.findByName(name);
+    }
 }

@@ -43,4 +43,11 @@ public interface MemberService {
      * @param id 회원 고유 식별자
      */
     void deleteMemberById(int id);
+
+    /**
+     * 회원 별명을 기반으로 회원 정보 DTO를 검색하여 가져옵니다.
+     * @param name
+     * @return
+     */
+    MemberDto getMemberByName(String name);
 }
