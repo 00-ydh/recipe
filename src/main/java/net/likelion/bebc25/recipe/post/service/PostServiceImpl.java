@@ -43,11 +43,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void editPost(PostDto postDto) {
-
+        postRepository.update(postDto);
     }
     @Override
     public void removePost(int id) {
-
+        postRepository.deleteById(id);
     }
 
     @Override

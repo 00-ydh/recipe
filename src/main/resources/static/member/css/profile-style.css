@@ -117,7 +117,7 @@ a { text-decoration: none; color: inherit; }
     color: #aaa;
 }
 
-/* 4열 그리드 (main은 5열이라 override) */
+/* 1열 그리드 (프로필 페이지는 1개씩) */
 .mypage-grid {
-    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-columns: repeat(1, 1fr) !important;
 }
