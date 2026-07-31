@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <header class="site-header" th:fragment="header" style="background-color:#ffffff;">
+    <link rel="stylesheet" th:href="@{/common.css}">
     <link rel="stylesheet" th:href="@{/header/header.css}">
     <div class="header-inner">
         <!-- 로고 -->
@@ -17,7 +18,7 @@
         </div>
         <!-- 메뉴 -->
         <nav class="header-nav">
-            <a th:href="@{/}" class="nav-link active">홈</a>
+            <a th:href="@{/}" class="nav-link">홈</a>
             <a th:href="@{/recipe/list}" class="nav-link">레시피</a>
             <a th:href="@{/today/list}" class="nav-link">오늘 뭐 먹지?</a>
             <a th:href="@{/tip/list}" class="nav-link">요리 꿀팁</a>

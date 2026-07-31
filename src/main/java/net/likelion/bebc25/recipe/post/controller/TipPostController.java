@@ -1,7 +1,9 @@
 package net.likelion.bebc25.recipe.post.controller;
 
 import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
 import org.springframework.http.MediaType;
@@ -58,18 +60,20 @@ public class TipPostController {
     // postType=2 로 꿀팁 게시판임을 명시
     // redirect: 저장 완료 후 목록 URL로 새로 요청 (새로고침 시 중복 저장 방지)
     @PostMapping("/write")
-    public String writeTip(@Valid @ModelAttribute("postForm") PostDto postDto, BindingResult bindingResult) {
+    public String writeTip(@Valid @ModelAttribute("postForm") PostDto postDto,
+                           BindingResult bindingResult,
+                           HttpSession session) {
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
         if (bindingResult.hasErrors()) {
             return "board/tip-write";
         }
+
         postDto.setPostType(2);
-        postDto.setMemberId(1); // 임시 (로그인 구현 후 세션에서 가져올 것)
+        postDto.setMemberId(loginMember.getId());
         postService.writePost(postDto);
         return "redirect:/tip/list";
     }
-
-
-
 
 
     // 요리 꿀팁 상세 보여주는 컨트롤러
@@ -86,23 +90,44 @@ public class TipPostController {
 
     // 요리 꿀팁 수정 화면 보여주는 컨트롤러
     @GetMapping("/edit")
-    public String getTipEdit(@RequestParam("id") int id, Model model) {
+    public String getTipEdit(@RequestParam("id") int id, Model model, HttpSession session) {
         PostDto tip = postService.getPost(id);
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
+        // 현재 로그인한 회원이 게시글 작성자가 아니면 수정 페이지에 들어갈 수 없다.
+        if (loginMember == null || loginMember.getId() != tip.getMemberId()) {
+            return "redirect:/tip/detail?id=" + id;
+        }
+
         model.addAttribute("postForm", tip);
         return "board/tip-write";
     }
 
     // 요리 꿀팁 수정 요청 처리하는 컨트롤러
     @PostMapping("/edit")
-    public String editTip(@ModelAttribute("postForm") PostDto postDto) {
-        postService.editPost(postDto);
+    public String editTip(@ModelAttribute("postForm") PostDto postDto, HttpSession session) {
+        PostDto savedTip = postService.getPost(postDto.getId());
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
+        // 현재 로그인한 회원이 게시글 작성자인 경우에만 수정한다.
+        if (loginMember != null && loginMember.getId() == savedTip.getMemberId()) {
+            postService.editPost(postDto);
+        }
+
         return "redirect:/tip/detail?id=" + postDto.getId();
     }
 
     // 요리 꿀팁 삭제
     @PostMapping("/delete")
-    public String deleteTip(@RequestParam int id) {
-        postService.removePost(id);
+    public String deleteTip(@RequestParam int id, HttpSession session) {
+        PostDto tip = postService.getPost(id);
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
+        // 현재 로그인한 회원이 게시글 작성자인 경우에만 삭제한다.
+        if (loginMember != null && loginMember.getId() == tip.getMemberId()) {
+            postService.removePost(id);
+        }
+
         return "redirect:/tip/list";
     }
 

@@ -1,147 +1,141 @@
-/* =====================================================
+﻿/* =====================================================
    오늘 뭐 먹지? 페이지 전용 CSS
    - /today/list : 카테고리 선택 → 랜덤 메뉴 추천
 ===================================================== */
 
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
-
-/* ===== Reset & Base ===== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Pretendard", sans-serif;
+/* ===== 기본 초기화 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
 }
 
-body{
-    background:#fdf7f3;
-    color:#333;
+body {
+    background: #fdf7f3;
+    color: #333;
 }
 
 /* ===== 레이아웃 ===== */
-/* 전체 컨테이너 */
-.container{
-    width:1200px;
-    margin:40px auto;
-    background:white;
-    border-radius:16px;
-    padding:40px;
-    box-shadow:0 2px 12px rgba(0,0,0,0.07);
+/* 전체 흰 카드 컨테이너 */
+.container {
+    width: 1200px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 }
 
 /* ===== 페이지 제목 ===== */
 /* 메인 페이지 섹션 제목과 동일한 스타일 */
-h2{
-    font-size:30px;
-    font-weight:700;
-    color:#58413A;
-    margin-bottom:8px;
+h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #58413A;
+    margin-bottom: 8px;
 }
 
 /* 제목 아래 설명 텍스트 */
-.sub-title{
-    font-size:14px;
-    color:#999;
-    margin-bottom:25px;
+.sub-title {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 25px;
 }
 
 /* ===== 메인 콘텐츠 (좌우 배치) ===== */
-.content{
-    display:flex;
-    gap:25px;
+/* 카테고리 선택(왼쪽) + 결과(오른쪽) 가로 배치 */
+.content {
+    display: flex;
+    gap: 25px;
 }
 
 /* ===== 왼쪽: 카테고리 선택 박스 ===== */
-.category-box{
-    width:360px;
-    background:#FEF0E6;
-    border:1px solid #f1d5c8;
-    border-radius:12px;
-    padding:20px;
+/* 연한 살구색 배경 카드 */
+.category-box {
+    width: 360px;
+    background: #FEF0E6;
+    border: 1px solid #f1d5c8;
+    border-radius: 12px;
+    padding: 20px;
 }
 
 /* 카테고리 박스 소제목 */
-.category-box h3{
-    color:#d35400;
-    margin-bottom:20px;
-    font-size:17px;
+.category-box h3 {
+    color: #d35400;
+    margin-bottom: 20px;
+    font-size: 17px;
 }
 
-/* 개별 카테고리 버튼 */
-.category{
-    width:100%;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:15px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    background:white;
-    cursor:pointer;
-    font-size:16px;
-    transition:.2s;
+/* 개별 카테고리 선택 버튼 */
+.category {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
 }
 
-.category:hover{
-    background:#fff5ef;
-    border-color:#ff9966;
+/* 카테고리 앞 이모지 원형 배경 */
+.icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #fff2eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* 카테고리 앞 이모지 아이콘 원형 배경 */
-.icon{
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    background:#fff2eb;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* 하단 안내 문구 */
-.notice{
-    text-align:center;
-    color:#999;
-    font-size:13px;
-    margin-top:20px;
+/* 카테고리 박스 하단 안내 문구 */
+.notice {
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    margin-top: 20px;
 }
 
 /* ===== 오른쪽: 결과 표시 박스 ===== */
-/* 카테고리 선택 전 기본 상태 */
-.result-box{
-    flex:1;
-    border:2px dashed #f2c8b7;
-    border-radius:12px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    min-height:420px;
+/* 카테고리 선택 전 기본 상태 (점선 테두리) */
+.result-box {
+    flex: 1;
+    border: 2px dashed #f2c8b7;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 420px;
 }
 
 /* 물음표 원형 아이콘 */
-.question{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:#ece3df;
-    color:#7f6b63;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:50px;
-    font-weight:bold;
-    margin-bottom:30px;
+.question {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #ece3df;
+    color: #7f6b63;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
-.result-box h3{
-    margin-bottom:15px;
+.result-box h3 {
+    margin-bottom: 15px;
 }
 
-/* 결과 안내 문구 */
-.result-box p{
-    color:#888;
-    text-align:center;
-    line-height:1.8;
+/* 결과 박스 안내 문구 */
+.result-box p {
+    color: #888;
+    text-align: center;
+    line-height: 1.8;
 }

@@ -1,4 +1,9 @@
-/* 기본 초기화 */
+﻿/* =====================================================
+   회원가입 페이지 전용 CSS
+   - /member/register : 이메일 / 비밀번호 / 닉네임 입력 후 가입
+===================================================== */
+
+/* ===== 기본 초기화 ===== */
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +11,7 @@
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* 화면 중앙 정렬 */
 body {
     background-color: #FAF4F0;
     display: flex;
@@ -15,7 +21,8 @@ body {
     padding: 20px;
 }
 
-/* 카드 컨테이너 */
+/* ===== 카드 컨테이너 ===== */
+/* 흰 카드 박스 (최대 너비 440px) */
 .card {
     background-color: #FFFFFF;
     width: 100%;
@@ -25,7 +32,7 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
 }
 
-/* 제목 및 부제목 */
+/* 카드 제목 */
 .title {
     text-align: center;
     font-size: 24px;
@@ -34,6 +41,7 @@ body {
     margin-bottom: 8px;
 }
 
+/* 카드 부제목 */
 .subtitle {
     text-align: center;
     font-size: 13px;
@@ -41,11 +49,13 @@ body {
     margin-bottom: 32px;
 }
 
-/* 폼 요소 */
+/* ===== 폼 요소 ===== */
+/* 입력 항목 간 간격 */
 .form-group {
     margin-bottom: 18px;
 }
 
+/* 입력 라벨 */
 .form-group label {
     display: block;
     font-size: 12px;
@@ -54,6 +64,7 @@ body {
     margin-bottom: 8px;
 }
 
+/* 텍스트 입력창 */
 .form-group input {
     width: 100%;
     height: 48px;
@@ -66,10 +77,12 @@ body {
     outline: none;
 }
 
+/* 플레이스홀더 색상 */
 .form-group input::placeholder {
     color: #B8B0AA;
 }
 
+/* ===== 버튼 ===== */
 /* 진한 주황/갈색 가입하기 버튼 */
 .btn-primary {
     width: 100%;
@@ -84,11 +97,8 @@ body {
     cursor: pointer;
 }
 
-.btn-primary:hover {
-    background-color: #963110;
-}
-
-/* 하단 링크 영역 */
+/* ===== 하단 링크 ===== */
+/* 로그인으로 이동 링크 영역 */
 .bottom-links {
     margin-top: 24px;
     text-align: center;
@@ -96,6 +106,7 @@ body {
     color: #777777;
 }
 
+/* 링크 강조 색상 */
 .bottom-links a {
     color: #B23B15;
     font-weight: 700;
@@ -103,6 +114,3 @@ body {
     margin-left: 6px;
 }
 
-.bottom-links a:hover {
-    text-decoration: underline;
-}

@@ -568,11 +568,6 @@ a.follow-item {
     color: inherit;
 }
 
-/* 호버 시 아바타 살짝 투명하게 */
-a.follow-item:hover .avatar {
-    opacity: 0.85;
-}
-
 /* ===== 팔로우 탭 - 팔로우한 사람의 최신 레시피 카드 목록 ===== */
 /* 가로형 레시피 카드 세로 목록 */
 .follow-recipe-list {

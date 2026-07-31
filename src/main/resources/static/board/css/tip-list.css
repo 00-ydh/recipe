@@ -1,157 +1,151 @@
-/* =====================================================
+﻿/* =====================================================
    요리 꿀팁 목록 페이지 전용 CSS
    - /tip/list : 꿀팁 게시글 목록
 ===================================================== */
 
-/* ===== Reset & Base ===== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Pretendard",sans-serif;
+/* ===== 기본 초기화 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Pretendard", sans-serif;
 }
 
-body{
-    background:#f7f2ef;
+body {
+    background: #f7f2ef;
 }
 
 /* ===== 레이아웃 ===== */
 /* 전체 흰 카드 컨테이너 */
-.container{
-    width:1200px;
-    margin:40px auto;
-    background:white;
-    border-radius:16px;
-    padding:40px;
+.container {
+    width: 1200px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
 }
 
 /* ===== 페이지 제목 영역 ===== */
 /* 제목+설명(왼쪽) / 작성하기 버튼(오른쪽) 양쪽 배치 */
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:30px;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 /* 메인 페이지 섹션 제목과 동일한 스타일 */
-.header h2{
-    font-size:30px;
-    font-weight:700;
-    color:#58413A;
-    margin-bottom:8px;
+.header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #58413A;
+    margin-bottom: 8px;
 }
 
 /* 제목 아래 설명 텍스트 */
-.header p{
-    font-size:14px;
-    color:#999;
+.header p {
+    font-size: 14px;
+    color: #999;
 }
 
 /* ===== 작성하기 버튼 ===== */
-.write-btn{
-    background:#F06638;
-    color:white;
-    border:none;
-    border-radius:8px;
-    padding:12px 24px;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-    transition:background 0.2s;
-}
-
-.write-btn:hover{
-    background:#c96340;
+/* 주황색 pill 버튼 */
+.write-btn {
+    background: #F06638;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 /* ===== 꿀팁 카드 목록 ===== */
-.tip-list{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+/* 카드 세로 목록 */
+.tip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-/* 개별 카드 */
-.tip-card{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border:1.5px solid #e8d8cf;
-    box-shadow:0 2px 8px rgba(0,0,0,0.06);
-    border-radius:10px;
-    padding:22px;
-    transition:.2s;
+/* 개별 꿀팁 카드 */
+.tip-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid #e8d8cf;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 10px;
+    padding: 22px;
 }
 
-.tip-card:hover{
-    transform:translateY(-2px);
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-/* 제목 */
-.tip-info h3{
-    font-size:18px;
-    margin-bottom:12px;
+/* 꿀팁 제목 */
+.tip-info h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
 }
 
 /* ===== 메타 정보 (작성자 / 날짜 / 조회수) ===== */
-.meta{
-    color:#888;
-    font-size:13px;
-    display:flex;
-    gap:20px;
+.meta {
+    color: #888;
+    font-size: 13px;
+    display: flex;
+    gap: 20px;
 }
 
 /* 아이콘 + 텍스트 수직 정렬 */
-.meta span{
-    display:flex;
-    align-items:center;
-    gap:4px;
+.meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* ===== 화살표 아이콘 ===== */
-.arrow{
-    font-size:24px;
-    color:#58413A;
+.arrow {
+    font-size: 24px;
+    color: #58413A;
 }
 
 /* ===== HOT 뱃지 ===== */
-.badge{
-    position:absolute;
-    left:15px;
-    top:15px;
-    background:#ff6b35;
-    color:white;
-    font-size:11px;
-    padding:3px 8px;
-    border-radius:20px;
+/* 인기 꿀팁 카드 왼쪽 상단 주황 뱃지 */
+.badge {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    background: #ff6b35;
+    color: white;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
 }
 
-.hot .tip-info{
-    margin-left:50px;
+/* HOT 뱃지가 있을 때 제목 왼쪽 여백 확보 */
+.hot .tip-info {
+    margin-left: 50px;
 }
 
 /* ===== 페이지네이션 ===== */
-.pagination{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    margin-top:40px;
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px;
 }
 
-.pagination button{
-    width:35px;
-    height:35px;
-    border:none;
-    background:white;
-    cursor:pointer;
-    border-radius:6px;
+/* 페이지 번호 버튼 */
+.pagination button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
 }
 
 /* 현재 페이지 버튼 강조 */
-.pagination .active{
-    background:#F06638;
-    color:white;
+.pagination .active {
+    background: #F06638;
+    color: white;
 }

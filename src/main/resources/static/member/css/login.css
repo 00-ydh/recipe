@@ -1,4 +1,9 @@
-/* 기본 초기화 */
+﻿/* =====================================================
+   로그인 페이지 전용 CSS
+   - /member/login : 이메일 + 비밀번호 로그인
+===================================================== */
+
+/* ===== 기본 초기화 ===== */
 * {
     margin: 0;
     padding: 0;
@@ -6,6 +11,7 @@
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* 화면 중앙 정렬 */
 body {
     background-color: #FAF4F0;
     display: flex;
@@ -15,7 +21,8 @@ body {
     padding: 20px;
 }
 
-/* 전체 로그인 컨테이너 */
+/* ===== 로그인 컨테이너 ===== */
+/* 로고 + 카드 세로 묶음 */
 .login-container {
     width: 100%;
     max-width: 420px;
@@ -24,12 +31,13 @@ body {
     align-items: center;
 }
 
-/* 상단 로고 영역 */
+/* ===== 상단 로고 영역 ===== */
 .logo-area {
     text-align: center;
     margin-bottom: 24px;
 }
 
+/* 로고 텍스트 (아이콘 + 서비스명 가로 배치) */
 .logo {
     display: flex;
     align-items: center;
@@ -41,16 +49,19 @@ body {
     margin-bottom: 8px;
 }
 
+/* 로고 옆 이모지 아이콘 */
 .logo-icon {
     font-size: 26px;
 }
 
+/* 로고 아래 서비스 설명 텍스트 */
 .service-desc {
     font-size: 13px;
     color: #777777;
 }
 
-/* 카드 컨테이너 */
+/* ===== 카드 컨테이너 ===== */
+/* 흰 카드 박스 */
 .card {
     background-color: #FFFFFF;
     width: 100%;
@@ -67,11 +78,13 @@ body {
     margin-bottom: 24px;
 }
 
-/* 폼 요소 */
+/* ===== 폼 요소 ===== */
+/* 입력 항목 간 간격 */
 .form-group {
     margin-bottom: 18px;
 }
 
+/* 입력 라벨 */
 .form-group label {
     display: block;
     font-size: 12px;
@@ -80,6 +93,7 @@ body {
     margin-bottom: 8px;
 }
 
+/* 텍스트 입력창 */
 .form-group input {
     width: 100%;
     height: 48px;
@@ -92,11 +106,13 @@ body {
     outline: none;
 }
 
+/* 플레이스홀더 색상 */
 .form-group input::placeholder {
     color: #B8B0AA;
 }
 
-/* 버튼 그룹 (로그인 + 회원가입) */
+/* ===== 버튼 그룹 ===== */
+/* 로그인 버튼 + 회원가입 링크 가로 배치 */
 .btn-group {
     display: flex;
     align-items: center;
@@ -117,11 +133,7 @@ body {
     cursor: pointer;
 }
 
-.btn-primary:hover {
-    background-color: #D95327;
-}
-
-/* 회원가입 링크 버튼 */
+/* 회원가입 링크 버튼 (텍스트 형태) */
 .btn-secondary {
     flex: 1;
     text-align: center;
@@ -131,11 +143,8 @@ body {
     text-decoration: none;
 }
 
-.btn-secondary:hover {
-    text-decoration: underline;
-}
-
-/* 하단 링크 */
+/* ===== 하단 링크 ===== */
+/* 비밀번호 찾기 등 이동 링크 영역 */
 .bottom-links {
     margin-top: 24px;
     padding-top: 20px;
@@ -143,17 +152,15 @@ body {
     text-align: center;
 }
 
+/* 링크 기본 스타일 */
 .bottom-links a {
     color: #666666;
     font-size: 12px;
     text-decoration: none;
 }
 
-.bottom-links a:hover {
-    text-decoration: underline;
-}
-
-/* 푸터 카피라이트 */
+/* ===== 푸터 ===== */
+/* 하단 카피라이트 텍스트 */
 .footer {
     margin-top: 32px;
     font-size: 12px;
