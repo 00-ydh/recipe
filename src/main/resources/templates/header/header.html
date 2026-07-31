@@ -25,16 +25,20 @@
         <!-- 로그인 -->
         <div class="header-actions">
             <!-- 로그인 상태: 프로필 원 (마이페이지 이동) -->
-            <a th:href="@{/member/login}" class="user-avatar" id="userAvatar" style="display:none;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.8">
-                    <circle cx="12" cy="8" r="4"/>
-                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                </svg>
-            </a>
+            <th:block th:if="${session.loginMember != null}">
+                <a th:href="@{/member/mypage}" class="user-avatar" id="userAvatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.8">
+                        <circle cx="12" cy="8" r="4"/>
+                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                    </svg>
+                </a>
+            </th:block>
+            <th:block th:if="${session.loginMember == null}">
             <!-- 비로그인 상태: 프로필 아이콘 (로그인 페이지 이동) -->
-            <a th:href="@{/member/login}" class="user-avatar" id="loginBtn">
-                <img src="/header/profile.svg" alt="로그인" class="profile-icon">
-            </a>
+                <a th:href="@{/member/login}" class="user-avatar" id="loginBtn">
+                    <img src="/header/profile.svg" alt="로그인" class="profile-icon">
+                </a>
+            </th:block>
         </div>
     </div>
     <script>
