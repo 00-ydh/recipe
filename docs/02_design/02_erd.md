@@ -18,8 +18,8 @@ erDiagram
     POST ||--o{ REPLY : "댓글 포함 (ON DELETE CASCADE)"
     MEMBER ||--o{ REPLY : "댓글 작성 (ON DELETE CASCADE)"
     
-    POST ||--o{ LIKE : "좋아요 포함 (ON DELETE CASCADE)"
-    MEMBER ||--o{ LIKE : "좋아요 함 (ON DELETE CASCADE)"
+    POST ||--o{ good : "좋아요 포함 (ON DELETE CASCADE)"
+    MEMBER ||--o{ good : "좋아요 함 (ON DELETE CASCADE)"
     
     MEMBER ||--o{ FOLLOW : "팔로잉 관계 (ON DELETE CASCADE)"
     MEMBER ||--o{ FOLLOW : "팔로워 관계 (ON DELETE CASCADE)"
