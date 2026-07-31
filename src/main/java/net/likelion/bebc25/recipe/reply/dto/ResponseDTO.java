@@ -16,9 +16,9 @@ public class ResponseDTO {
     // 댓글 고유 번호
     private int id;
     // 게시글 번호/
-    private Long postId;
+    private int postId;
     // 작성자 고유 번호
-    private Long memberId;
+    private int memberId;
 
 
     //화면에 직접 보여줄 데이터들

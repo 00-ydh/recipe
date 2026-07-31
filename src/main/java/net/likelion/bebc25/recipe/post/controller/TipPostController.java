@@ -82,7 +82,7 @@ public class TipPostController {
         PostDto tip = postService.getPost(id);
         model.addAttribute("tip", tip);
 
-        List<ResponseDTO> replies = replyService.getRepliesByPostId((long) id);
+        List<ResponseDTO> replies = replyService.getRepliesByPostId( id);
         model.addAttribute("replies", replies);
 
         return "board/tip-detail";

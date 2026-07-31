@@ -24,8 +24,8 @@ public class JDBCTemplateRepository implements ReplyRepository{
         return ResponseDTO.builder()
                 //responsedto에 실제 데이터베이스(컬럼명)이 주는 표를 가지고 rowmapper가 넣어준다.
                 .id(rs.getInt("id"))
-                .postId(rs.getLong("post_id"))
-                .memberId(rs.getLong("member_id"))
+                .postId(rs.getInt("post_id"))
+                .memberId(rs.getInt("member_id"))
                 .content(rs.getString("content"))
                 .createdAt(rs.getObject("created_at", LocalDateTime.class))
                 .name(rs.getString("name")) //member테이블에서 join할 예정
@@ -44,7 +44,7 @@ public class JDBCTemplateRepository implements ReplyRepository{
     }
 
     @Override
-    public List<ResponseDTO> findByPostId(Long postId) {
+    public List<ResponseDTO> findByPostId(int postId) {
         //댓글 테이블에 있는 모든 기본 정보를 가져오고
         String sql = "SELECT r.*, m.name FROM reply r " +
                 //댓글을 쓴 회원의번호와 회원 테이블의 고유번호가 일치하는 사람을
@@ -58,8 +58,19 @@ public class JDBCTemplateRepository implements ReplyRepository{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(int id) {
         String sql = "DELETE FROM reply WHERE id = ?";
         jdbcTemplate.update(sql, id);
+    }
+    @Override
+    public ResponseDTO findById(int id) {
+        String sql = "SELECT r.*, m.name FROM reply r " +
+                "LEFT JOIN member m ON r.member_id = m.id " +
+                "WHERE r.id = ?";
+
+        List<ResponseDTO> results = jdbcTemplate.query(sql, replyRowMapper, id);
+
+        // 결과가 없으면 null 반환, 있으면 첫 번째 결과 반환
+        return results.isEmpty() ? null : results.get(0);
     }
 }
