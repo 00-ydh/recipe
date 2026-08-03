@@ -6,12 +6,14 @@ import lombok.extern.slf4j.Slf4j;
 import net.likelion.bebc25.recipe.good.dto.GoodDto;
 import net.likelion.bebc25.recipe.good.service.GoodService;
 import net.likelion.bebc25.recipe.member.dto.MemberDto;
+import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
 import net.likelion.bebc25.recipe.reply.dto.ResponseDTO;
 import net.likelion.bebc25.recipe.reply.service.ReplyService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -34,8 +38,14 @@ public class RecipePostController {
     private final GoodService goodService;
 
     // 다들 각자 설정
-    //@Value("${file.upload-dir}")
-    private final String uploadDir = Paths.get("D:","Programming","TUI_Editor","upload").toString();
+    // ToastUI에디터 이미지 저장 경로 -> 이미지 하나 업로드랑 같이 가능
+    // application.properties에 따로 설정
+    @Value("${file.uploadDir}")
+    private String uploadDir;
+
+    // 이미지 업로드 파일 경로
+    @Value("${file.mainImageDir}")
+    private String mainImageDir;
 
     public RecipePostController(PostService postService, ReplyService replyService, GoodService goodService) {
         this.postService = postService;
@@ -46,12 +56,23 @@ public class RecipePostController {
 
     // recipe-list 화면 보여주는 컨트롤러
     @GetMapping("/list")
-    public String getRecipeList(Model model) {
+    public String getRecipeList(@RequestParam(value = "page", defaultValue = "1")int page,
+                                @RequestParam(value = "pageSize", defaultValue = "8") int size,
+                                @RequestParam(value = "type", required = false) String type,
+                                Model model) {
 
         // 게시글 목록 조회(데이터)
-        List<PostDto> recipePosts = postService.getRecipePosts();
+        // size = 페이지당 보여주고 싶은 게시글 수
+        List<PostDto> recipePosts = postService.getRecipePosts(type,page, size);
+
+        // 여기서 페이지 계산
+        int totalCount = postService.recipePostCount();
+        int totalPage = (int) Math.ceil((double) totalCount / size);
+
         model.addAttribute("recipePosts", recipePosts);
-        log.info("recipePosts.size() = {}", recipePosts.size());
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("type", type);
 
         return "board/recipe-list";
     }
@@ -85,11 +106,16 @@ public class RecipePostController {
     public String getRecipeWriteForm(@ModelAttribute("recipePostForm") PostDto post){
         return "board/recipe-write";
     }
+
     // recipe 게시글 등록 요청을 처리하는 컨트롤러
+    // reuired = false 파라미터 필수 아니게
     @PostMapping("/write")
-    public String writeRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post, BindingResult bindingResult){
-        post.setMemberId(1);
-        // 레시피 post_type
+    public String writeRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post
+                                  , BindingResult bindingResult
+                                  , HttpSession session){
+        // 게시글 작성시 로그인 세션
+        MemberDto loginMember = (MemberDto)session.getAttribute("loginMember");
+        post.setMemberId(loginMember.getId());
         post.setPostType(1);
         // memberid 확인용
 //        log.info("member = {} ", post.getMemberId());
@@ -100,6 +126,7 @@ public class RecipePostController {
         }
 
         postService.writePost(post);
+
         return "redirect:/recipe/list";
     }
 
@@ -131,11 +158,10 @@ public class RecipePostController {
     @PostMapping("/image-upload")
     @ResponseBody
     public String uploadEditorImage(@RequestParam("image") MultipartFile image){
-        log.info("이미지 업로드 요청");
-        log.info("파일명 = {}", image.getOriginalFilename());
         if(image.isEmpty()){
             return "";
         }
+
         String orgFilename = image.getOriginalFilename();
         String uuid = UUID.randomUUID().toString().replace("-", "");
         String extension = orgFilename.substring(orgFilename.lastIndexOf(".") + 1);
@@ -178,4 +204,6 @@ public class RecipePostController {
             throw new RuntimeException(e);
         }
     }
+
+
 }

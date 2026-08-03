@@ -81,12 +81,12 @@
         <!-- 조회수 / 좋아요 - 테이블에 넣어야함 -->
         <div class="recipe-stats">
             <div class="stat-item">
-                <span class="stat-label" th:text="${post.viewCount}">조회수</span>
-                <span class="stat-value">1,240</span>
+                <span class="stat-label" >조회수</span>
+                <span class="stat-value" th:text="${post.viewCount}">1,240</span>
             </div>
             <div class="stat-item">
                 <span class="stat-label">좋아요</span>
-                <span class="stat-value">45,892</span>
+                <span class="stat-value" th:text="${post.likeCount}">45,892</span>
             </div>
         </div>
 

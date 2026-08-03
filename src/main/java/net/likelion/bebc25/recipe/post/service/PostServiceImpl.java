@@ -71,4 +71,26 @@ public class PostServiceImpl implements PostService {
         return postRepository.findRecipePostByPostId(postId);
     }
 
+    // 레시피 게시글 페이징
+    @Override
+    public int recipePostCount() {
+        return postRepository.recipePostCount();
+    }
+
+    // 오늘 뭐먹지
+    @Override
+    public PostDto getRandomRecipePost(int categoryId) {
+        return postRepository.findTodayPostByCategoryId(categoryId);
+    }
+    // offset 0 limit 8 - 페이지당 8개씩 보여주기
+    // type - latest(최신)/ view(조회순)
+    public List<PostDto> getRecipePosts(String type, int page, int size){
+        int validPage = page < 1 ? 1 : page;
+        int validSize = size < 1 ? 8 : size;
+        int offset = (validPage - 1) * validSize;
+
+        return postRepository.findRecipePosts(type, offset, validSize);
+
+    }
+
 }

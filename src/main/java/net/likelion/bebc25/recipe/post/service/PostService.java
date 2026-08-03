@@ -27,6 +27,10 @@ public interface PostService {
     List<PostDto> getTipPost(int memberId);
     // postId를 매개변수로 레시피 1건 상세조회
     PostDto getRecipe(int postId);
-
-
+    // 레시피 게시글 총 개수
+    int recipePostCount();
+    // 오늘 뭐먹지 게시글
+    PostDto getRandomRecipePost(int categoryId);
+    // 레시피 게시글 페이징, 조회순, 최신순
+    List<PostDto> getRecipePosts(String type, int page, int size);
 }
