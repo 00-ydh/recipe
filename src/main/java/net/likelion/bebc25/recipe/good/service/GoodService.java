@@ -19,4 +19,11 @@ public interface GoodService {
      */
     List<PostDto> getRecipes(int memberId);
 
+    /**
+     * 입력 받은 회원 ID로 해당 회원이 스크랩한 요리 꿀팁 조회
+     * @param memberId 조회할 회원 ID
+     * @return 조회된 레시피 리스트
+     */
+    List<PostDto> getTips(int memberId);
+
 }

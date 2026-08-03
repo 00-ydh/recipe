@@ -87,9 +87,21 @@ public class GoodRepositoryImpl implements GoodRepository{
      */
     @Override
     public List<PostDto> getScrapRecipes(int memberId) {
-        String sql = "SELECT p.* FROM good g LEFT JOIN post p on g.post_id = p.id WHERE g.like_type = 3 AND g.member_id = ?";
+        String sql = "SELECT p.*, m.name, c.category_name FROM good g LEFT JOIN post p on g.post_id = p.id " +
+                "LEFT JOIN member m on p.member_id = m.id " +
+                "LEFT JOIN category c on p.category_id = c.id " +
+                "WHERE g.like_type = 3 AND p.post_type = 1 AND g.member_id = ?";
         return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PostDto> getScrapTips(int memberId) {
+        String sql = "SELECT p.*, m.name FROM good g LEFT JOIN post p on g.post_id = p.id " +
+                "LEFT JOIN member m on p.member_id = m.id " +
+                "WHERE g.like_type = 3 AND p.post_type = 2 AND g.member_id = ?";
+        return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
+    }
 }
