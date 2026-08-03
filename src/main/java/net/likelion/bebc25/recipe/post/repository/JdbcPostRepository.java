@@ -19,6 +19,10 @@ public class JdbcPostRepository implements PostRepository {
     public JdbcPostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+    //
+    private static final String BASE_SELECT_SQL =
+            "SELECT p.id, p.member_id, p.category_id, p.main_image, p.title, p.content, p.view_count, p.created_at, p.post_type, m.name AS author " +
+                    "FROM post p LEFT JOIN member m ON p.member_id = m.id";
 
     private final RowMapper<PostDto> postDtoRowMapper = (ResultSet rs, int rowNum) -> {
         return PostDto.builder()
@@ -176,10 +180,11 @@ public class JdbcPostRepository implements PostRepository {
         String sql = "SELECT post.* , category.category_name, member.name FROM post " +
                 "LEFT JOIN category on post.category_id = category.id " +
                 "LEFT JOIN member on post.member_id = member.id " +
-                "WHERE post.post_type = 1 AND post.id = ?";
-        return jdbcTemplate.queryForObject(sql, postDtoRowMapper, postId);
-    }
+                "WHERE post.id = ?";
 
+        List<PostDto> results = jdbcTemplate.query(sql, postDtoRowMapper, postId);
+        return results.isEmpty() ? null : results.get(0);
+    }
     // 레시피 게시글 개수
     @Override
     public int recipePostCount() {
@@ -228,6 +233,75 @@ public class JdbcPostRepository implements PostRepository {
         sql += " LIMIT ?, ?";
         return jdbcTemplate.query(sql, postDtoRowMapper, offset, limit);
     }
+
+
+
+
+    @Override
+    public List<PostDto> search(String type, String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return findAll();
+        }
+        String searchKeyword = "%" + keyword.trim() + "%";
+        if ("title".equals(type)) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE p.title LIKE ? ORDER BY p.id DESC", postDtoRowMapper, searchKeyword);
+        } else if ("content".equals(type)) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE p.content LIKE ? ORDER BY p.id DESC", postDtoRowMapper, searchKeyword);
+        } else if ("author".equals(type)) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE m.name LIKE ? ORDER BY p.id DESC", postDtoRowMapper, searchKeyword);
+        } else {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE p.title LIKE ? OR p.content LIKE ? ORDER BY p.id DESC", postDtoRowMapper, searchKeyword, searchKeyword);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     * LIMIT ? OFFSET ? 구문을 활용해 원하는 개수만큼 잘라서 가져오는 데이터베이스 페이징 조회를 수행합니다.
+     */
+    @Override
+    public List<PostDto> search(String type, String keyword, int offset, int limit) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " ORDER BY p.id DESC LIMIT ? OFFSET ?", postDtoRowMapper, limit, offset);
+        }
+        String searchKeyword = "%" + keyword.trim() + "%";
+        if ("title".equals(type)) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE p.title LIKE ? ORDER BY p.id DESC LIMIT ? OFFSET ?", postDtoRowMapper, searchKeyword, limit, offset);
+        } else if ("content".equals(type)) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE p.content LIKE ? ORDER BY p.id DESC LIMIT ? OFFSET ?", postDtoRowMapper, searchKeyword, limit, offset);
+        } else if ("author".equals(type)) {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE m.name LIKE ? ORDER BY p.id DESC LIMIT ? OFFSET ?", postDtoRowMapper, searchKeyword, limit, offset);
+        } else {
+            return jdbcTemplate.query(BASE_SELECT_SQL + " WHERE p.title LIKE ? OR p.content LIKE ? ORDER BY p.id DESC LIMIT ? OFFSET ?", postDtoRowMapper, searchKeyword, searchKeyword, limit, offset);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int count(String type, String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM post", Integer.class);
+            return count != null ? count : 0;
+        }
+        String searchKeyword = "%" + keyword.trim() + "%";
+        if ("title".equals(type)) {
+            Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM post p WHERE p.title LIKE ?", Integer.class, searchKeyword);
+            return count != null ? count : 0;
+        } else if ("content".equals(type)) {
+            Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM post p WHERE p.content LIKE ?", Integer.class, searchKeyword);
+            return count != null ? count : 0;
+        } else if ("author".equals(type)) {
+            Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM post p JOIN member m ON p.member_id = m.id WHERE m.name LIKE ?", Integer.class, searchKeyword);
+            return count != null ? count : 0;
+        } else {
+            Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM post p WHERE p.title LIKE ? OR p.content LIKE ?", Integer.class, searchKeyword, searchKeyword);
+            return count != null ? count : 0;
+        }
+    }
+
+
+
 
 }
 

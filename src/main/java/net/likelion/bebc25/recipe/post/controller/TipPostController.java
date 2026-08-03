@@ -3,6 +3,8 @@ package net.likelion.bebc25.recipe.post.controller;
 import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import net.likelion.bebc25.recipe.good.dto.GoodDto;
+import net.likelion.bebc25.recipe.good.service.GoodService;
 import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
@@ -32,10 +34,13 @@ public class TipPostController {
     private final PostService postService;
     private final String uploadDir = Paths.get("C:","Programming","TUI_Editor","upload").toString();
     private final ReplyService replyService;
+    private final GoodService goodService;
 
-    public TipPostController(PostService postService, ReplyService replyService) {
+    public TipPostController(PostService postService, ReplyService replyService, GoodService goodService) {
         this.postService = postService;
         this.replyService = replyService;
+        this.goodService = goodService;
+
 
     }
 
@@ -78,12 +83,27 @@ public class TipPostController {
 
     // 요리 꿀팁 상세 보여주는 컨트롤러
     @GetMapping("/detail")
-    public String getTipDetail(@RequestParam("id") int id, Model model) {
+    public String getTipDetail(@RequestParam("id") int id, HttpSession session, Model model) {
         PostDto tip = postService.getPost(id);
         model.addAttribute("tip", tip);
 
-        List<ResponseDTO> replies = replyService.getRepliesByPostId( id);
+        List<ResponseDTO> replies = replyService.getRepliesByPostId(id);
         model.addAttribute("replies", replies);
+
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
+        boolean isLiked = false;
+
+        if (loginMember != null) {
+            GoodDto goodDto = new GoodDto();
+            goodDto.setPostId(id);
+            goodDto.setMemberId(loginMember.getId());
+            goodDto.setLikeType(2); // 팁 게시판 likeType 번호 (레시피와 다르면 알맞게 수정)
+
+            isLiked = goodService.isLiked(goodDto);
+        }
+
+        model.addAttribute("isLiked", isLiked);
 
         return "board/tip-detail";
     }
