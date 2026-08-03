@@ -3,7 +3,10 @@ package net.likelion.bebc25.recipe.good.service;
 
 import net.likelion.bebc25.recipe.good.dto.GoodDto;
 import net.likelion.bebc25.recipe.good.respository.GoodRepository;
+import net.likelion.bebc25.recipe.post.dto.PostDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GoodServiceImpl implements GoodService {
@@ -31,6 +34,14 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public boolean isLiked(GoodDto goodDto) {
         return goodRepository.exists(goodDto);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PostDto> getRecipes(int memberId) {
+        return goodRepository.getScrapRecipes(memberId);
     }
 
 

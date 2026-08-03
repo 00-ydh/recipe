@@ -7,6 +7,7 @@ import net.likelion.bebc25.recipe.exception.DuplicateEmailException;
 import net.likelion.bebc25.recipe.exception.DuplicateNameException;
 import net.likelion.bebc25.recipe.follow.dto.FollowDto;
 import net.likelion.bebc25.recipe.follow.service.FollowService;
+import net.likelion.bebc25.recipe.good.service.GoodService;
 import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.member.service.MemberService;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
@@ -29,11 +30,13 @@ public class MemberController {
     private final MemberService memberService;
     private final PostService postService;
     private final FollowService followService;
+    private final GoodService goodService;
 
-    public MemberController(MemberService memberService, PostService postService, FollowService followService) {
+    public MemberController(MemberService memberService, PostService postService, FollowService followService, GoodService goodService) {
         this.memberService = memberService;
         this.postService = postService;
         this.followService = followService;
+        this.goodService = goodService;
     }
 
     /**
@@ -165,6 +168,7 @@ public class MemberController {
         List<PostDto> myRecipes = postService.getRecipePost(loginMember.getId());
         List<PostDto> myTips = postService.getTipPost(loginMember.getId());
         List<MemberDto> myFollowing = followService.myFollowingMembers(loginMember.getId());
+        List<PostDto> myScarpRecipes = goodService.getRecipes(loginMember.getId());
 
         model.addAttribute("member", loginMember);
         model.addAttribute("myRecipes", myRecipes);
@@ -173,6 +177,7 @@ public class MemberController {
         model.addAttribute("myFollowingRecipes", myFollowingRecipes);
         model.addAttribute("followerCount", followService.getFollowerCount(loginMember.getId()));
         model.addAttribute("recipeCount", myRecipes.size());
+        model.addAttribute("myScarpRecipes", myScarpRecipes);
 
         return "member/mypage";
     }
