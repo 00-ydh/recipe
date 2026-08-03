@@ -44,5 +44,11 @@ public class GoodServiceImpl implements GoodService {
         return goodRepository.getScrapRecipes(memberId);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PostDto> getTips(int memberId) {
+        return goodRepository.getScrapTips(memberId);
+    }
 }

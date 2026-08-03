@@ -169,6 +169,7 @@ public class MemberController {
         List<PostDto> myTips = postService.getTipPost(loginMember.getId());
         List<MemberDto> myFollowing = followService.myFollowingMembers(loginMember.getId());
         List<PostDto> myScarpRecipes = goodService.getRecipes(loginMember.getId());
+        List<PostDto> myScarpTips = goodService.getTips(loginMember.getId());
 
         model.addAttribute("member", loginMember);
         model.addAttribute("myRecipes", myRecipes);
@@ -178,6 +179,7 @@ public class MemberController {
         model.addAttribute("followerCount", followService.getFollowerCount(loginMember.getId()));
         model.addAttribute("recipeCount", myRecipes.size());
         model.addAttribute("myScarpRecipes", myScarpRecipes);
+        model.addAttribute("myScarpTips", myScarpTips);
 
         return "member/mypage";
     }
@@ -330,3 +332,4 @@ public class MemberController {
         return  "redirect:/";
     }
 }
+
