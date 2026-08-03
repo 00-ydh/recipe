@@ -72,7 +72,9 @@ public class jdbcTemplateFollowRepository implements FollowRepository {
                 .build();
     };
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void save(int followingId, int followerId) {
         jdbcTemplate.update("INSERT INTO follow (following_id, follower_id) VALUES  (?, ?)",
@@ -80,21 +82,33 @@ public class jdbcTemplateFollowRepository implements FollowRepository {
                 followerId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete(int followingId, int followerId) {
         jdbcTemplate.update("DELETE FROM follow WHERE following_id = ? AND follower_id = ?", followingId, followerId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<FollowDto> findFollowingById(int followingId) {
         return jdbcTemplate.query("SELECT * FROM follow WHERE following_id = ?", memberDtoRowMapper, followingId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<FollowDto> findFollowerById(int followerId) {
         return jdbcTemplate.query("SELECT * FROM follow WHERE follower_id = ?", memberDtoRowMapper, followerId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FollowDto findFollowById(int followingId, int followerId) {
         try {
@@ -104,8 +118,9 @@ public class jdbcTemplateFollowRepository implements FollowRepository {
         }
     }
 
-
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PostDto> findFollowingMemberRecipes(int followingId) {
         String sql = "SELECT p.*, c.category_name, m.name AS member_name " +
@@ -119,6 +134,9 @@ public class jdbcTemplateFollowRepository implements FollowRepository {
         return jdbcTemplate.query(sql, postDtoRowMapper, followingId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int countFollowers(int memberId) {
         String sql = "SELECT COUNT(*) FROM follow WHERE follower_id = ?";

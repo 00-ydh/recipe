@@ -47,7 +47,7 @@
                 <!-- 팔로우 버튼 -->
                 <form th:action="@{/follow}" method="post">
                     <!-- Controller로 넘겨줄 데이터 (상대방 닉네임) -->
-                    <input type="hidden" name="targetMemberId" th:value="${member.id}">
+                    <input type="hidden" name="targetMemberName" th:value="${member.name}">
 
                     <!-- 1. 아직 팔로우 안 했을 때 (팔로우 버튼) -->
                     <button type="submit" class="follow-btn" th:if="${!isFollowing}">

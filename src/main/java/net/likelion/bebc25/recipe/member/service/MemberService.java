@@ -24,9 +24,18 @@ public interface MemberService {
      */
     String findPassword(String email, String name);
 
-
+    /**
+     * 회원의 이름을 수정합니다.
+     * @param memberId 수정할 회원 ID
+     * @param newName 수정할 이름
+     */
     void editName(int memberId, String newName);
 
+    /**
+     * 회원의 비밀번호를 수정합니다.
+     * @param memberId 수정할 회원 ID
+     * @param newPassword 수정할 비밀번호
+     */
     void editPassword(int memberId, String newPassword);
 
     /**
@@ -43,9 +52,9 @@ public interface MemberService {
     void deleteMemberById(int id);
 
     /**
-     * 회원 별명을 기반으로 회원 정보 DTO를 검색하여 가져옵니다.
-     * @param name
-     * @return
+     * 회원 이름을 기반으로 회원 정보 DTO를 검색하여 가져옵니다.
+     * @param name 조회할 회원의 이름
+     * @return 조회된 회원 정보 DTO
      */
     MemberDto getMemberByName(String name);
 }

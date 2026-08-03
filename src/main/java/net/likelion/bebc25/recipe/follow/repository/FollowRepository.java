@@ -34,7 +34,7 @@ public interface FollowRepository {
      * 두 회원 간의 팔로우 관계 존재 여부를 조회합니다.
      * @param followingId 팔로우를 신청하는 회원 ID
      * @param followerId 팔로우 대상 회원 ID
-     * @return
+     * @return 조회된 FollowDTO
      */
     FollowDto findFollowById(int followingId, int followerId);
 
@@ -47,9 +47,9 @@ public interface FollowRepository {
     List<PostDto> findFollowingMemberRecipes(int followingId);
 
     /**
-     * 나의 팔로워 수 카운트
-     * @param memberId
-     * @return
+     * 특정 회원의 팔로워 수를 조회합니다.
+     * @param memberId 조회하고 싶은 회원 ID
+     * @return memberId의 팔로워 수
      */
     int countFollowers(int memberId);
 }

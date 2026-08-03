@@ -60,13 +60,18 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
         return jdbcTemplate.queryForObject("SELECT * FROM member WHERE id = ?", memberDtoRowMapper, id);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateName(int memberId, String newName) {
         jdbcTemplate.update("UPDATE member SET name = ? WHERE id = ?", newName, memberId);
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updatePassword(int memberId, String newPassword) {
         jdbcTemplate.update("UPDATE member SET password = ? WHERE id = ?", newPassword, memberId);
@@ -105,6 +110,9 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MemberDto findByName(String name) {
         try {
@@ -114,6 +122,9 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean existsByEmail(String email) {
         String sql = "SELECT COUNT(*) FROM member WHERE eamil = ?";
@@ -121,6 +132,9 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
         return count != null && count > 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean existsByName(String name) {
         String sql = "SELECT COUNT(*) FROM member WHERE name = ?";
