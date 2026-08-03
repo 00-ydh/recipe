@@ -19,8 +19,17 @@ public class PostDto {
     // 멤버 아이디
     private int memberId;
 
-    // 대표 이미지
+    // 원래 파일 이름!!!!!
+    private String originalFilename;
+
+    // 이미지 파일 타입
+    private String contentType;
+
+    // 대표 이미지 DB저장 장소!!!!!!!!
     private String mainImage;
+
+    // 업로드할 때 사용
+    private MultipartFile file;
 
     // 카테고리 ID: 한식 양식 중식 일식
     private int categoryId;
@@ -53,5 +62,4 @@ public class PostDto {
 
     // 좋아요 수 (LIKE 테이블 COUNT)
     private int likeCount;
-
 }

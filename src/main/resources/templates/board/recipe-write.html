@@ -15,14 +15,14 @@
     </p>
     <div class="write-box">
 <!--       enctype="multipart/form-data" 대표 이미지 업로드를 위해 필요-->
-        <form method="POST" th:action="${recipePostForm.id == 0} ? @{/recipe/write} : @{/recipe/edit}" th:object="${recipePostForm}" enctype="multipart/form-data">
+        <form method="POST" th:action="@{{action}(action=${recipePostForm.id == 0} ? 'write' : 'edit')}" enctype="multipart/form-data" th:object="${recipePostForm}" >
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
-                <label> 사진 첨부 (선택)</label>
+                <label for="file"> 사진 첨부 (선택)</label>
                 <label class="upload-box" >
 <!--                    accept="image/*" 모든 이미지 형식 허용 여기 부분 문제인거 같은데-->
-<!--                    <input type="file" name="mainImage" accept="image/*">-->
-                    <div class="camera">사진 첨부</div>
+                    <input type="file" id="file" th:field="*{file}">
+                    <div th:if="${recipePostForm.originalFilename != null}" class="camera">사진 첨부</div>
                     <p>클릭하거나 파일을 드래그하여 이미지를 추가하세요</p>
                 </label>
             </div>
@@ -68,11 +68,34 @@
         el: document.querySelector('#editor'),
         height: '500px',
         initialEditType: 'wysiwyg',  // wysiwyg/markdown 타입도 있음 html로 저장시키기위해 wysiwyg 방식으로 사용
-        initialValue: '몇인분/ 조리시간 / ',
         // markdown모드에서만 쓸모 있는 기능
         // previewStyle: 'vertical',
-        hideModeSwitch : true,  // wysiwyg/markdown 전환 버튼 숨기기
+        hideModeSwitch: true,  // wysiwyg/markdown 전환 버튼 숨기기
+       // initialValue: '몇인분/ 조리시간 / ',
+        initialValue:`
+            레시피 작성 가이드
+        - 재료의 종류와 분량을 정확히 표기해주세요.
+        - 몇인분인지 적어주세요.
+        - 요리 시간이 얼마나 걸리는지 적어주세요
+        - 단계별 설명에 적합한 선명한 과정사진을 넣어주세요.
+        - 나만의 요리팁과 요리시 주의사항을 남겨주세요.
 
+        예시)
+        재료
+        - 돼지고기 300g
+        - 양파 1개
+        - 고추장 2큰술
+
+        몇인분
+        -1인분
+
+        조리시간
+        -30분
+
+        조리 순서
+        1. 양파를 채 썰어 준비합니다.
+        2. 돼지고기를 볶습니다.
+        3. 양념을 넣고 함께 볶아 완성합니다.`,
         // Toast UI 함수
         // hooks: 특정 이벤트가 발생하면 실행되는 함수
         hooks: {
