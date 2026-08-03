@@ -11,6 +11,8 @@ import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
 import net.likelion.bebc25.recipe.reply.dto.ResponseDTO;
 import net.likelion.bebc25.recipe.reply.service.ReplyService;
+import net.likelion.bebc25.recipe.file.FileStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,7 @@ public class RecipePostController {
     private final PostService postService;
     private final ReplyService replyService;
     private final GoodService goodService;
+    private final FileStore fileStore;
 
     // 다들 각자 설정
     // ToastUI에디터 이미지 저장 경로 -> 이미지 하나 업로드랑 같이 가능
@@ -43,15 +46,15 @@ public class RecipePostController {
     @Value("${file.uploadDir}")
     private String uploadDir;
 
-    // 이미지 업로드 파일 경로
-    @Value("${file.mainImageDir}")
-    private String mainImageDir;
+    public RecipePostController(PostService postService,
+                                ReplyService replyService,
+                                GoodService goodService,
+                                @Qualifier("localFileStore") FileStore fileStore) {
 
-    public RecipePostController(PostService postService, ReplyService replyService, GoodService goodService) {
         this.postService = postService;
         this.replyService = replyService;
-
         this.goodService = goodService;
+        this.fileStore = fileStore;
     }
 
     // recipe-list 화면 보여주는 컨트롤러
@@ -79,13 +82,16 @@ public class RecipePostController {
 
     // recipe-details 화면 보여주는 컨트롤러
     @GetMapping("/detail")
-    public String getRecipeDetails(@RequestParam("id") int id, HttpSession session, Model model) {
+    public String getRecipeDetails(@RequestParam("id") int id, Model model, HttpSession session) {
         PostDto postDto = postService.getRecipe(id);
         model.addAttribute("post", postDto);
         List<ResponseDTO> replies = replyService.getRepliesByPostId(id);
         model.addAttribute("replies", replies);
 
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
+
+        // 로그인이 되어있는 상태일 때 좋아요 관련
         if (loginMember != null) {
             GoodDto goodDto = new GoodDto();
             goodDto.setPostId(id);
@@ -97,6 +103,15 @@ public class RecipePostController {
         } else {
             model.addAttribute("isLiked", false);
         }
+        // 파일이 이미지 형식인지 확인하여 뷰(detail.html)에 isImage boolean 값 전달
+        boolean isImage = postDto.getContentType() != null && postDto.getContentType().startsWith("image/");
+        if(!isImage && postDto.getOriginalFilename() != null){
+            isImage = fileStore.isImage(postDto.getOriginalFilename());
+        }
+
+        model.addAttribute("post", postDto);
+        model.addAttribute("isImage", isImage);
+
 
         return "board/recipe-detail";
     }
@@ -112,17 +127,30 @@ public class RecipePostController {
     @PostMapping("/write")
     public String writeRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post
                                   , BindingResult bindingResult
-                                  , HttpSession session){
+                                  , HttpSession session) throws IOException {
         // 게시글 작성시 로그인 세션
         MemberDto loginMember = (MemberDto)session.getAttribute("loginMember");
-        post.setMemberId(loginMember.getId());
-        post.setPostType(1);
-        // memberid 확인용
-//        log.info("member = {} ", post.getMemberId());
+        if(loginMember == null){
+            return "redirect:/member/login";
+        }
 
         // 검증에 실패했을 경우
         if(bindingResult.hasErrors()){
             return "board/recipe-write";
+        }
+        // 로그인 된 회원의 Id를 게시글의 작성자 ID로 지정
+        post.setMemberId(loginMember.getId());
+        // postType을 recipe로 지정
+        post.setPostType(1);
+
+        // 파일 객체가 있고, 실제 내용도 있다면
+        if(post.getFile() != null && !post.getFile().isEmpty()){
+            // fileStore메서드 - 업로드된 파일을 검사하여 UUID으로 저장
+            // 그리고 그것을 mainImage DB에 저장
+            String mainImage = fileStore.storeFile(post.getFile());
+            post.setOriginalFilename(post.getFile().getOriginalFilename());
+            post.setMainImage(mainImage);
+            post.setContentType(post.getFile().getContentType());
         }
 
         postService.writePost(post);
@@ -140,10 +168,34 @@ public class RecipePostController {
 
     // 레시피 게시글을 수정 요청을 처리하는 컨트롤러
     @PostMapping("/edit")
-    public String editRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post, BindingResult bindingResult){
+    public String editRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post
+                                , BindingResult bindingResult
+                                , HttpSession session) throws IOException {
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+        if(loginMember == null){
+            return "redirect:/member/login";
+        }
         if(bindingResult.hasErrors()){
             return "board/recipe-write";
         }
+        PostDto postDto = postService.getRecipe(post.getId());
+
+        if(loginMember.getId() != postDto.getMemberId()){
+            return "redirect:/recipe/list";
+        }
+
+        // 새로운 파일이 들어온 경우 새로 저장, 없으면 기존 첨부파일 정보 유지
+        if(post.getFile() != null && !post.getFile().isEmpty()){
+            String storeFilename = fileStore.storeFile(post.getFile());
+            post.setOriginalFilename(post.getFile().getOriginalFilename());
+            post.setMainImage(storeFilename);
+            post.setContentType(post.getFile().getContentType());
+        } else {
+            post.setOriginalFilename(postDto.getOriginalFilename());
+            post.setMainImage(postDto.getMainImage());
+            post.setContentType(postDto.getContentType());
+        }
+
         postService.editPost(post);
         return "redirect:/member/mypage";
     }
