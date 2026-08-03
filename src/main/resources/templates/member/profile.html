@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="/member/css/profile.css">
 </head>
 <body>
-<!--header 공통 파일 header 들어가는 부분에 이 두줄 코드 넣을 것!-->
-<div id="header-placeholder"></div>
-<script src="/header/load-header.js"></script>
-<!--header 끝-->
+<!--header 삽입 코드 한줄 !-->
+<div th:replace="~{header/header :: header}"></div>
 
 <main class="mypage-wrap">
 
