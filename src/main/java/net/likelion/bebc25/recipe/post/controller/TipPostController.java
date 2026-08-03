@@ -49,7 +49,12 @@ public class TipPostController {
 
     // 요리 꿀팁 작성 화면 보여주는 컨트롤러
     @GetMapping("/write")
-    public String getTipWrite(@ModelAttribute("postForm") PostDto post) {
+    public String getTipWrite(@ModelAttribute("postForm") PostDto post, HttpSession session) {
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+        // 로그인 안 한 경우 로그인 페이지로 이동되는 거 추가
+        if (loginMember == null) {
+            return "redirect:/member/login";
+        }
         return "board/tip-write";
     }
 
@@ -64,6 +69,10 @@ public class TipPostController {
                            BindingResult bindingResult,
                            HttpSession session) {
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+        // 로그인 안 한 경우 로그인 페이지로 이동되는 거 추가
+        if (loginMember == null) {
+            return "redirect:/member/login";
+        }
 
         if (bindingResult.hasErrors()) {
             return "board/tip-write";
