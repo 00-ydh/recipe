@@ -117,13 +117,16 @@
             }
         }
     });
+
     // 수정 화면이면 기존 내용 표시
     const content = document.querySelector("#content").value;
     if(content) {
         editor.setHTML(content);
     }
-    // form 태그를 찾음
-    const form = document.querySelector('form');
+    // [수정] document.querySelector('form') → 'form.write-box'
+    // 이유: 헤더에 검색 form이 존재해서 querySelector('form')이
+    //       작성 form이 아닌 헤더 검색 form을 잡는 문제가 있었음
+    const form = document.querySelector('form.write-box');
     // form 태그에 submit이벤트 등록 또는 수정버튼
     form.addEventListener('submit', function (){
         // HTML에 저장

@@ -300,12 +300,11 @@ input[type="radio"][name="tab"] {
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    background-color: #F5EDE4;
+    border: 2px solid #E07550;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
-    font-size: 32px;
-    font-weight: 700;
 }
 
 /* 팔로우한 사람의 닉네임 */
