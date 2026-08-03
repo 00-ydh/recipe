@@ -27,6 +27,9 @@ public class TodayMenuPostController {
     public String recommend(@RequestParam int categoryId, Model model){
         PostDto postDto = postService.getRandomRecipePost(categoryId);
 
+        if(postDto == null){
+            model.addAttribute("message", "해당 카테고리의 게시글이 없습니다.");
+        }
         model.addAttribute("post", postDto);
         return "board/today-menu";
 

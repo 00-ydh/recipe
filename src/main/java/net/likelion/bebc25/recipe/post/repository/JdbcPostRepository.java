@@ -183,7 +183,7 @@ public class JdbcPostRepository implements PostRepository {
         return count == null ? 0 : count;
     }
 
-    // 레시피 게시글에서 카테고리 아이디를 받아 랜덤으로 게시글 하나 가져오기
+    // 오늘뭐먹지 게시글에서 카테고리 아이디를 받아 랜덤으로 게시글 하나 가져오기
     @Override
     public PostDto findTodayPostByCategoryId(int categoryId) {
         String sql = "SELECT post.* , category.category_name, member.name FROM post " +
@@ -193,7 +193,12 @@ public class JdbcPostRepository implements PostRepository {
                 "AND post.category_id = ? " +
                 "ORDER BY RAND() LIMIT 1";
 
-        return jdbcTemplate.queryForObject(sql, postDtoRowMapper, categoryId);
+        List<PostDto> list =  jdbcTemplate.query(sql, postDtoRowMapper, categoryId);
+
+        if(list.isEmpty()){
+            return null;
+        }
+        return list.getFirst();
     }
 
     // 레시피 게시글 페이징
