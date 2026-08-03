@@ -49,13 +49,15 @@
     <input type="radio" id="tab2" name="tab">
     <input type="radio" id="tab3" name="tab">
     <input type="radio" id="tab4" name="tab">
+    <input type="radio" id="tab5" name="tab">
 
     <!-- 탭 메뉴 -->
     <div class="tab-menu">
         <label for="tab1" class="tab-item">내가 쓴 글</label>
         <label for="tab2" class="tab-item">내가 쓴 꿀팁</label>
         <label for="tab3" class="tab-item">스크랩한 레시피</label>
-        <label for="tab4" class="tab-item">팔로우</label>
+        <label for="tab4" class="tab-item">스크랩한 꿀팁</label>
+        <label for="tab5" class="tab-item">팔로우</label>
     </div>
 
 
@@ -205,8 +207,49 @@
 <!--        </div>-->
     </div>
 
-    <!-- 3. 팔로우 목록 컨텐츠 -->
+    <!-- 4. 스크랩한 꿀팁  탭 클릭 했을 때 나오는 부분입니다!! -->
     <div class="tab-content tab-content-4">
+        <!-- 제목 부분(데이터 채울 것 x) -->
+        <div class="section-header">
+            <h3 class="section-title">내가 쓴 꿀팁</h3>
+            <p class="section-desc">내가 쓴 꿀팁들을 한 눈에 볼 수 있어요! 수정 삭제 버튼을 클릭하시면 꿀팁 수정하거나 삭제 할 수 있는 페이지로 이동합니다!</p>
+        </div>
+
+        <div class="tip-list">
+            <!-- 꿀팁 게시글 목록 반복 출력  -->
+            <div class="tip-card" th:each="tip : ${myScarpTips}">
+                <a th:href="@{/tip/detail(id=${tip.id})}">
+                    <div class="tip-info">
+                        <!--요리 꿀팁 제목나오는 부분 (title) -- !참고 : tip.list.html -->
+                        <h3 th:text="${tip.title}">요리 꿀팁 게시글 제목</h3>
+
+                        <!-- 작성자, 작성일, 조회수 -->
+                        <div class="meta">
+                    <span>
+                    <!-- svg 태그는 아이콘 입니다!-->
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <!--작성자 나오는 부분 -- !참고 : tip.list.html -->
+                        <span th:text="${tip.memberName}">작성자</span>
+                    </span>
+                            <span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <!--작성일 나오는 부분 -- !참고 : tip.list.html -->
+                        <span th:text="${#temporals.format(tip.createdAt, 'yyyy.MM.dd')}">2024.05.20</span>
+                    </span>
+                            <span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <!--조회수 나오는 부분 -- !참고 : tip.list.html -->
+                        <span th:text="${tip.viewCount}">0</span>
+                    </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 팔로우 목록 컨텐츠 -->
+    <div class="tab-content tab-content-5">
         <div class="content-card">
 
         <!-- 팔로우한 사람 프로필 목록 -->

@@ -139,7 +139,8 @@ input[type="radio"][name="tab"] {
 #tab1:checked ~ .tab-menu label[for="tab1"],
 #tab2:checked ~ .tab-menu label[for="tab2"],
 #tab3:checked ~ .tab-menu label[for="tab3"],
-#tab4:checked ~ .tab-menu label[for="tab4"] {
+#tab4:checked ~ .tab-menu label[for="tab4"],
+#tab5:checked ~ .tab-menu label[for="tab5"]{
     color: #B23B15;
     border-bottom: 2px solid #B23B15;
 }
@@ -154,6 +155,7 @@ input[type="radio"][name="tab"] {
 #tab2:checked ~ .tab-content-2 { display: block; }
 #tab3:checked ~ .tab-content-3 { display: block; }
 #tab4:checked ~ .tab-content-4 { display: block; }
+#tab5:checked ~ .tab-content-5 { display: block; }
 
 /* 탭 섹션 헤더 */
 .section-header {
