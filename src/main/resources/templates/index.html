@@ -69,7 +69,7 @@
 
             </div>
 
-            <!-- 밥플루언서 배너 (인플루언서 목록) -->
+            <!-- 밥플루언서 섹션 시작  -->
             <div class="influencer-banner">
                 <div class="influencer-intro">
                     <p class="inf-label">밥플루언서</p>
@@ -77,31 +77,21 @@
                 </div>
                 <!-- 인플루언서 아이템 (프로필 이미지 + 이름 + 팔로워 수) -->
                 <div class="influencer-list">
-                    <div class="influencer-item">
-                        <a href="/member/profile"><img class="inf-avatar" src="https://picsum.photos/seed/inf1/100/100" alt="프사"></a>
-                        <p class="inf-name">카미</p>
-                        <p class="inf-count">14.1K 팔로워</p>
+                <!-- 밥플루언서 프로필 여기 부분 반복! -->
+                    <div th:each="topFollowMember : ${topFollowMembers}" class="influencer-item">
+                        <!-- 프로필 클릭시 - 프로필페이지로 연결 -->
+                        <a th:href="@{/member/profile/{targetName}(targetName=${topFollowMember.memberName})}">
+                            <div class="inf-avatar">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
+                                    <circle cx="12" cy="8" r="4"/>
+                                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                                </svg>
+                            </div>
+                        </a>
+                        <p th:text ="${topFollowMember.memberName}" class="inf-name">이름</p>
+                        <p class="inf-count"><span th:text="${topFollowMember.followerCount}">0</span> 팔로워</p>
                     </div>
-                    <div class="influencer-item">
-                        <a href="/member/profile"><img class="inf-avatar" src="https://picsum.photos/seed/inf2/100/100" alt="프사"></a>
-                        <p class="inf-name">요리마스터</p>
-                        <p class="inf-count">9.5K 팔로워</p>
-                    </div>
-                    <div class="influencer-item">
-                        <a href="/member/profile"><img class="inf-avatar" src="https://picsum.photos/seed/inf3/100/100" alt="프사"></a>
-                        <p class="inf-name">베이킹셰프</p>
-                        <p class="inf-count">7.5K 팔로워</p>
-                    </div>
-                    <div class="influencer-item">
-                        <a href="/member/profile"><img class="inf-avatar" src="https://picsum.photos/seed/inf4/100/100" alt="프사"></a>
-                        <p class="inf-name">그린키친</p>
-                        <p class="inf-count">6.6K 팔로워</p>
-                    </div>
-                    <div class="influencer-item">
-                        <a href="/member/profile"><img class="inf-avatar" src="https://picsum.photos/seed/inf5/100/100" alt="프사"></a>
-                        <p class="inf-name">클럽쿡스</p>
-                        <p class="inf-count">4.8K 팔로워</p>
-                    </div>
+
                 </div>
             </div>
 

@@ -68,7 +68,7 @@
     <div class="tab-content tab-content-2">
         <div class="tip-list">
 
-            <a th:href="@{/recipe/detail(id=${post.id})}" class="tip-card" th:each="post : ${posts}" th:if="${post.postType == 2}">
+            <a th:href="@{/tip/detail(id=${post.id})}" class="tip-card" th:each="post : ${posts}" th:if="${post.postType == 2}">
                 <div class="tip-info">
                     <h3 th:text="${post.title}">꿀팁 제목</h3>
                     <div class="meta">

@@ -56,17 +56,6 @@ public class JdbcMainRepository implements MainRepository {
     }
 
 
-    // 밥플루언서: 팔로워 많은 멤버 TOP 5
-    // TODO: 팔로우 기능 구현 후 SQL 작성
-    @Override
-    public List<MainDto> findTopMember() {
-        return List.of();
-    }
-
-
-
-    
-
     // 이달의 추천: 한 달 이내 좋아요 많은 레시피 TOP 10
     // - 위 쿼리와 동일하지만 날짜 조건 추가
     // - created_at 이 현재로부터 1달 이내인 것만 필터링
@@ -103,6 +92,31 @@ public class JdbcMainRepository implements MainRepository {
         return jdbcTemplate.query(sql, mainDtoRowMapper);
     }
 
+
+// 밥풀루언서 rowmapper 따로 , 여기부터 시작!!!!!!!
+
+    // 밥플루언서용 RowMapper (member + follow 테이블만 읽음 )
+    private final RowMapper<MainDto> memberRowMapper = (ResultSet rs, int rowNum) -> {
+        return MainDto.builder()
+                .id(rs.getInt("id"))
+                .memberName(rs.getString("member_name"))   // 멤버 이름
+                .followerCount(rs.getInt("follower_count")) // 팔로워 수
+                .build();
+    };
+
+    // 밥플루언서: 팔로워 수 많은 멤버 TOP 5
+    // - follow 테이블에서 following_id 기준으로 팔로워 수 집계
+    // - 팔로워 수 내림차순 정렬 후 5명만 가져옴
+    @Override
+    public List<MainDto> findTopMember() {
+        String sql = "SELECT m.id, m.name AS member_name, COUNT(f.id) AS follower_count " +
+                "FROM member m " +
+                "LEFT JOIN follow f ON m.id = f.follower_id " +
+                "GROUP BY m.id " +
+                "ORDER BY follower_count DESC " +
+                "LIMIT 5";
+        return jdbcTemplate.query(sql, memberRowMapper);
+    }
 
 
 }

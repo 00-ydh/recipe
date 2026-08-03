@@ -202,18 +202,15 @@ section {
 
 /* 인플루언서 원형 아바타 */
 .inf-avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+    background-color: #F5EDE4;
+    border: 2px solid #E07550;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
     margin: 0 auto 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    object-fit: cover;
     cursor: pointer;
 }
 
