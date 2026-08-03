@@ -19,13 +19,6 @@ public class mainController {
         this.mainService = mainService;
     }
 
-    //  메인페이지 보여주는 컨트롤러
-   // "/" GET 요청 → 메인페이지(index.html) 반환
-//    @GetMapping("/")
-//    public String mainPage() {
-//        return "index";
-//    }
-
 
     // 메인페이지 보여주는 컨트롤러
     @GetMapping("/")
@@ -37,6 +30,10 @@ public class mainController {
         // 이달의 추천: 한 달 이내 좋아요 많은 레시피
         List<MainDto> monthlyRecipes = mainService.getMonthlyTopRecipes();
         model.addAttribute("monthlyRecipes", monthlyRecipes);
+
+        // 밥플루언서 : 팔로우 수 많은 member
+        List<MainDto> topFollowMembers = mainService.gettopFollowMembers();
+        model.addAttribute("topFollowMembers", topFollowMembers);
 
         // 최신 요리 꿀팁: 최신순 6개
         List<MainDto> latestTips = mainService.getLatestTipPosts();

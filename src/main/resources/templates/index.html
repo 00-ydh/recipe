@@ -37,11 +37,19 @@
                         <img th:if="${topRecipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
                         <img th:if="${topRecipe.mainImage != null}" th:src="@{/recipe/main-image(filename=${topRecipe.mainImage})}" alt="레시피 이미지">
 
-                        <!-- 좋아요수, 스크랩수 표시 부분 우선 없앰 -->
-<!--                        <div class="recipe-img-stats">-->
-<!--                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 32</span>-->
-<!--                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 15</span>-->
-<!--                        </div>-->
+                        <!-- 좋아요수, 스크랩수 표시 부분 -->
+                        <div class="recipe-img-stats">
+                            <!-- 좋아요수-->
+                            <span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                <span th:text="${topRecipe.likeCount}">32</span>
+                            </span>
+                            <!-- 스크랩수! 하드코딩 : 0-->
+                            <span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                                0
+                            </span>
+                        </div>
                     </div>
                     <div class="top-recipe-info">
                         <span th:text="${topRecipe.categoryName}" class="recipe-category-tag">양식(카테고리종류)</span>
@@ -49,7 +57,10 @@
                         <p th:text="${topRecipe.memberName}" class="top-recipe-author">작성자</p>
                         <div class="recipe-bottom">
                             <!--조회수-->
-                            <span th:text="${topRecipe.viewCount}" class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 7,040</span>
+                            <span class="recipe-views">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <span th:text="${topRecipe.viewCount}">7,040</span>
+                            </span>
                             <!--작성일 (년.월.일) 형식으로 바꿈!-->
                             <span th:text="${#temporals.format(topRecipe.createdAt, 'yyyy.MM.dd')}" class="recipe-date">2025.03.15</span>
                         </div>
@@ -99,7 +110,7 @@
 
     <!-- ============================
          섹션 2: 이달의 추천 레시피 ( 한 달 기간내에 , 좋아요 수 많은 것 )
-         5열 x 2행 레시피 카드 그리드
+         5열 x 2행 레시피 카드 그리드 monthlyRecipes
     ============================= -->
     <section class="recommended-recipes">
         <div class="container">
@@ -115,213 +126,53 @@
 
             <!-- 레시피 카드 목록 -->
             <div class="recipe-grid">
-                <article class="recipe-card">
+                <!-- 레시피 카드 반복 출력  -->
+<!--                -->
+                <!--  레시피 상세페이지 링크 연결-->
+                <a th:each="monthlyRecipe : ${monthlyRecipes}" th:href="@{/recipe/detail(id=${monthlyRecipe.id})}"  class="recipe-card">
                     <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=11" alt="레시피 이미지">
-                        
+                        <img th:if="${monthlyRecipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
+                        <img th:if="${monthlyRecipe.mainImage != null}" th:src="@{/recipe/main-image(filename=${monthlyRecipe.mainImage})}" alt="레시피 이미지">
+
+                        <!-- 좋아요수, 스크랩수 표시 부분 -->
                         <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 32</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 84</span>
+                            <!-- 좋아요수-->
+                            <span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                <span th:text="${monthlyRecipe.likeCount}">32</span>
+                            </span>
+                            <!-- 스크랩수! 하드코딩 : 0-->
+                            <span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                                0
+                            </span>
                         </div>
                     </div>
                     <div class="recipe-card-body">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="recipe-title">슬로우 쿠커 레시피</p>
-                        <p class="recipe-author">ChefBella</p>
+                        <span th:text="${monthlyRecipe.categoryName}" class="recipe-category-tag">양식</span>
+                        <p th:text="${monthlyRecipe.title}"  class="recipe-title">게시글 제목</p>
+                        <p th:text="${monthlyRecipe.memberName}" class="recipe-author">작성자이름</p>
                         <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1.2k</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 84</span>
-                            <span class="recipe-date">2025.03.15</span>
+                            <!--조회수-->
+                            <span class="recipe-views">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                <span th:text="${monthlyRecipe.viewCount}">7,040</span>
+                            </span>
+                            <!--작성일 (년.월.일) 형식으로 바꿈!-->
+                            <span th:text="${#temporals.format(monthlyRecipe.createdAt, 'yyyy.MM.dd')}" class="recipe-date">2025.03.15</span>
                         </div>
                     </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=12" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 18</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 67</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="recipe-title">닭다리 베이스 이탈리아</p>
-                        <p class="recipe-author">요리마스터</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 980</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 67</span>
-                            <span class="recipe-date">2025.03.14</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=13" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 24</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 52</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">한식</span>
-                        <p class="recipe-title">감자가 떡볶이</p>
-                        <p class="recipe-author">베이킹셰프</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 750</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 52</span>
-                            <span class="recipe-date">2025.03.13</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=14" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 15</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 41</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="recipe-title">치즈 치킨</p>
-                        <p class="recipe-author">그린키친</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 620</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 41</span>
-                            <span class="recipe-date">2025.03.12</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=15" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 9</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 38</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="recipe-title">치즈 글라이드 치즈 아이</p>
-                        <p class="recipe-author">ChefMax</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 540</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 38</span>
-                            <span class="recipe-date">2025.03.11</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=16" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 11</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 33</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">한식</span>
-                        <p class="recipe-title">소고기 치팸볶음</p>
-                        <p class="recipe-author">클럽쿡스</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 490</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 33</span>
-                            <span class="recipe-date">2025.03.10</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=17" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 7</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 29</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="recipe-title">베이컨 팬케이크</p>
-                        <p class="recipe-author">Sarah Kim</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 430</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 29</span>
-                            <span class="recipe-date">2025.03.09</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=18" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 24</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">중식</span>
-                        <p class="recipe-title">마라 스테이크스 소스</p>
-                        <p class="recipe-author">카미</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 380</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 24</span>
-                            <span class="recipe-date">2025.03.08</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=19" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 8</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 21</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">일식</span>
-                        <p class="recipe-title">태국고 그린 카레</p>
-                        <p class="recipe-author">ChefBella</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 310</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 21</span>
-                            <span class="recipe-date">2025.03.07</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="recipe-card">
-                    <div class="recipe-img-wrap">
-                        <img class="recipe-img" src="https://loremflickr.com/300/200/food?lock=20" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 6</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 18</span>
-                        </div>
-                    </div>
-                    <div class="recipe-card-body">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="recipe-title">클래식 블루베리</p>
-                        <p class="recipe-author">요리마스터</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 270</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 18</span>
-                            <span class="recipe-date">2025.03.06</span>
-                        </div>
-                    </div>
-                </article>
+                </a>
+
+
+
             </div>
 
         </div>
     </section>
 
     <!-- ============================
-         섹션 3: 최신 요리 꿀팁 (최신순으로)
+         섹션 3: 최신 요리 꿀팁 (최신순으로) - latestTips
          3열 x 2행 블로그 카드 그리드
     ============================= -->
     <section class="cooking-tips">
@@ -336,44 +187,31 @@
                 <a href="/tip/list" class="more-link">더 보기 →</a>
             </div>
 
-            <!-- 꿀팁 카드 목록 (날짜 + 제목 + 설명 + 읽어보기) -->
+            <!-- 꿀팁 카드 목록 (최신순으로 최대 6개까지 -->
             <div class="tips-grid">
-                <article class="tip-card">
-                    <p class="tip-date">2025.03.15</p>
-                    <h3 class="tip-title">전문가처럼 할 수 있는 법</h3>
-                    <p class="tip-desc">주방에서 전문 요리사처럼 소스 만들기 위한 기본 테크닉을 알아보세요.</p>
-                    <a href="#" class="read-more">읽어보기 →</a>
-                </article>
-                <article class="tip-card">
-                    <p class="tip-date">2025.03.12</p>
-                    <h3 class="tip-title">완벽한 스테이크 사이어링의 비밀</h3>
-                    <p class="tip-desc">프로 셰프들이 즐겨 사용하는 스테이크 씨어링 방법을 공개합니다.</p>
-                    <a href="#" class="read-more">읽어보기 →</a>
-                </article>
-                <article class="tip-card">
-                    <p class="tip-date">2025.03.10</p>
-                    <h3 class="tip-title">냉장고 2주 동안 신선하게 보관 하기</h3>
-                    <p class="tip-desc">식재료별 최적 보관 방법으로 신선도를 오래 유지하세요.</p>
-                    <a href="#" class="read-more">읽어보기 →</a>
-                </article>
-                <article class="tip-card">
-                    <p class="tip-date">2025.03.08</p>
-                    <h3 class="tip-title">5가지 소스로 맞추는 건 밸런 볼</h3>
-                    <p class="tip-desc">다양한 소스로 매일 새로운 맛의 볼 요리를 즐겨보세요.</p>
-                    <a href="#" class="read-more">읽어보기 →</a>
-                </article>
-                <article class="tip-card">
-                    <p class="tip-date">2025.03.05</p>
-                    <h3 class="tip-title">바쁜 요리사를 위한 초스피드 청</h3>
-                    <p class="tip-desc">30분 이내로 근사한 한 끼를 완성하는 빠른 레시피를 소개합니다.</p>
-                    <a href="#" class="read-more">읽어보기 →</a>
-                </article>
-                <article class="tip-card">
-                    <p class="tip-date">2025.03.02</p>
-                    <h3 class="tip-title">밀가루 종류별 글루텐 함량 완벽 마기</h3>
-                    <p class="tip-desc">박력분, 중력분, 강력분의 차이와 용도를 완벽하게 이해해보세요.</p>
-                    <a href="#" class="read-more">읽어보기 →</a>
-                </article>
+                <!--  이 부분이 반복 출력!-->
+                <!-- 박스 클릭하면 해당 팁의 상세페이지로 이동됨 -->
+                <a th:each="latestTip : ${latestTips}" th:href="@{/tip/detail(id=${latestTip.id})}" class="tip-card">
+                    <!-- 팁 제목 -->
+                    <h3 th:text="${latestTip.title}" class="tip-title">전문가처럼 할 수 있는 법</h3>
+                    <!-- 작성자 + 작성일 / 읽어보기 (한 줄) -->
+                    <div class="tip-card-footer">
+                        <!-- 작성자 + 작성일 -->
+                        <div class="tip-meta">
+                            <span>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                <span th:text="${latestTip.memberName}">작성자</span>
+                            </span>
+                            <span>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                <span th:text="${#temporals.format(latestTip.createdAt, 'yyyy.MM.dd')}">2025.03.15</span>
+                            </span>
+                        </div>
+                        <!-- 읽어보기 꾸밈요소 -->
+                        <span class="read-more">읽어보기 →</span>
+                    </div>
+                </a>
+
             </div>
 
         </div>

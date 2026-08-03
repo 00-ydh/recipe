@@ -1,0 +1,261 @@
+/* =====================================================
+   검색결과 페이지 CSS
+   - /search
+===================================================== */
+
+
+/* =====================================================
+   공통 레이아웃
+===================================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+/* 제목 : "검색어" 의 검색결과 */
+.search-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 24px;
+}
+
+/* 검색어 강조 색상 */
+.search-keyword {
+    color: #E07550;
+}
+
+
+/* =====================================================
+   탭 (레시피 / 요리꿀팁)
+   - 마이페이지와 동일한 radio + label CSS 탭 방식
+===================================================== */
+
+/* 라디오 버튼 숨김 */
+input[type="radio"][name="tab"] {
+    display: none;
+}
+
+/* 탭 메뉴 가로 목록 */
+.tab-menu {
+    display: flex;
+    gap: 32px;
+    border-bottom: 1px solid #EBE6E3;
+    margin-bottom: 32px;
+}
+
+/* 탭 항목 기본 (비활성화) */
+.tab-item {
+    padding-bottom: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #777;
+    cursor: pointer;
+    position: relative;
+    bottom: -1px;
+}
+
+/* 선택된 탭 강조 */
+#tab1:checked ~ .tab-menu label[for="tab1"],
+#tab2:checked ~ .tab-menu label[for="tab2"] {
+    color: #B23B15;
+    border-bottom: 2px solid #B23B15;
+}
+
+/* 탭 컨텐츠 기본 숨김 */
+.tab-content {
+    display: none;
+}
+
+/* 선택된 탭 컨텐츠만 표시 */
+#tab1:checked ~ .tab-content-1 { display: block; }
+#tab2:checked ~ .tab-content-2 { display: block; }
+
+
+/* =====================================================
+   레시피 탭 카드
+===================================================== */
+
+/* 4열 그리드 */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.recipe-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid #EDE8E2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* 이미지 영역 */
+.recipe-img-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 190px;
+}
+
+.recipe-img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+    background-color: #D4C4B0;
+}
+
+/* 이미지 위 좋아요 / 스크랩 수 뱃지 */
+.recipe-img-stats {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+}
+
+.recipe-img-stats > span {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background-color: rgba(0, 0, 0, 0.35);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 7px;
+    border-radius: 999px;
+}
+
+/* 카드 텍스트 영역 */
+.recipe-card-body {
+    padding: 12px 14px 14px;
+}
+
+.recipe-category-tag {
+    display: inline-block;
+    background: #ffe7d6;
+    color: #d85b1d;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* 제목 (2줄 말줄임) */
+.recipe-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.recipe-author {
+    font-size: 12px;
+    color: #A89D9A;
+    margin-bottom: 6px;
+}
+
+/* 조회수 + 날짜 */
+.recipe-bottom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.recipe-views {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1;
+}
+
+.recipe-views svg {
+    display: block;
+}
+
+.recipe-date {
+    font-size: 11px;
+    color: #bbb;
+    margin-left: auto;
+}
+
+
+/* =====================================================
+   요리꿀팁 탭 카드
+===================================================== */
+
+/* 세로 목록 */
+.tip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tip-card {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid #e8d8cf;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding: 22px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 꿀팁 제목 */
+.tip-info h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+/* 작성자 / 날짜 / 조회수 */
+.meta {
+    color: #888;
+    font-size: 13px;
+    display: flex;
+    gap: 20px;
+}
+
+.meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 우측 화살표 */
+.arrow {
+    color: #58413A;
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   검색 결과 없을 때
+===================================================== */
+
+.empty-msg {
+    text-align: center;
+    color: #aaa;
+    font-size: 15px;
+    padding: 60px 0;
+}

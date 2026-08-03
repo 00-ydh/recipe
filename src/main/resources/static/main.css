@@ -299,7 +299,7 @@ section {
 }
 
 /* 각 수치 칩 */
-.recipe-img-stats span {
+.recipe-img-stats > span {
     display: flex;
     align-items: center;
     gap: 3px;
@@ -332,6 +332,12 @@ section {
     gap: 3px;
     font-size: 11px;
     color: #aaa;
+    line-height: 1;
+}
+
+.recipe-views svg,
+.recipe-cmt svg {
+    display: block;
 }
 
 /* 날짜 */
@@ -375,6 +381,7 @@ section {
 /* 요리 꿀팁 섹션 */
 .cooking-tips {
     background-color: #FEF0E6;
+    padding: 70px 0px;
 }
 
 .cooking-tips .section-title {
@@ -413,6 +420,33 @@ section {
     color: #222;
     margin-bottom: 10px;
     line-height: 1.4;
+}
+
+/* 작성자+날짜 / 읽어보기 한 줄 배치 */
+.tip-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+/* 꿀팁 작성자 + 날짜 */
+.tip-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.tip-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tip-meta svg {
+    display: block;
 }
 
 /* 꿀팁 설명 (2줄 말줄임) */

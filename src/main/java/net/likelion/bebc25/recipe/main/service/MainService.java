@@ -9,8 +9,8 @@ public interface MainService {
     // 명예의 전당: 좋아요 많은 레시피 TOP 3
     List<MainDto> getTopRecipes();
 
-    // 밥플루언서: 팔로워 많은 멤버 TOP 5
-    List<MainDto> getTopMember();
+    // 밥플루언서: 팔로워 많은 멤버
+    List<MainDto> gettopFollowMembers();
 
     // 이달의 추천: 한 달 이내 좋아요 많은 레시피 TOP 10
     List<MainDto> getMonthlyTopRecipes();

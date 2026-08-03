@@ -92,10 +92,12 @@ public class JdbcMainRepository implements MainRepository {
     // - 작성일 내림차순 정렬 후 6개만 가져옴
     @Override
     public List<MainDto> findLatestTipPosts() {
-        String sql = "SELECT p.*, m.name AS member_name, NULL AS category_name, 0 AS like_count " +
+        String sql = "SELECT p.*, m.name AS member_name, NULL AS category_name, COUNT(g.id) AS like_count " +
                      "FROM post p " +
                      "LEFT JOIN member m ON p.member_id = m.id " +
+                     "LEFT JOIN good g   ON p.id = g.post_id " +
                      "WHERE p.post_type = 2 " +
+                     "GROUP BY p.id " +
                      "ORDER BY p.created_at DESC " +
                      "LIMIT 6";
         return jdbcTemplate.query(sql, mainDtoRowMapper);

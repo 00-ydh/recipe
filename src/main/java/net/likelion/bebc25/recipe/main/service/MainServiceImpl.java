@@ -26,7 +26,7 @@ public class MainServiceImpl implements MainService{
 
     //  밥풀루언서
     @Override
-    public List<MainDto> getTopMember() {
+    public List<MainDto> gettopFollowMembers() {
         return mainRepository.findTopMember();
     }
 
