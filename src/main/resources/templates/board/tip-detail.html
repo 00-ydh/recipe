@@ -24,11 +24,19 @@
                 <h1 class="recipe-title" th:text="${tip.title}">꿀팁 제목</h1>
                 <!-- 좋아요 버튼!!!  -->
                 <div class="recipe-actions">
-                    <button class="action-btn" title="좋아요">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                    </button>
+<!--                    좋아요 버튼 클릭시 /good/toggle 주소로 post요청을 보내는폼-->
+                    <form action="/good/toggle" method="post" style="display:inline;">
+                        <input type="hidden" name="postId" th:value="${tip.id}">
+                        <input type="hidden" name="likeType" value="1">
+                        <input type="hidden" name="postType" value="tip">
+                        <button type="submit" class="action-btn" title="좋아요">
+                            <svg width="20" height="20" viewBox="0 0 24 24"
+                                 th:attr="fill=${isLiked != null && isLiked ? '#ff6b6b' : 'none'}"
+                                 stroke="currentColor" stroke-width="1.8">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
             </div>
 
