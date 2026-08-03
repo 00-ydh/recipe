@@ -77,12 +77,12 @@ section {
 }
 
 /* 명예의 전당 섹션 - 인기 레시피 TOP3 */
-.hall-of-fame {
+.top-recipes {
     background-color: #FAF6F1;
 }
 
 /* TOP3 카드 3열 그리드 */
-.fame-grid {
+.top-recipe-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -90,7 +90,7 @@ section {
 }
 
 /* 명예의 전당 개별 카드 */
-.fame-card {
+.top-recipe-card {
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -99,17 +99,17 @@ section {
 }
 
 /* 카드 이미지 영역 */
-.fame-img-wrap {
+.top-recipe-img-wrap {
     position: relative;
     height: 210px;
     background-color: #C4956A;
 }
 
 /* 2, 3번 카드 이미지 배경색 */
-.fame-img-wrap.img-2 { background-color: #7B9E7B; }
-.fame-img-wrap.img-3 { background-color: #A0856A; }
+.top-recipe-img-wrap.img-2 { background-color: #7B9E7B; }
+.top-recipe-img-wrap.img-3 { background-color: #A0856A; }
 
-.fame-img-wrap img {
+.top-recipe-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -137,12 +137,12 @@ section {
 .rank-badge.bronze { background-color: #C96B3E; }
 
 /* 카드 하단 텍스트 영역 */
-.fame-info {
+.top-recipe-info {
     padding: 14px 16px 16px;
 }
 
 /* 카드 레시피 제목 */
-.fame-title {
+.top-recipe-title {
     font-size: 17px;
     font-weight: 700;
     color: #222;
@@ -151,7 +151,7 @@ section {
 }
 
 /* 카드 작성자 이름 */
-.fame-author {
+.top-recipe-author {
     font-size: 13px;
     color: #A89D9A;
     margin-bottom: 4px;

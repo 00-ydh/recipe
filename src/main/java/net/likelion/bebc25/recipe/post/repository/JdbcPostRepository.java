@@ -77,7 +77,12 @@ public class JdbcPostRepository implements PostRepository {
     // 꿀팁 게시글 전체 조회 (post_type = 2)
     @Override
     public List<PostDto> findTipPosts() {
-        String sql = "SELECT p.*, m.name AS member_name FROM post p LEFT JOIN member m ON p.member_id = m.id WHERE p.post_type = 2";
+        // 등록순 내림차순
+        String sql = "SELECT p.*, m.name AS member_name " +
+                     "FROM post p " +
+                     "LEFT JOIN member m ON p.member_id = m.id " +
+                     "WHERE p.post_type = 2 " +
+                     "ORDER BY p.created_at DESC";
         return jdbcTemplate.query(sql, postDtoRowMapper);
     }
 

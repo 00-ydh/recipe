@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지</title>
+    <title>냉부- 메인페이지</title>
     <link rel="stylesheet" href="/main.css">
 </head>
 <body>
@@ -12,16 +12,11 @@
 <div th:replace="~{header/header :: header}"></div>
 
 
-<!-- ============================
-     메인 컨텐츠
-============================= -->
 <main>
 
-    <!-- ============================
-         섹션 1: 명예의 전당
-         인기 레시피 TOP 3 + 밥플루언서
-    ============================= -->
-    <section class="hall-of-fame">
+    <!-- 섹션 1: 명예의 전당 ( 기간 상관없이, 좋아요 수 많은 것 )
+          + 밥플루언서 (팔로우 수 많은 사람) -->
+    <section class="top-recipes">
         <div class="container">
 
             <!-- 섹션 제목 -->
@@ -32,71 +27,35 @@
                 </div>
             </div>
 
-            <!-- 인기 레시피 카드 3개 -->
-            <div class="fame-grid">
-                <!-- 1위 -->
-                <article class="fame-card">
-                    <div class="fame-img-wrap">
-                        <img src="https://loremflickr.com/600/420/food?lock=1" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 32</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 15</span>
-                        </div>
+            <!-- 인기 레시피 카드 3개( 기간 상관없이, 좋아요 수 많은 것 ) -->
+            <div class="top-recipe-grid">
+                <!-- 레시피 카드 반복 출력  -->
+                <!--  이 부분이 반복 출력!-->
+                <!--  레시피 상세페이지 링크 연결-->
+                <a th:each="topRecipe : ${topRecipes}" th:href="@{/recipe/detail(id=${topRecipe.id})}" class="top-recipe-card">
+                    <div class="top-recipe-img-wrap">
+                        <img th:if="${topRecipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
+                        <img th:if="${topRecipe.mainImage != null}" th:src="@{/recipe/main-image(filename=${topRecipe.mainImage})}" alt="레시피 이미지">
+
+                        <!-- 좋아요수, 스크랩수 표시 부분 우선 없앰 -->
+<!--                        <div class="recipe-img-stats">-->
+<!--                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 32</span>-->
+<!--                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 15</span>-->
+<!--                        </div>-->
                     </div>
-                    <div class="fame-info">
-                        <span class="recipe-category-tag">양식</span>
-                        <p class="fame-title">홍미나의 이탈 특색 파프리카구이</p>
-                        <p class="fame-author">ChefBella</p>
+                    <div class="top-recipe-info">
+                        <span th:text="${topRecipe.categoryName}" class="recipe-category-tag">양식(카테고리종류)</span>
+                        <p th:text="${topRecipe.title}" class="top-recipe-title">레시피 제목</p>
+                        <p th:text="${topRecipe.memberName}" class="top-recipe-author">작성자</p>
                         <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 7,040</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 32</span>
-                            <span class="recipe-date">2025.03.15</span>
+                            <!--조회수-->
+                            <span th:text="${topRecipe.viewCount}" class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 7,040</span>
+                            <!--작성일 (년.월.일) 형식으로 바꿈!-->
+                            <span th:text="${#temporals.format(topRecipe.createdAt, 'yyyy.MM.dd')}" class="recipe-date">2025.03.15</span>
                         </div>
                     </div>
-                </article>
-                <!-- 2위 -->
-                <article class="fame-card">
-                    <div class="fame-img-wrap">
-                        <img src="https://loremflickr.com/600/420/food?lock=2" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 18</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 9</span>
-                        </div>
-                    </div>
-                    <div class="fame-info">
-                        <span class="recipe-category-tag">한식</span>
-                        <p class="fame-title">잔탄검 효과적인 사이드 스테이크소스</p>
-                        <p class="fame-author">ChefMax</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 2,940</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 18</span>
-                            <span class="recipe-date">2025.03.12</span>
-                        </div>
-                    </div>
-                </article>
-                <!-- 3위 -->
-                <article class="fame-card">
-                    <div class="fame-img-wrap">
-                        <img src="https://loremflickr.com/600/420/food?lock=3" alt="레시피 이미지">
-                        
-                        <div class="recipe-img-stats">
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 12</span>
-                            <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 7</span>
-                        </div>
-                    </div>
-                    <div class="fame-info">
-                        <span class="recipe-category-tag">일식</span>
-                        <p class="fame-title">볶음 수분 지식에게 완성 한판 샐러드</p>
-                        <p class="fame-author">Sarah Kim</p>
-                        <div class="recipe-bottom">
-                            <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1,890</span>
-                            <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 12</span>
-                            <span class="recipe-date">2025.03.10</span>
-                        </div>
-                    </div>
-                </article>
+                </a>
+
             </div>
 
             <!-- 밥플루언서 배너 (인플루언서 목록) -->
@@ -139,7 +98,7 @@
     </section>
 
     <!-- ============================
-         섹션 2: 이달의 추천 레시피
+         섹션 2: 이달의 추천 레시피 ( 한 달 기간내에 , 좋아요 수 많은 것 )
          5열 x 2행 레시피 카드 그리드
     ============================= -->
     <section class="recommended-recipes">
@@ -362,7 +321,7 @@
     </section>
 
     <!-- ============================
-         섹션 3: 최신 요리 꿀팁
+         섹션 3: 최신 요리 꿀팁 (최신순으로)
          3열 x 2행 블로그 카드 그리드
     ============================= -->
     <section class="cooking-tips">
