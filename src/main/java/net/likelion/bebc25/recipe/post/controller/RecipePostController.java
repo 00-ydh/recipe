@@ -1,7 +1,11 @@
 package net.likelion.bebc25.recipe.post.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import net.likelion.bebc25.recipe.good.dto.GoodDto;
+import net.likelion.bebc25.recipe.good.service.GoodService;
+import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
 import net.likelion.bebc25.recipe.post.service.PostService;
 import net.likelion.bebc25.recipe.reply.dto.ResponseDTO;
@@ -27,14 +31,17 @@ import java.util.UUID;
 public class RecipePostController {
     private final PostService postService;
     private final ReplyService replyService;
+    private final GoodService goodService;
+
     // 다들 각자 설정
     //@Value("${file.upload-dir}")
     private final String uploadDir = Paths.get("D:","Programming","TUI_Editor","upload").toString();
 
-    public RecipePostController(PostService postService, ReplyService replyService) {
+    public RecipePostController(PostService postService, ReplyService replyService, GoodService goodService) {
         this.postService = postService;
         this.replyService = replyService;
 
+        this.goodService = goodService;
     }
 
     // recipe-list 화면 보여주는 컨트롤러
@@ -51,11 +58,25 @@ public class RecipePostController {
 
     // recipe-details 화면 보여주는 컨트롤러
     @GetMapping("/detail")
-    public String getRecipeDetails(@RequestParam("id") int id, Model model) {
+    public String getRecipeDetails(@RequestParam("id") int id, HttpSession session, Model model) {
         PostDto postDto = postService.getRecipe(id);
         model.addAttribute("post", postDto);
-        List<ResponseDTO> replies = replyService.getRepliesByPostId( id);
+        List<ResponseDTO> replies = replyService.getRepliesByPostId(id);
         model.addAttribute("replies", replies);
+
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+        if (loginMember != null) {
+            GoodDto goodDto = new GoodDto();
+            goodDto.setPostId(id);
+            goodDto.setMemberId(loginMember.getId());
+            goodDto.setLikeType(1);
+
+            boolean isLiked = goodService.isLiked(goodDto);
+            model.addAttribute("isLiked", isLiked);
+        } else {
+            model.addAttribute("isLiked", false);
+        }
+
         return "board/recipe-detail";
     }
 

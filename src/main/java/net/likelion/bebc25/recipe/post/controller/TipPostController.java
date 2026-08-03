@@ -49,11 +49,7 @@ public class TipPostController {
 
     // 요리 꿀팁 작성 화면 보여주는 컨트롤러
     @GetMapping("/write")
-    public String getTipWrite(@ModelAttribute("postForm") PostDto post, HttpSession session) {
-        // 비로그인 상태이면 로그인 페이지로 이동
-        if (session.getAttribute("loginMember") == null) {
-            return "redirect:/member/login";
-        }
+    public String getTipWrite(@ModelAttribute("postForm") PostDto post) {
         return "board/tip-write";
     }
 
@@ -64,22 +60,19 @@ public class TipPostController {
     // postType=2 로 꿀팁 게시판임을 명시
     // redirect: 저장 완료 후 목록 URL로 새로 요청 (새로고침 시 중복 저장 방지)
     @PostMapping("/write")
-    public String writeTip(@Valid @ModelAttribute("postForm") PostDto postDto, // Validation 검증 대상 객체
-                           BindingResult bindingResult, // Validation 검증 결과 저장 객체 (대상 객체 뒤에 기술해야 함)
+    public String writeTip(@Valid @ModelAttribute("postForm") PostDto postDto,
+                           BindingResult bindingResult,
                            HttpSession session) {
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
 
-        if (bindingResult.hasErrors()) { // 검증에 실패했을 경우
-            return "board/tip-write"; // 작성 중이던 페이지로 다시 보낸다.
+        if (bindingResult.hasErrors()) {
+            return "board/tip-write";
         }
 
-        // 꿀팁 게시판 타입 지정 (2 = 요리 꿀팁)
         postDto.setPostType(2);
-        // 작성자 ID를 로그인한 회원 ID로 설정
         postDto.setMemberId(loginMember.getId());
-        // DB에 게시글 저장
         postService.writePost(postDto);
-        return "redirect:/tip/list"; // 브라우저에 list로 재요청하라고 응답
+        return "redirect:/tip/list";
     }
 
 
@@ -89,12 +82,11 @@ public class TipPostController {
         PostDto tip = postService.getPost(id);
         model.addAttribute("tip", tip);
 
-        List<ResponseDTO> replies = replyService.getRepliesByPostId(id);
+        List<ResponseDTO> replies = replyService.getRepliesByPostId( id);
         model.addAttribute("replies", replies);
 
         return "board/tip-detail";
     }
-
 
     // 요리 꿀팁 수정 화면 보여주는 컨트롤러
     @GetMapping("/edit")
@@ -102,7 +94,7 @@ public class TipPostController {
         PostDto tip = postService.getPost(id);
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
 
-        // 현재 로그인한 회원이 게시글 작성자가 아니면 수정 페이지에 들어갈 수 없다. (해당 꿀팁 상세 페이지로 돌아감)
+        // 현재 로그인한 회원이 게시글 작성자가 아니면 수정 페이지에 들어갈 수 없다.
         if (loginMember == null || loginMember.getId() != tip.getMemberId()) {
             return "redirect:/tip/detail?id=" + id;
         }
@@ -110,7 +102,6 @@ public class TipPostController {
         model.addAttribute("postForm", tip);
         return "board/tip-write";
     }
-
 
     // 요리 꿀팁 수정 요청 처리하는 컨트롤러
     @PostMapping("/edit")
@@ -126,7 +117,6 @@ public class TipPostController {
         return "redirect:/tip/detail?id=" + postDto.getId();
     }
 
-
     // 요리 꿀팁 삭제
     @PostMapping("/delete")
     public String deleteTip(@RequestParam int id, HttpSession session) {
@@ -140,9 +130,6 @@ public class TipPostController {
 
         return "redirect:/tip/list";
     }
-
-
-//    이미지 업로드 관련된 부분 컨트롤러!!
 
     @PostMapping("/image-upload")
     @ResponseBody
