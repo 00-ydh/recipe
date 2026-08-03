@@ -48,5 +48,10 @@ public interface FollowService {
      */
     List<PostDto> myFollowingMembersRecipes(int followingId);
 
+    /**
+     * 팔로잉한 회원의 수를 조회합니다.
+     * @param memberId 조회할 회원 ID
+     * @return memberId를 팔로잉 한 회원의 수
+     */
     int getFollowerCount(int memberId);
 }

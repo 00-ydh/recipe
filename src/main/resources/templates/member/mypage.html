@@ -145,9 +145,6 @@
                 <span class="divider">|</span>
                 <a th:href="@{/tip/delete(id=${tip.id})}" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                 </div>
-<!--                <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
-<!--                    <polyline points="9 18 15 12 9 6"/>-->
-<!--                </svg>-->
             </div>
 
 
@@ -206,7 +203,8 @@
         </div>
         <div class="recipe-grid follow-list-grid">
             <!--  한개의 카드 (레시피 한개) 반복해야하는 부분-->
-            <article class="recipe-card" th:each="myFollowingRecipe : ${myFollowingRecipes}" >
+            <a th:each="myFollowingRecipe : ${myFollowingRecipes}" th:href="@{/recipe/detail(id=${myFollowingRecipe.id})}">
+            <article class="recipe-card">
                 <div class="recipe-img-wrap follow-img-wrap">
                     <img class="recipe-img follow-img" src="https://loremflickr.com/300/200/food?lock=31" alt="레시피 이미지">
                     <div class="recipe-img-stats">
@@ -225,6 +223,7 @@
                     </div>
                 </div>
             </article>
+            </a>
             </div>
 
         </div>

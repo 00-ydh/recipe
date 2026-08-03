@@ -24,7 +24,6 @@ public class MemberServiceImpl implements MemberService{
     /**
      * 회원 가입을 처리합니다. memberDto의 email이 데이터베이스에 존재하지 않을 경우에 회원 가입을 허용합니다.
      * @param memberDto 회원 가입을 요청한 회원 정보 DTO
-     * @return 성공할 경우 true, 실패할 경우 false
      */
     @Override
     @Transactional
@@ -104,12 +103,18 @@ public class MemberServiceImpl implements MemberService{
         return memberRepository.findById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional
     public void deleteMemberById(int id) {
         memberRepository.deleteById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MemberDto getMemberByName(String name) {
         return memberRepository.findByName(name);
