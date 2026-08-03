@@ -11,13 +11,15 @@
             <span>냉부</span>
         </a>
         <!-- 검색창 -->
-        <div class="search-bar">
-            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A08070" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" placeholder="레시피, 팁 검색...">
-        </div>
+        <form action="/recipe/posts/search" method="get" class="search-form">
+            <div class="search-bar">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A08070" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" name="keyword" placeholder="레시피, 팁 검색..." th:value="${keyword}">
+            </div>
+        </form>
         <!-- 메뉴 -->
         <nav class="header-nav">
             <a th:href="@{/}" class="nav-link">홈</a>

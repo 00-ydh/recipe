@@ -31,5 +31,9 @@ public interface PostRepository {
     PostDto findTodayPostByCategoryId(int categoryId);
     // 레시피 게시글 조회순 / 최신글 순 정렬
     List<PostDto> findRecipePosts(String type, int offset, int limit);
-
+    //검색 조건에 맞는 전체 게시글 개수 조회
+    int count(String type, String keyword);
+    //검색 조건 및 페이징이 적용된 게시글 목록 조회
+    List<PostDto> search(String type, String keyword, int offset, int limit);
+    List<PostDto> search(String type, String keyword);
 }

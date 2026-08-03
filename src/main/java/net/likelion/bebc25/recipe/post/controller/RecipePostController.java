@@ -206,4 +206,26 @@ public class RecipePostController {
     }
 
 
+    @GetMapping("/posts/search")
+    public String searchPosts(
+            @RequestParam(value = "type", required = false, defaultValue = "title") String type,
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            Model model) {
+
+        int size = 10;
+
+        List<PostDto> posts = postService.searchPosts(type, keyword, page, size);
+        int totalCount = postService.searchPostCount(type, keyword);
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        model.addAttribute("posts", posts);
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
+        return "search/search";
+    }
+
 }

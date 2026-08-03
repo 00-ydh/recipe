@@ -93,4 +93,19 @@ public class PostServiceImpl implements PostService {
 
     }
 
+
+    //검색
+
+    @Override
+    public int searchPostCount(String type, String keyword) {
+        return postRepository.count(type, keyword);
+    }
+    @Override
+    public List<PostDto> searchPosts(String type, String keyword, int page, int size) {
+        int validPage = page < 1 ? 1 : page;
+        int validSize = size < 1 ? 10 : size;
+        int offset = (validPage - 1) * validSize;
+        return postRepository.search(type, keyword, offset, validSize);
+    }
+
 }
