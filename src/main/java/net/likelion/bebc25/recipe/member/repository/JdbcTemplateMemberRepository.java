@@ -60,16 +60,17 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
         return jdbcTemplate.queryForObject("SELECT * FROM member WHERE id = ?", memberDtoRowMapper, id);
     }
 
-    /**
-     * 회원 고유 식별자를 기반으로 회원 정보를 수정합니다. (별명, 비밀번호)
-     * @param memberDto 수정할 회원 정보 DTO
-     */
+
     @Override
-    public void update(MemberDto memberDto) {
-        jdbcTemplate.update("UPDATE member SET name = ?, password = ? WHERE id = ?",
-                memberDto.getName(),
-                memberDto.getPassword(),
-                memberDto.getId());
+    public void updateName(int memberId, String newName) {
+        jdbcTemplate.update("UPDATE member SET name = ? WHERE id = ?", newName, memberId);
+
+    }
+
+    @Override
+    public void updatePassword(int memberId, String newPassword) {
+        jdbcTemplate.update("UPDATE member SET password = ? WHERE id = ?", newPassword, memberId);
+
     }
 
     /**
@@ -111,6 +112,20 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM member WHERE eamil = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        String sql = "SELECT COUNT(*) FROM member WHERE name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, name);
+        return count != null && count > 0;
     }
 
 

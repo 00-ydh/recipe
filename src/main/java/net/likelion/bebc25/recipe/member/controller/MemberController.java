@@ -3,6 +3,8 @@ package net.likelion.bebc25.recipe.member.controller;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import net.likelion.bebc25.recipe.exception.DuplicateEmailException;
+import net.likelion.bebc25.recipe.exception.DuplicateNameException;
 import net.likelion.bebc25.recipe.follow.dto.FollowDto;
 import net.likelion.bebc25.recipe.follow.service.FollowService;
 import net.likelion.bebc25.recipe.member.dto.MemberDto;
@@ -109,13 +111,12 @@ public class MemberController {
      * 입력값 검증 실패 시 가입 폼으로 돌아갑니다.
      * @param memberDto 회원 가입 할 회원 정보 DTO
      * @param bindingResult 검증 오류 결과 객체
-     * @param model 화면에 에러 메시지를 전달하기 위한 Model 객체
      * @return 검증 실패/중복 시 가입 폼 경로, 가입 성공 시 로그인 페이지로 리다이렉트
      */
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("member") MemberDto memberDto,
                            @RequestParam(value = "passwordConfirm", required = false) String passwordConfirm,
-                           BindingResult bindingResult, Model model) {
+                           BindingResult bindingResult) {
         if (memberDto.getPassword() != null && !memberDto.getPassword().equals(passwordConfirm)) {
             bindingResult.rejectValue("password", "mismatch", "비밀번호가 일치하지 않습니다.");
         }
@@ -124,8 +125,13 @@ public class MemberController {
             return "member/register";
         }
 
-        if(!(memberService.register(memberDto))) {
-            bindingResult.rejectValue("email", "duplicate", "이미 사용 중인 이메일입니다.");
+        try {
+            memberService.register(memberDto);
+        } catch (DuplicateEmailException e) {
+            bindingResult.rejectValue("email", "duplicate", e.getMessage());
+            return "member/register";
+        } catch (DuplicateNameException e) {
+            bindingResult.rejectValue("name", "duplicate", e.getMessage());
             return "member/register";
         }
 
@@ -156,10 +162,8 @@ public class MemberController {
         model.addAttribute("myTips", myTips);
         model.addAttribute("myFollowing", myFollowing);
         model.addAttribute("myFollowingRecipes", myFollowingRecipes);
-
-        int recipeCount = myRecipes.size();
-
-        model.addAttribute("recipeCount", recipeCount);
+        model.addAttribute("followerCount", followService.getFollowerCount(loginMember.getId()));
+        model.addAttribute("recipeCount", myRecipes.size());
 
         return "member/mypage";
     }
@@ -172,26 +176,30 @@ public class MemberController {
     @GetMapping("/profile/{name}")
     public String getProfileForm(@PathVariable("name") String name, Model model, HttpSession session) { // 임시
         MemberDto memberDto = memberService.getMemberByName(name);
+        // 존재하지 않는 회원 조회 시 메인페이지로 이동
+        if(memberDto == null) {
+            return "redirect:/";
+        }
+
+        // 로그인 한 사용자 불러오기
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
-        List<PostDto> myRecipes = postService.getRecipePost(memberDto.getId());
-
-
-        if (memberDto.getId() == loginMember.getId()) {
-            return "redirect:/member/mypage";
-        }
-
-        int recipeCount = myRecipes.size();
         boolean isFollowing = false;
-
-        if (followService.findFollowById(loginMember.getId(), memberDto.getId()) != null) {
-            isFollowing = true;
+        // 로그인 한 사용자일 경우에 체크할 로직
+        if (loginMember != null) {
+            if (memberDto.getId() == loginMember.getId()) {
+                return "redirect:/member/mypage";
+            }
+            isFollowing = followService.findFollowById(loginMember.getId(), memberDto.getId()) != null;
         }
+
+
+        List<PostDto> myRecipes = postService.getRecipePost(memberDto.getId());
 
         model.addAttribute("member", memberDto);
         model.addAttribute("myRecipes", myRecipes);
         model.addAttribute("isFollowing", isFollowing);
-        model.addAttribute("recipeCount", recipeCount);
-
+        model.addAttribute("recipeCount", myRecipes.size());
+        model.addAttribute("followerCount", followService.getFollowerCount(memberDto.getId()));
 
         return "member/profile";
     }
@@ -230,9 +238,15 @@ public class MemberController {
             return "member/user-edit";
         }
 
-        loginMember.setName(memberDto.getName());
-        memberService.editMember(loginMember);
+        try {
+            loginMember.setName(memberDto.getName());
+            memberService.editName(loginMember.getId(), memberDto.getName());
+        } catch (DuplicateNameException e) {
+            bindingResult.rejectValue("name", "duplicate", e.getMessage());
+            return "member/user-edit";
+        }
 
+        loginMember.setName(memberDto.getName());
         session.setAttribute("loginMember", loginMember);
 
         return "redirect:/member/mypage";
@@ -255,9 +269,9 @@ public class MemberController {
             return "member/user-edit";
         }
 
-        loginMember.setPassword(memberDto.getPassword());
-        memberService.editMember(loginMember);
+        memberService.editPassword(loginMember.getId(), memberDto.getPassword());
 
+        loginMember.setPassword(memberDto.getPassword());
         session.setAttribute("loginMember", loginMember);
 
         return "redirect:/member/mypage";

@@ -63,19 +63,11 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public List<PostDto> myFollowingMembersRecipes(int followingId) {
-        List<MemberDto> myFollowingMembers = myFollowingMembers(followingId);
+        return followRepository.findFollowingMemberRecipes(followingId);
+    }
 
-        List<PostDto> myFollowingMembersRecipes = new ArrayList<>();
-        for (MemberDto member : myFollowingMembers) {
-            List<PostDto> posts = postRepository.findPostByUser(member.getId());
-
-            if (posts != null && !posts.isEmpty()) {
-                myFollowingMembersRecipes.addAll(posts);
-            }
-        }
-
-        myFollowingMembersRecipes.sort((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt()));
-
-        return  myFollowingMembersRecipes;
+    @Override
+    public int getFollowerCount(int memberId) {
+        return followRepository.countFollowers(memberId);
     }
 }

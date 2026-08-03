@@ -26,6 +26,12 @@ public class FollowController {
         this.memberService = memberService;
     }
 
+    /**
+     * 대상 회원의 팔로우 상태를 토글합니다.
+     * @param targetMemberId 팔로우/언팔로우 대상 회원 식별자
+     * @param session 로그인된 사용자 세션
+     * @return 대상 회원의 프로필 리다이렉트 경로
+     */
     @PostMapping
     public String toggleFollow(@RequestParam("targetMemberId") int targetMemberId,
                                HttpSession session) {
