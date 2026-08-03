@@ -46,7 +46,6 @@ public class jdbcTemplateFollowRepository implements FollowRepository {
                 .build();
     };
 
-    // 2. 클래스 하단에 추가할 도우미 메서드 (컬럼 존재 여부 체크)
     private boolean hasColumn(ResultSet rs, String columnName) {
         try {
             ResultSetMetaData metaData = rs.getMetaData();
