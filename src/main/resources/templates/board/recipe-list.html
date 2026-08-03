@@ -27,9 +27,9 @@
     <div class="top-info">
         <p>총 <span>1,248개</span>의 맛있는 레시피</p>
 
-        <div class="sort">
-            <button>최신순</button>
-            <button>조회순</button>
+        <div class="sort" >
+            <a th:href="@{/recipe/list(page=1, type='latest')}">최신순</a>
+            <a th:href="@{/recipe/list(page=1, type='view')}">조회순</a>
         </div>
     </div>
     <div class="recipe-list">
@@ -37,9 +37,9 @@
         <a th:href="@{/recipe/detail(id=${post.id})}" class="recipe-card" th:each="post : ${recipePosts}">
             <div class="recipe-card">
                 <div class="image">
-                    <img th:src="${post.mainImage}">
+                    <img th:if = "${post.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
+                    <img th:if = "${post.mainImage != null}" th:src="@{/recipe/main-image(filename=${post.mainImage})}" alt="레시피 이미지">
                 </div>
-
                 <div class="content">
                     <span class="tag" th:text="${post.categoryName}">한식</span>
                     <h3 th:text="${post.title}">정통 전주 비빔밥의 비밀 레시피</h3>
@@ -47,19 +47,18 @@
                         <span th:text="${post.memberName}">김셰프</span>
                         <span>👁<span th:text="${post.viewCount}">1.2K</span></span>
                     </div>
+                    <div class="created">
+                        <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm:ss')}">2026-07-13 15:30:00</span>
+                    </div>
                 </div>
             </div>
         </a>
     </div>
-
     <div class="pagination">
-        <button>&lt;</button>
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>&gt;</button>
+        <a th:each="i : ${#numbers.sequence(1, totalPage)}"
+           th:href="@{/recipe/list(page=${i})}"
+           th:text="${i}">
+        </a>
     </div>
 </div>
 </body>

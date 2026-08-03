@@ -25,5 +25,11 @@ public interface PostRepository {
     List<PostDto> findTipPostByUser(int memberId);
     // postId로 Recipe 게시글 상세 조회
     PostDto findRecipePostByPostId(int postId);
+    // 레시피 게시글 개수
+    int recipePostCount();
+    // 오늘뭐먹지 게시글 카테고리 아이디로 하나 띄우기
+    PostDto findTodayPostByCategoryId(int categoryId);
+    // 레시피 게시글 조회순 / 최신글 순 정렬
+    List<PostDto> findRecipePosts(String type, int offset, int limit);
 
 }

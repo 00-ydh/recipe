@@ -56,7 +56,7 @@
     font-weight: bold;
 }
 
-.sort button {
+.sort a {
     padding: 8px 16px;
     margin-left: 8px;
     border: 1px solid #ddd;
@@ -114,6 +114,12 @@
 
 /* 작성자 + 날짜 */
 .writer {
+    display: flex;
+    justify-content: space-between;
+    color: #888;
+    font-size: 13px;
+}
+.created {
     display: flex;
     justify-content: space-between;
     color: #888;

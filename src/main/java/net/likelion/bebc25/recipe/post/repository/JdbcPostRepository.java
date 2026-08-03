@@ -174,5 +174,50 @@ public class JdbcPostRepository implements PostRepository {
                 "WHERE post.post_type = 1 AND post.id = ?";
         return jdbcTemplate.queryForObject(sql, postDtoRowMapper, postId);
     }
+
+    // 레시피 게시글 개수
+    @Override
+    public int recipePostCount() {
+        String sql = "SELECT COUNT(*) FROM post WHERE post_type = 1";
+        Integer  count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count == null ? 0 : count;
+    }
+
+    // 레시피 게시글에서 카테고리 아이디를 받아 랜덤으로 게시글 하나 가져오기
+    @Override
+    public PostDto findTodayPostByCategoryId(int categoryId) {
+        String sql = "SELECT post.* , category.category_name, member.name FROM post " +
+                "LEFT JOIN category on post.category_id = category.id " +
+                "LEFT JOIN member on post.member_id = member.id " +
+                "WHERE post.post_type = 1 " +
+                "AND post.category_id = ? " +
+                "ORDER BY RAND() LIMIT 1";
+
+        return jdbcTemplate.queryForObject(sql, postDtoRowMapper, categoryId);
+    }
+
+    // 레시피 게시글 페이징
+    // 페이지당 8개씩 보여줄 것임
+    // 0, 8 넣고 Service에서 계산
+    @Override
+    public List<PostDto> findRecipePosts(String type, int offset, int limit) {
+        String sql = "SELECT post.* , category.category_name, member.name FROM post " +
+                "LEFT JOIN category on post.category_id = category.id " +
+                "LEFT JOIN member on post.member_id = member.id " +
+                "WHERE post.post_type = 1 ";
+
+        // 조회순 / 최신순 / 등록순
+        if("view".equals(type)) {
+            sql += " ORDER BY post.view_count DESC ";
+        }else if("latest".equals(type)) {
+            sql += " ORDER BY post.created_at DESC ";
+        }else{
+            sql += " ORDER BY post.id ASC ";
+        }
+        // 페이징
+        sql += " LIMIT ?, ?";
+        return jdbcTemplate.query(sql, postDtoRowMapper, offset, limit);
+    }
+
 }
 

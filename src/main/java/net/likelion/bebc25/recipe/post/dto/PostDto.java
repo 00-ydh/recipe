@@ -2,6 +2,7 @@ package net.likelion.bebc25.recipe.post.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
