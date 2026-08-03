@@ -47,7 +47,7 @@
                     <i class="fa-solid fa-lock icon"></i>
                     <input type="password" id="password" th:field="*{password}">
                 </div>
-                <button type="submit" class="btn-sub" th:formaction="@{/member/edit/password}">비밀번호 수정</button>
+                <button type="submit" class="btn-sub" th:formaction="@{/member/edit/password}" onclick="return confirm('정말로 변경하시겠습니까?');">비밀번호 수정</button>
             </div>
             <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">에러 메시지</div>
         </div>

@@ -6,9 +6,8 @@ public interface MemberService {
     /**
      * 회원 가입을 처리합니다.
      * @param memberDto 회원 가입을 요청한 회원 정보 DTO
-     * @return 성공할 경우 true, 실패할 경우 false
      */
-    boolean register(MemberDto memberDto);
+    void register(MemberDto memberDto);
 
     /**
      * 로그인을 처리하기 위해 아이디(이메일)과 비밀번호로 회원을 인증합니다.
@@ -25,11 +24,10 @@ public interface MemberService {
      */
     String findPassword(String email, String name);
 
-    /**
-     * 회원 정보를 수정합니다.
-     * @param memberDto 수정할 회원 정보 DTO
-     */
-    void editMember(MemberDto memberDto);
+
+    void editName(int memberId, String newName);
+
+    void editPassword(int memberId, String newPassword);
 
     /**
      * 회원 고유 식별자를 기반으로 회원 정보 DTO를 검색하여 가져옵니다.

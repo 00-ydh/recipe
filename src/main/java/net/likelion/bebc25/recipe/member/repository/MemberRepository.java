@@ -18,11 +18,10 @@ public interface MemberRepository {
      */
     MemberDto findById(int id);
 
-    /**
-     * 기존 회원 정보를 수정합니다.
-     * @param memberDto 수정할 회원 정보 DTO
-     */
-    void update(MemberDto memberDto);
+
+    void updateName(int memberId, String newName);
+
+    void updatePassword(int memberId, String newPassword);
 
     /**
      * 회원 고유 식별자를 기반으로 회원 정보를 삭제합니다.
@@ -49,4 +48,8 @@ public interface MemberRepository {
      * @return
      */
     MemberDto findByName(String name);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByName(String name);
 }

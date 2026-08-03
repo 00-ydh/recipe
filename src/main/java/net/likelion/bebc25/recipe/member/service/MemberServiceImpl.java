@@ -1,9 +1,12 @@
 package net.likelion.bebc25.recipe.member.service;
 
+import net.likelion.bebc25.recipe.exception.DuplicateEmailException;
+import net.likelion.bebc25.recipe.exception.DuplicateNameException;
 import net.likelion.bebc25.recipe.member.dto.MemberDto;
 import net.likelion.bebc25.recipe.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -24,13 +27,17 @@ public class MemberServiceImpl implements MemberService{
      * @return 성공할 경우 true, 실패할 경우 false
      */
     @Override
-    public boolean register(MemberDto memberDto) {
-        if(memberRepository.findByEmail(memberDto.getEmail()) == null){
-            memberRepository.save(memberDto);
-            return true;
-        } else {
-            return false;
+    @Transactional
+    public void register(MemberDto memberDto) {
+        if (memberRepository.existsByEmail(memberDto.getEmail())) {
+            throw new DuplicateEmailException("이미 사용 중인 이메일입니다.");
         }
+
+        if (memberRepository.existsByName(memberDto.getName())) {
+            throw new DuplicateNameException("이미 사용 중인 이름입니다.");
+        }
+
+        memberRepository.save(memberDto);
     }
 
     /**
@@ -71,8 +78,22 @@ public class MemberServiceImpl implements MemberService{
      * {@inheritDoc}
      */
     @Override
-    public void editMember(MemberDto memberDto) {
-        memberRepository.update(memberDto);
+    @Transactional
+    public void editName(int memberId, String newName) {
+        if (memberRepository.existsByName(newName)) {
+            throw new DuplicateNameException("이미 사용 중인 이름입니다.");
+        }
+
+        memberRepository.updateName(memberId, newName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void editPassword(int memberId, String newPassword) {
+        memberRepository.updatePassword(memberId, newPassword);
     }
 
     /**
@@ -84,6 +105,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    @Transactional
     public void deleteMemberById(int id) {
         memberRepository.deleteById(id);
     }
