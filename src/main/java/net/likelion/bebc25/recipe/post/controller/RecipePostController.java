@@ -1,5 +1,8 @@
 package net.likelion.bebc25.recipe.post.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +17,9 @@ import net.likelion.bebc25.recipe.reply.service.ReplyService;
 import net.likelion.bebc25.recipe.file.FileStore;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +32,7 @@ import java.io.IOException;
 import java.lang.reflect.Member;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -59,7 +65,7 @@ public class RecipePostController {
 
     // recipe-list 화면 보여주는 컨트롤러
     @GetMapping("/list")
-    public String getRecipeList(@RequestParam(value = "page", defaultValue = "1")int page,
+    public String getRecipeList(@RequestParam(value = "page", defaultValue = "1") int page,
                                 @RequestParam(value = "pageSize", defaultValue = "8") int size,
                                 //   처음 열었을때 최신순 적용
                                 @RequestParam(value = "type", defaultValue = "latest") String type,
@@ -89,7 +95,40 @@ public class RecipePostController {
 
     // recipe-details 화면 보여주는 컨트롤러
     @GetMapping("/detail")
-    public String getRecipeDetails(@RequestParam("id") int id, Model model, HttpSession session) {
+    public String getRecipeDetails(@RequestParam("id") int id,
+                                   Model model,
+                                   HttpSession session,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        // 이전에 쿠키 있던거면 oldCookie에 넣기
+        Cookie oldCookie = this.findCookie(cookies);
+
+        if(oldCookie != null) {
+            if(!oldCookie.getValue().contains("[" + id +"]")){
+                oldCookie.setValue(oldCookie.getValue()+"[" + id +"]");
+                // 60*60 = 1시간
+                oldCookie.setMaxAge(60*60*24);
+                oldCookie.setHttpOnly(true);
+                oldCookie.setSecure(true);
+                oldCookie.setPath("/");
+                response.addCookie(oldCookie);
+
+                // 조회수 증가
+                postService.viewCount(id);
+            }
+        }else{
+            Cookie cookie = new Cookie("post", "[" + id +"]");
+            cookie.setPath("/");
+            cookie.setMaxAge(60*60*24);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            response.addCookie(cookie);
+
+            // 조회수 증가
+            postService.viewCount(id);
+        }
+
         PostDto postDto = postService.getRecipe(id);
         List<ResponseDTO> replies = replyService.getRepliesByPostId(id);
 
@@ -130,7 +169,7 @@ public class RecipePostController {
 
     // recipe 등록 화면을 요청하는 컨트롤러
     @GetMapping("/write")
-    public String getRecipeWriteForm(@ModelAttribute("recipePostForm") PostDto post){
+    public String getRecipeWriteForm(@ModelAttribute("recipePostForm") PostDto post) {
         return "board/recipe-write";
     }
 
@@ -138,16 +177,16 @@ public class RecipePostController {
     // reuired = false 파라미터 필수 아니게
     @PostMapping("/write")
     public String writeRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post
-                                  , BindingResult bindingResult
-                                  , HttpSession session) throws IOException {
+            , BindingResult bindingResult
+            , HttpSession session) throws IOException {
         // 게시글 작성시 로그인 세션
-        MemberDto loginMember = (MemberDto)session.getAttribute("loginMember");
-        if(loginMember == null){
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+        if (loginMember == null) {
             return "redirect:/member/login";
         }
 
         // 검증에 실패했을 경우
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "board/recipe-write";
         }
         // 로그인 된 회원의 Id를 게시글의 작성자 ID로 지정
@@ -156,7 +195,7 @@ public class RecipePostController {
         post.setPostType(1);
 
         // 파일 객체가 있고, 실제 내용도 있다면
-        if(post.getFile() != null && !post.getFile().isEmpty()){
+        if (post.getFile() != null && !post.getFile().isEmpty()) {
             // fileStore메서드 - 업로드된 파일을 검사하여 UUID으로 저장
             // 그리고 그것을 mainImage DB에 저장
             String mainImage = fileStore.storeFile(post.getFile());
@@ -172,7 +211,7 @@ public class RecipePostController {
 
     // 레시피 게시글을 수정하는 화면으로 가는 컨트롤러
     @GetMapping("/edit")
-    public String getRecipeEditForm(@RequestParam("id") int id, Model model){
+    public String getRecipeEditForm(@RequestParam("id") int id, Model model) {
         PostDto post = postService.getRecipe(id);
         model.addAttribute("recipePostForm", post);
         return "board/recipe-write";
@@ -181,23 +220,23 @@ public class RecipePostController {
     // 레시피 게시글을 수정 요청을 처리하는 컨트롤러
     @PostMapping("/edit")
     public String editRecipePost(@Valid @ModelAttribute("recipePostForm") PostDto post
-                                , BindingResult bindingResult
-                                , HttpSession session) throws IOException {
+            , BindingResult bindingResult
+            , HttpSession session) throws IOException {
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
-        if(loginMember == null){
+        if (loginMember == null) {
             return "redirect:/member/login";
         }
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "board/recipe-write";
         }
         PostDto postDto = postService.getRecipe(post.getId());
 
-        if(loginMember.getId() != postDto.getMemberId()){
+        if (loginMember.getId() != postDto.getMemberId()) {
             return "redirect:/recipe/list";
         }
 
         // 새로운 파일이 들어온 경우 새로 저장, 없으면 기존 첨부파일 정보 유지
-        if(post.getFile() != null && !post.getFile().isEmpty()){
+        if (post.getFile() != null && !post.getFile().isEmpty()) {
             String storeFilename = fileStore.storeFile(post.getFile());
             post.setOriginalFilename(post.getFile().getOriginalFilename());
             post.setMainImage(storeFilename);
@@ -214,15 +253,15 @@ public class RecipePostController {
 
     // 레시피 게시글을 삭제 요청을 처리하는 컨트롤러
     @PostMapping("/delete")
-    public String deleteRecipePost(@RequestParam int id){
+    public String deleteRecipePost(@RequestParam int id) {
         postService.removePost(id);
         return "redirect:/member/mypage";
     }
 
     @PostMapping("/image-upload")
     @ResponseBody
-    public String uploadEditorImage(@RequestParam("image") MultipartFile image){
-        if(image.isEmpty()){
+    public String uploadEditorImage(@RequestParam("image") MultipartFile image) {
+        if (image.isEmpty()) {
             return "";
         }
 
@@ -246,7 +285,8 @@ public class RecipePostController {
             throw new RuntimeException(e);
         }
     }
-    @GetMapping(value = "/image-print", produces = { MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
+
+    @GetMapping(value = "/image-print", produces = {MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     @ResponseBody
     public byte[] printEditorImage(@RequestParam final String filename) {
         // 업로드된 파일의 전체 경로
@@ -292,4 +332,16 @@ public class RecipePostController {
         return "search/search";
     }
 
+    // 이전에 이 쿠기있었는지 없었는지 체크하는 메서드
+    private Cookie findCookie(Cookie[] cookies) {
+        Cookie oldCookie = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("post")) {
+                oldCookie = cookie;
+            }
+        }
+        return oldCookie;
+    }
 }
+
+

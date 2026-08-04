@@ -114,6 +114,12 @@ public class PostServiceImpl implements PostService {
     public int searchPostCount(String type, String keyword) {
         return postRepository.count(type, keyword);
     }
+
+    @Override
+    public int viewCount(int postId) {
+        return postRepository.viewCount(postId);
+    }
+
     @Override
     public List<PostDto> searchPosts(String type, String keyword, int page, int size) {
         int validPage = page < 1 ? 1 : page;
