@@ -101,10 +101,11 @@ public class RecipePostController {
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
-        // 이전에 쿠키 있던거면 oldCookie에 넣기
+        // findCookie에서 반환한 쿠키 저장
         Cookie oldCookie = this.findCookie(cookies);
 
         if(oldCookie != null) {
+            // contains - 특정 문자열이 포함되어있는지 확인하는 함수
             if(!oldCookie.getValue().contains("[" + id +"]")){
                 oldCookie.setValue(oldCookie.getValue()+"[" + id +"]");
                 // 60*60 = 1시간
@@ -332,7 +333,7 @@ public class RecipePostController {
         return "search/search";
     }
 
-    // 이전에 이 쿠기있었는지 없었는지 체크하는 메서드
+    // post 쿠키 찾아서 있으면 그 쿠키 저장하는 메서드
     private Cookie findCookie(Cookie[] cookies) {
         Cookie oldCookie = null;
         for (Cookie cookie : cookies) {
