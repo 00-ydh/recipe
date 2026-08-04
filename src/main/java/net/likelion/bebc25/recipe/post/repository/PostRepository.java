@@ -36,5 +36,9 @@ public interface PostRepository {
     //검색 조건 및 페이징이 적용된 게시글 목록 조회
     List<PostDto> search(String type, String keyword, int offset, int limit);
     List<PostDto> search(String type, String keyword);
+    // 꿀팁 게시글 페이징
+    List<PostDto> findTipPosts(int offset, int limit);
+    // 꿀팁 게시글 개수
+    int tipPostCount();
 
 }

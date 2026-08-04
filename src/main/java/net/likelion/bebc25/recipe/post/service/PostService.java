@@ -36,5 +36,9 @@ public interface PostService {
 
     List<PostDto> searchPosts(String type, String keyword, int page, int size);
     int searchPostCount(String type, String keyword);
+    // 꿀팁 게시글 페이징
+    List<PostDto> getTipPosts(int page, int size);
+    // 꿀팁 게시글 개수
+    int tipPostCount();
 
 }

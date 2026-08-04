@@ -44,11 +44,24 @@ public class TipPostController {
 
     }
 
-    // 요리 꿀팁 리스트 보여주는 컨트롤러
+    // 요리 꿀팁 리스트 보여주는 컨트롤러 (페이징 하는거 추가 완료)
     @GetMapping("/list")
-    public String getTipList(Model model) {
-        List<PostDto> tips = postService.getTipPosts(2);
+    public String getTipList(@RequestParam(value = "page", defaultValue = "1") int page,
+                             @RequestParam(value = "pageSize", defaultValue = "8") int size,
+                             Model model) {
+
+        // 게시글 목록 조회(데이터)
+        // size = 페이지당 보여주고 싶은 게시글 수
+        List<PostDto> tips = postService.getTipPosts(page, size);
+
+        // 여기서 페이지 계산
+        int totalCount = postService.tipPostCount();
+        int totalPage = (int) Math.ceil((double) totalCount / size);
+
         model.addAttribute("posts", tips);
+        model.addAttribute("page", page);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("postCount", totalCount);  // 총 꿀팁 게시글 수
         return "board/tip-list";
     }
 

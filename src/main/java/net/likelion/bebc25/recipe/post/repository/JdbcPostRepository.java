@@ -247,6 +247,28 @@ public class JdbcPostRepository implements PostRepository {
     }
 
 
+    // 꿀팁 게시글 페이징 (post_type = 2)
+    // 페이지당 8개씩 보여줄 것임
+    // 0, 8 넣고 Service에서 계산
+    @Override
+    public List<PostDto> findTipPosts(int offset, int limit) {
+        String sql = "SELECT p.*, m.name AS member_name " +
+                     "FROM post p " +
+                     "LEFT JOIN member m ON p.member_id = m.id " +
+                     "WHERE p.post_type = 2 " +
+                     "ORDER BY p.created_at DESC " +
+                     "LIMIT ?, ?";
+        return jdbcTemplate.query(sql, postDtoRowMapper, offset, limit);
+    }
+
+    // 꿀팁 게시글 개수
+    @Override
+    public int tipPostCount() {
+        String sql = "SELECT COUNT(*) FROM post WHERE post_type = 2";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+        return count == null ? 0 : count;
+    }
+
     @Override
     public List<PostDto> search(String type, String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {

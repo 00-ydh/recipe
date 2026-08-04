@@ -61,7 +61,8 @@ public class RecipePostController {
     @GetMapping("/list")
     public String getRecipeList(@RequestParam(value = "page", defaultValue = "1")int page,
                                 @RequestParam(value = "pageSize", defaultValue = "8") int size,
-                                @RequestParam(value = "type", required = false) String type,
+                                //   처음 열었을때 최신순 적용
+                                @RequestParam(value = "type", defaultValue = "latest") String type,
                                 @RequestParam(defaultValue = "0") int categoryId,
                                 Model model) {
 

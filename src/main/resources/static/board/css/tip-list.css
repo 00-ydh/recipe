@@ -6,9 +6,6 @@
 .container {
     width: 1200px;
     margin: 40px auto;
-    background: white;
-    border-radius: 16px;
-    padding: 40px;
 }
 
 /* 제목(왼쪽) + 작성하기 버튼(오른쪽) 양쪽 배치 */
@@ -45,6 +42,16 @@
     cursor: pointer;
 }
 
+/* 총 게시글 수 */
+.top-info {
+    margin-bottom: 20px;
+}
+
+.top-info span {
+    color: #F06638;
+    font-weight: bold;
+}
+
 /* 꿀팁 카드 세로 목록 */
 .tip-list {
     display: flex;
@@ -54,6 +61,9 @@
 
 /* 꿀팁 카드 한 줄 */
 .tip-card {
+    background-color: white;
+    text-decoration: none;
+    color: inherit;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -94,22 +104,28 @@
 .pagination {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 10px;
-    margin-top: 40px;
+    margin: 50px 0;
 }
 
-.pagination button {
+.pagination a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 35px;
     height: 35px;
-    border: none;
+    border: 1px solid #ddd;
     background: white;
-    cursor: pointer;
     border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
 }
 
-/* 현재 페이지 버튼 */
-.pagination .active {
-    background: #F06638;
+/* 현재 페이지 */
+.pagination a.active {
+    background: #b34712;
     color: white;
+    border: none;
 }

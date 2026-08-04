@@ -94,6 +94,20 @@ public class PostServiceImpl implements PostService {
     }
 
 
+    // 꿀팁 게시글 페이징
+    @Override
+    public List<PostDto> getTipPosts(int page, int size) {
+        int validPage = page < 1 ? 1 : page;
+        int validSize = size < 1 ? 10 : size;
+        int offset = (validPage - 1) * validSize;
+        return postRepository.findTipPosts(offset, validSize);
+    }
+
+    @Override
+    public int tipPostCount() {
+        return postRepository.tipPostCount();
+    }
+
     //검색
 
     @Override

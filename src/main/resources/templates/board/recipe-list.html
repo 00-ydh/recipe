@@ -12,25 +12,30 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h2>레시피 목록</h2>
+        <div>
+            <h2>레시피 목록</h2>
+            <p>다양한 요리 레시피를 구경하고 나만의 레시피를 공유해보세요!</p>
+        </div>
         <a th:href="@{/recipe/write}" class="write-btn">
-            + 레시피 등록
+           레시피 등록하기
         </a>
     </div>
 <!--    (중요)페이지 넘어가도 조회순 최신순 카테고리 유지할려면 다 넘겨줘야한다-->
+    <!-- 카테고리 버튼 : categoryId 값이 일치하면 active → CSS에서 색상 강조 / 0=전체, 1=한식, 2=양식, 3=중식, 4=일식 -->
     <div class="category">
-        <a th:href="@{/recipe/list}" class="active">전체</a>
-        <a th:href="@{/recipe/list(categoryId=1, type=${type})}">한식</a>
-        <a th:href="@{/recipe/list(categoryId=2, type=${type})}">양식</a>
-        <a th:href="@{/recipe/list(categoryId=3, type=${type})}">중식</a>
-        <a th:href="@{/recipe/list(categoryId=4, type=${type})}">일식</a>
+        <a th:href="@{/recipe/list}" th:class="${categoryId == 0} ? 'active' : ''">전체</a>
+        <a th:href="@{/recipe/list(categoryId=1, type=${type})}" th:class="${categoryId == 1} ? 'active' : ''">한식</a>
+        <a th:href="@{/recipe/list(categoryId=2, type=${type})}" th:class="${categoryId == 2} ? 'active' : ''">양식</a>
+        <a th:href="@{/recipe/list(categoryId=3, type=${type})}" th:class="${categoryId == 3} ? 'active' : ''">중식</a>
+        <a th:href="@{/recipe/list(categoryId=4, type=${type})}" th:class="${categoryId == 4} ? 'active' : ''">일식</a>
     </div>
     <div class="top-info">
         <p>총 <span th:text="${postCount}">1,248개</span>의 맛있는 레시피</p>
 
+        <!-- 정렬 버튼 : type 값이 'latest'면 최신순 active, 'view'면 조회순 active → CSS에서 색상 강조 -->
         <div class="sort" >
-            <a th:href="@{/recipe/list(page=1, type='latest', categoryId=${categoryId})}">최신순</a>
-            <a th:href="@{/recipe/list(page=1, type='view', categoryId=${categoryId})}">조회순</a>
+            <a th:href="@{/recipe/list(page=1, type='latest', categoryId=${categoryId})}" th:class="${type == 'latest'} ? 'active' : ''">최신순</a>
+            <a th:href="@{/recipe/list(page=1, type='view', categoryId=${categoryId})}" th:class="${type == 'view'} ? 'active' : ''">조회순</a>
         </div>
     </div>
     <div class="recipe-list">
@@ -40,16 +45,30 @@
                 <div class="image">
                     <img th:if = "${post.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="기본 이미지">
                     <img th:if = "${post.mainImage != null}" th:src="@{/images/{filename}(filename=${post.mainImage})}" alt="레시피 이미지">
+                    <!-- 좋아요 / 스크랩 수 배지 (index.html 스타일) -->
+                    <div class="recipe-img-stats">
+                        <span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            <span th:text="${post.likeCount}">0</span>
+                        </span>
+                        <span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            0
+                        </span>
+                    </div>
                 </div>
                 <div class="content">
                     <span class="tag" th:text="${post.categoryName}">한식</span>
                     <h3 th:text="${post.title}">정통 전주 비빔밥의 비밀 레시피</h3>
                     <div class="writer">
                         <span th:text="${post.memberName}">김셰프</span>
-                        <span>👁<span th:text="${post.viewCount}">1.2K</span></span>
                     </div>
-                    <div class="created">
-                        <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm')}">2026-07-13 15:30:00</span>
+                    <div class="card-bottom">
+                        <span class="created" th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm')}">2026-07-13 15:30:00</span>
+                        <span class="views">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <span th:text="${post.viewCount}">1.2K</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -59,7 +78,8 @@
     <div class="pagination">
         <a th:each="i : ${#numbers.sequence(1, totalPage)}"
            th:href="@{/recipe/list(page=${i},categoryId=${categoryId},type=${type})}"
-           th:text="${i}">
+           th:text="${i}"
+           th:class="${i == page} ? 'active' : ''"> <!-- i(현재 반복 페이지 번호) == page(컨트롤러에서 넘긴 현재 페이지) 같으면 active 클래스 추가 → CSS에서 색상 강조 -->
         </a>
     </div>
 </div>
