@@ -1,5 +1,8 @@
 package net.likelion.bebc25.recipe.post.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -95,9 +98,36 @@ public class TipPostController {
 
 
     @GetMapping("/detail")
-    public String getTipDetail(@RequestParam("id") int id, HttpSession session, Model model) {
-        // 조회수 증가
-        postService.viewCount(id);
+    public String getTipDetail(@RequestParam("id") int id, HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        // findCookie에서 반환한 쿠키 저장
+        Cookie oldCookie = this.findCookie(cookies);
+
+        if(oldCookie != null) {
+            // contains - 특정 문자열이 포함되어있는지 확인하는 함수
+            if(!oldCookie.getValue().contains("[" + id +"]")){
+                oldCookie.setValue(oldCookie.getValue()+"[" + id +"]");
+                // 60*60 = 1시간
+                oldCookie.setMaxAge(60*60*24);
+                oldCookie.setHttpOnly(true);
+                oldCookie.setSecure(true);
+                oldCookie.setPath("/");
+                response.addCookie(oldCookie);
+
+                // 조회수 증가
+                postService.viewCount(id);
+            }
+        }else{
+            Cookie cookie = new Cookie("post", "[" + id +"]");
+            cookie.setPath("/");
+            cookie.setMaxAge(60*60*24);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            response.addCookie(cookie);
+
+            // 조회수 증가
+            postService.viewCount(id);
+        }
         PostDto tip = postService.getPost(id);
         model.addAttribute("tip", tip);
 
@@ -226,5 +256,15 @@ public class TipPostController {
             // 예외 처리는 따로 해주는 게 좋습니다.
             throw new RuntimeException(e);
         }
+    }
+    // post 쿠키 찾아서 있으면 그 쿠키 저장하는 메서드
+    private Cookie findCookie(Cookie[] cookies) {
+        Cookie oldCookie = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("post")) {
+                oldCookie = cookie;
+            }
+        }
+        return oldCookie;
     }
 }
