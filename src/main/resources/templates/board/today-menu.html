@@ -46,7 +46,7 @@
         </div>
         <div class="result-box" th:if="${post != null}">
             <img th:if = "${post.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
-            <img th:if = "${post.mainImage != null}" th:src="@{/recipe/main-image(filename=${post.mainImage})}" alt="레시피 이미지">
+            <img th:if = "${post.mainImage != null}" th:src="@{/images/{filename}(filename=${post.mainImage})}" alt="레시피 이미지">
             <h3 th:text="${post.title}"></h3>
             <p><span th:text="${post.categoryName}"></span> | <span th:text="${post.memberName}"></span></p>
             <a th:href="@{/recipe/detail(id=${post.id})}">레시피 보러가기</a>
