@@ -6,12 +6,11 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 24px;
 }
 
 /* 각 섹션 상하 여백 */
 section {
-    padding: 50px 0;
+    padding: 40px 0;
 }
 
 /* 섹션 제목 + "더보기" 링크 양쪽 배치 */

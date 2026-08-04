@@ -19,7 +19,12 @@
     font-size: 30px;
     font-weight: 700;
     color: #58413A;
-    margin-bottom: 0;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    font-size: 14px;
+    color: #999;
 }
 
 /* 카테고리 필터 */
@@ -66,6 +71,15 @@
     background: white;
     border-radius: 20px;
     cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+/* 선택된 정렬 버튼 */
+.sort a.active {
+    background: #b34712;
+    color: white;
+    border-color: #b34712;
 }
 
 /* 카드 4열 그리드 */
@@ -86,6 +100,46 @@
 /* 카드 상단 이미지 영역 */
 .image {
     position: relative;
+}
+
+/* 이미지 위 우측 상단 좋아요/북마크 수 */
+.recipe-img-stats {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+}
+
+/* 각 수치 칩 */
+.recipe-img-stats > span {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    background-color: rgba(0,0,0,0.35);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 7px;
+    border-radius: 999px;
+}
+
+/* 날짜 + 조회수 같은 줄 배치 */
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6px;
+    color: #888;
+    font-size: 13px;
+}
+
+/* 조회수 아이콘 + 숫자 정렬 */
+.views {
+    display: flex;
+    align-items: center;
+    gap: 3px;
 }
 
 .image img {
@@ -110,7 +164,7 @@
 
 /* 카드 제목 */
 .content h3 {
-    margin: 15px 0;
+    margin: 10px 0;
     font-size: 20px;
     line-height: 1.5;
 }
@@ -150,8 +204,9 @@
     cursor: pointer;
 }
 
-/* 현재 페이지 버튼 */
-.pagination .active {
+/* 현재 페이지 버튼 활성화 되었을 때 */
+.pagination .active,
+.pagination a.active {
     background: #b34712;
     color: white;
     border: none;
@@ -160,7 +215,7 @@
 /* 레시피 등록 버튼 */
 .write-btn {
     display: inline-block;
-    padding: 12px 22px;
+    padding: 12px 24px;
     background: #ff6b35;
     color: #fff;
     text-decoration: none;

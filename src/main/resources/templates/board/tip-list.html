@@ -27,10 +27,14 @@
         </button>
     </div>
 
+<div class="top-info">
+    <p>총 <span th:text="${postCount}">0</span>개의 요리 꿀팁</p>
+</div>
+
 <div class="tip-list">
 
         <!-- 꿀팁 게시글 목록 반복 출력 -->
-        <a class="tip-card" th:each="post : ${posts}" th:href="@{/tip/detail(id=${post.id})}" style="text-decoration:none; color:inherit;">
+        <a class="tip-card" th:each="post : ${posts}" th:href="@{/tip/detail(id=${post.id})}">
 
             <div class="tip-info">
                 <h3 th:text="${post.title}">요리 꿀팁 게시글 제목</h3>
@@ -59,70 +63,17 @@
         </a>
 
     </div>
-
-<!--    페이지 네이션-->
-    <div class="pagination" id="pagination"></div>
+    <!--    페이지 누를때도 다 넘겨주기(중요)-->
+    <!--    페이지네이션-->
+    <div class="pagination">
+        <a th:each="i : ${#numbers.sequence(1, totalPage)}"
+           th:href="@{/tip/list(page=${i})}"
+           th:text="${i}"
+           th:class="${i == page} ? 'active' : ''"> <!-- i(현재 반복 페이지 번호) == page(컨트롤러에서 넘긴 현재 페이지) 같으면 active 클래스 추가 → CSS에서 색상 강조 -->
+        </a>
+    </div>
 
 </div>
-
-
-<!--페이지네이션 js 코드 (필요없을 시 삭제 예정)-->
-<script>
-    const PAGE_SIZE = 10;
-    const cards = Array.from(document.querySelectorAll('.tip-card'));
-    let currentPage = 1;
-
-    function showPage(page) {
-        currentPage = page;
-        const start = (page - 1) * PAGE_SIZE;
-        const end = start + PAGE_SIZE;
-
-        cards.forEach((card, index) => {
-            card.style.display = (index >= start && index < end) ? '' : 'none';
-        });
-
-        renderPagination();
-    }
-
-    function renderPagination() {
-        const totalPages = Math.ceil(cards.length / PAGE_SIZE);
-        const pagination = document.getElementById('pagination');
-        pagination.innerHTML = '';
-
-        // 페이지가 1개 이하면 페이지네이션 숨김
-        if (totalPages <= 1) {
-            pagination.style.display = 'none';
-            return;
-        }
-        pagination.style.display = '';
-
-        // 이전 버튼
-        const prev = document.createElement('button');
-        prev.textContent = '〈';
-        prev.disabled = currentPage === 1;
-        prev.onclick = () => showPage(currentPage - 1);
-        pagination.appendChild(prev);
-
-        // 페이지 번호 버튼
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            if (i === currentPage) btn.classList.add('active');
-            btn.onclick = () => showPage(i);
-            pagination.appendChild(btn);
-        }
-
-        // 다음 버튼
-        const next = document.createElement('button');
-        next.textContent = '〉';
-        next.disabled = currentPage === totalPages;
-        next.onclick = () => showPage(currentPage + 1);
-        pagination.appendChild(next);
-    }
-
-    // 초기 실행
-    showPage(1);
-</script>
 
 </body>
 </html>

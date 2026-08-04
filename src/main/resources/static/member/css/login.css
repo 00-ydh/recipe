@@ -169,3 +169,9 @@ body {
     color: #999999;
     text-align: center;
 }
+
+.footer .made-by {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #bbbbbb;
+}

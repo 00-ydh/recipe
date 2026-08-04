@@ -108,3 +108,10 @@ body {
     text-decoration: none;
     margin-left: 6px;
 }
+
+/* 유효성 검사 에러 메시지 */
+.field-error {
+    color: #e03131;
+    font-size: 15px;
+    margin-top: 6px;
+}

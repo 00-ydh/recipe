@@ -37,12 +37,16 @@ public class JdbcMainRepository implements MainRepository {
     };
 
     // 명예의 전당: 좋아요 많은 레시피 TOP 3
-    // - post 테이블 기준으로 category, member, good 테이블 LEFT JOIN
-    // - post_type = 1 (레시피만)
-    // - good 테이블의 행 수를 세서 좋아요 수(like_count) 계산
-    // - 좋아요 수 내림차순 정렬 후 3개만 가져옴
+    // - LEFT JOIN category : 카테고리 이름(category_name) 가져오려고
+    // - LEFT JOIN member   : 작성자 이름(member_name) 가져오려고
+    // - LEFT JOIN good     : 좋아요 수(like_count) 세려고 → COUNT(g.id)로 집계
+    // - WHERE post_type=1  : 레시피 게시글만 필터링
+    // - GROUP BY p.id      : COUNT 집계할 때 게시글 기준으로 묶어주려고
+    // - ORDER BY like_count DESC LIMIT 3 : 좋아요 많은 순 상위 3개만
     @Override
     public List<MainDto> findTopRecipes() {
+        // post(레시피) + category(카테고리명) + member(작성자명) + good(좋아요수) 조인
+        // good 테이블 행 수를 COUNT해서 좋아요 수 계산, 좋아요 많은 순 상위 3개 반환
         String sql = "SELECT p.*, c.category_name, m.name AS member_name, COUNT(g.id) AS like_count " +
                      "FROM post p " +
                      "LEFT JOIN category c ON p.category_id = c.id " +
@@ -57,11 +61,13 @@ public class JdbcMainRepository implements MainRepository {
 
 
     // 이달의 추천: 한 달 이내 좋아요 많은 레시피 TOP 10
-    // - 위 쿼리와 동일하지만 날짜 조건 추가
-    // - created_at 이 현재로부터 1달 이내인 것만 필터링
-    // - 좋아요 수 내림차순 정렬 후 10개만 가져옴
+    // - LEFT JOIN category, member, good : findTopRecipes()와 동일한 이유로 JOIN
+    // - AND created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) : 현재 기준 1달 이내 글만 필터링
+    // - ORDER BY like_count DESC LIMIT 10 : 좋아요 많은 순 상위 10개만
     @Override
     public List<MainDto> findMonthlyTopRecipes() {
+        // findTopRecipes()와 동일한 조인 구조
+        // 단, 현재 날짜 기준 1달 이내(DATE_SUB) 등록된 레시피만 필터링 후 좋아요 많은 순 상위 10개 반환
         String sql = "SELECT p.*, c.category_name, m.name AS member_name, COUNT(g.id) AS like_count " +
                      "FROM post p " +
                      "LEFT JOIN category c ON p.category_id = c.id " +
@@ -76,11 +82,15 @@ public class JdbcMainRepository implements MainRepository {
     }
 
     // 최신 요리 꿀팁: 최신순 6개
-    // - post_type = 2 (꿀팁만)
-    // - member 테이블 JOIN 해서 작성자 이름 가져옴
-    // - 작성일 내림차순 정렬 후 6개만 가져옴
+    // - LEFT JOIN member : 작성자 이름(member_name) 가져오려고
+    // - LEFT JOIN good   : 좋아요 수 세려고 (꿀팁에도 좋아요 기능 있으므로)
+    // - NULL AS category_name : 꿀팁은 카테고리가 없어서 null로 채움
+    // - WHERE post_type=2 : 꿀팁 게시글만 필터링
+    // - ORDER BY created_at DESC LIMIT 6 : 최신 등록순 상위 6개만
     @Override
     public List<MainDto> findLatestTipPosts() {
+        // post(꿀팁) + member(작성자명) + good(좋아요수) 조인
+        // 꿀팁은 카테고리가 없으므로 category_name은 NULL로 채움, 최신 등록순 상위 6개 반환
         String sql = "SELECT p.*, m.name AS member_name, NULL AS category_name, COUNT(g.id) AS like_count " +
                      "FROM post p " +
                      "LEFT JOIN member m ON p.member_id = m.id " +
@@ -105,10 +115,13 @@ public class JdbcMainRepository implements MainRepository {
     };
 
     // 밥플루언서: 팔로워 수 많은 멤버 TOP 5
-    // - follow 테이블에서 following_id 기준으로 팔로워 수 집계
-    // - 팔로워 수 내림차순 정렬 후 5명만 가져옴
+    // - LEFT JOIN follow : 각 멤버를 팔로우한 사람 수(follower_count) 세려고 → COUNT(f.id)로 집계
+    // - GROUP BY m.id    : 멤버 기준으로 팔로워 수 묶어주려고
+    // - ORDER BY follower_count DESC LIMIT 5 : 팔로워 많은 순 상위 5명만
     @Override
     public List<MainDto> findTopMember() {
+        // member + follow 조인 (follow 테이블에서 나를 팔로우한 사람 수를 COUNT)
+        // 팔로워 많은 순 상위 5명 반환 (memberRowMapper 사용 - mainDtoRowMapper와 다름 주의!)
         String sql = "SELECT m.id, m.name AS member_name, COUNT(f.id) AS follower_count " +
                 "FROM member m " +
                 "LEFT JOIN follow f ON m.id = f.follower_id " +
