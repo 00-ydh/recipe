@@ -93,6 +93,11 @@
     height: auto;
 }
 
+/* TUI 에디터 렌더링 콘텐츠 폰트 */
+.step-box, .step-box * {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* 내용 박스 */
 .step-box {
     background-color: white;

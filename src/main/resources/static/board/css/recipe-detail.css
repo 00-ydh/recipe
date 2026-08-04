@@ -4,12 +4,11 @@
 
 /* 흰 카드 컨테이너 */
 .container {
-    background-color: white;
     max-width: 1200px;
     margin: 40px auto;
-    padding: 40px 36px 80px;
+    /*padding: 40px 36px 80px;*/
     border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    /*box-shadow: 0 2px 12px rgba(0,0,0,0.07);*/
 }
 
 /* 제목 + 액션 버튼 한 줄 배치 */
@@ -86,6 +85,11 @@
     height: auto;
 }
 
+/* TUI 에디터 렌더링 콘텐츠 폰트 */
+.content, .content * {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* 내용 박스 */
 .step-box {
     background-color: white;
@@ -96,6 +100,11 @@
     color: #444;
     line-height: 2;
     margin-bottom: 35px;
+}
+
+/*요리 순서 박스*/
+.ingredients-section{
+    margin-bottom: 30px;
 }
 
 /* 조회수 / 좋아요 통계 */
