@@ -137,7 +137,7 @@ section {
 
 /* 카드 하단 텍스트 영역 */
 .top-recipe-info {
-    padding: 14px 16px 16px;
+    padding: 14px 16px;
 }
 
 /* 카드 레시피 제목 */
@@ -309,7 +309,7 @@ section {
 
 /* 카드 텍스트 영역 */
 .recipe-card-body {
-    padding: 10px 12px 12px;
+    padding:14px 16px;
 }
 
 /* 조회수 + 댓글수 + 날짜 한 줄 배치 */

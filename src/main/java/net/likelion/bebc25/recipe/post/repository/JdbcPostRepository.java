@@ -19,10 +19,12 @@ public class JdbcPostRepository implements PostRepository {
     public JdbcPostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    //
+    // 검색 기능에서 공통으로 쓰는 기본 SELECT SQL
+    // - LEFT JOIN member   : 작성자 이름(member_name) 가져오려고 추가
+    // - LEFT JOIN category : 카테고리 이름(category_name) 가져오려고 추가
     private static final String BASE_SELECT_SQL =
-            "SELECT p.id, p.member_id, p.category_id, p.main_image, p.title, p.content, p.view_count, p.created_at, p.post_type, m.name AS author " +
-                    "FROM post p LEFT JOIN member m ON p.member_id = m.id";
+            "SELECT p.id, p.member_id, p.category_id, p.main_image, p.title, p.content, p.view_count, p.created_at, p.post_type, m.name AS member_name, c.category_name " +
+                    "FROM post p LEFT JOIN member m ON p.member_id = m.id LEFT JOIN category c ON p.category_id = c.id";
 
     private final RowMapper<PostDto> postDtoRowMapper = (ResultSet rs, int rowNum) -> {
         return PostDto.builder()

@@ -67,7 +67,7 @@
                 </span>
                 <span class="meta-item">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    <span th:text="${#temporals.format(tip.createdAt, 'yyyy.MM.dd')}">2024.05.20</span>
+                    <span th:text="${#temporals.format(tip.createdAt, 'yyyy.MM.dd HH:mm')}">2024.05.20</span>
                 </span>
                 <span class="meta-item">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -91,10 +91,8 @@
             <div class="stats-and-btn">
                 <div class="recipe-stats">
                     <div class="stat-item">
-                        <span class="stat-label">스크랩</span>
-                        <!-- 나중에 해야 할 것 todo!!  스크랩 수  보여주는 곳 -->
-                <!--  스크랩 수는 우선 하드코딩 되어 있습니다-->
-                        <span class="stat-value">0</span>
+                        <span class="stat-label">조회수</span>
+                        <span class="stat-value" th:text="${tip.viewCount}">0</span>
                     </div>
 
                     <div class="stat-item">
