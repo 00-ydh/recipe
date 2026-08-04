@@ -339,7 +339,13 @@ public class MemberController {
 
     // 팔로우 전체 목록 페이지 -- 새로 추가됨!
     @GetMapping("/follow-list")
-    public String getFollowList() {
+    public String getFollowList(HttpSession session, Model model) {
+        MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+
+        List<MemberDto> myFollowing = followService.myFollowingMembers(loginMember.getId());
+
+        model.addAttribute("myFollowing", myFollowing);
+
         return "member/follow-list";
     }
 }
