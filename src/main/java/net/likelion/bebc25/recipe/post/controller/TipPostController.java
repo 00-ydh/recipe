@@ -94,7 +94,6 @@ public class TipPostController {
     }
 
 
-    // 요리 꿀팁 상세 보여주는 컨트롤러
     @GetMapping("/detail")
     public String getTipDetail(@RequestParam("id") int id, HttpSession session, Model model) {
         PostDto tip = postService.getPost(id);
@@ -106,17 +105,28 @@ public class TipPostController {
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
 
         boolean isLiked = false;
+        boolean isScrapped = false;
 
         if (loginMember != null) {
-            GoodDto goodDto = new GoodDto();
-            goodDto.setPostId(id);
-            goodDto.setMemberId(loginMember.getId());
-            goodDto.setLikeType(2); // 팁 게시판 likeType 번호 (레시피와 다르면 알맞게 수정)
+            int memberId = loginMember.getId();
 
-            isLiked = goodService.isLiked(goodDto);
+            //  팁 게시글 좋아요 상태 확인
+            GoodDto likeDto = new GoodDto();
+            likeDto.setPostId(id);
+            likeDto.setMemberId(memberId);
+            likeDto.setLikeType(2); // 좋아요 likeType
+            isLiked = goodService.isLiked(likeDto);
+
+            // 팁 게시글 스크랩 상태 확인
+            GoodDto scrapDto = new GoodDto();
+            scrapDto.setPostId(id);
+            scrapDto.setMemberId(memberId);
+            scrapDto.setLikeType(3); // 스크랩 likeType
+            isScrapped = goodService.isLiked(scrapDto);
         }
 
         model.addAttribute("isLiked", isLiked);
+        model.addAttribute("isScrapped", isScrapped);
 
         return "board/tip-detail";
     }

@@ -95,18 +95,33 @@ public class RecipePostController {
 
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
 
-        // 로그인이 되어있는 상태일 때 좋아요 관련
-        if (loginMember != null) {
-            GoodDto goodDto = new GoodDto();
-            goodDto.setPostId(id);
-            goodDto.setMemberId(loginMember.getId());
-            goodDto.setLikeType(1);
+        // 초기값 세팅 (기본값 false)
+        boolean isLiked = false;
+        boolean isScrapped = false;
 
-            boolean isLiked = goodService.isLiked(goodDto);
-            model.addAttribute("isLiked", isLiked);
-        } else {
-            model.addAttribute("isLiked", false);
+        // 로그인이 되어있는 상태일 때 좋아요 & 스크랩 상태 각각 조회
+        if (loginMember != null) {
+            int memberId = loginMember.getId();
+
+            // 좋아요 상태 확인 (likeType = 1)
+            GoodDto likeDto = new GoodDto();
+            likeDto.setPostId(id);
+            likeDto.setMemberId(memberId);
+            likeDto.setLikeType(1);
+            isLiked = goodService.isLiked(likeDto);
+
+            // 스크랩 상태 확인 (likeType = 3)
+            GoodDto scrapDto = new GoodDto();
+            scrapDto.setPostId(id);
+            scrapDto.setMemberId(memberId);
+            scrapDto.setLikeType(3);
+            isScrapped = goodService.isLiked(scrapDto);
         }
+
+        // Model에 2개 값 전달
+        model.addAttribute("isLiked", isLiked);
+        model.addAttribute("isScrapped", isScrapped);
+
         model.addAttribute("post", postDto);
         model.addAttribute("replies", replies);
 
