@@ -15,7 +15,9 @@
 <!--header 끝-->
 
 <main class="recipe-detail">
-    <div class="container">
+    <div class="container tip-container">
+        <!-- 섹션 1: 본문 -->
+        <div class="detail-card">
         <!-- 히어로 이미지 -->
         <div class="recipe-hero" >
             <div class="recipe-image" th:if="${isImage}">
@@ -37,7 +39,7 @@
                         <input type="hidden" name="postType" value="recipe">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                              th:attr="fill=${isLiked != null && isLiked ? '#ff6b6b' : 'none'}">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
                         </svg>
                     </button>
                 </form>
@@ -98,7 +100,8 @@
             </div>
         </div>
 
-        <hr class="divider">
+        </div><!-- 섹션 1 본문 끝 -->
+
         <!--------  댓글 섹션 시작입니다!! 댓글 여기서 부터 봐주세요 -------->
         <!-- 섹션 1: 댓글 -->
         <div class="detail-card">
@@ -156,6 +159,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </main>
 </body>
