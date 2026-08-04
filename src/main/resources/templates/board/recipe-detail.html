@@ -20,8 +20,12 @@
         <div class="detail-card">
         <!-- 히어로 이미지 -->
         <div class="recipe-hero" >
-            <div class="recipe-image" th:if="${isImage}">
-                <img th:src="@{/images/{filename}(filename=${post.mainImage})}" alt="레시피 대표 이미지">
+<!--            <p th:text="${isImage}">-->
+            <div class="recipe-image">
+                <!-- 메인 이미지가 있다면 -->
+<!--                <p th:text="${post.mainImage}"></p>-->
+                <img th:if="${post.mainImage != null}" th:src="@{/images/{filename}(filename=${post.mainImage})}" alt="레시피 대표 이미지">
+                <img th:if="${post.mainImage == null}" src="https://loremflickr.com/900/450/food" alt="기본 이미지">
             </div>
             <!--    레시피 카테고리(한식,중식,일식,양식 등)     -->
             <span class="recipe-tag" th:text="${post.categoryName}">한식</span>
@@ -67,8 +71,11 @@
             <!-- 작성자-->
             <span class="meta-item">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                <span th:text="${post.memberName}"></span>
+                <a th:href="@{/member/profile/{targetName}(targetName=${post.memberName})}" th:text="${post.memberName}"></a>
             </span>
+            <span class="meta-item">|</span>
+            <!-- 작성일자            -->
+            <span class="meta-item" th:text="${#temporals.format(post.createdAt,'yyyy.MM.dd HH:mm')}"></span>
         </div>
 
         <hr class="divider">

@@ -17,19 +17,20 @@
             + 레시피 등록
         </a>
     </div>
+<!--    (중요)페이지 넘어가도 조회순 최신순 카테고리 유지할려면 다 넘겨줘야한다-->
     <div class="category">
-        <button class="active">전체</button>
-        <button>한식</button>
-        <button>중식</button>
-        <button>양식</button>
-        <button>일식</button>
+        <a th:href="@{/recipe/list}" class="active">전체</a>
+        <a th:href="@{/recipe/list(categoryId=1, type=${type})}">한식</a>
+        <a th:href="@{/recipe/list(categoryId=2, type=${type})}">양식</a>
+        <a th:href="@{/recipe/list(categoryId=3, type=${type})}">중식</a>
+        <a th:href="@{/recipe/list(categoryId=4, type=${type})}">일식</a>
     </div>
     <div class="top-info">
-        <p>총 <span>1,248개</span>의 맛있는 레시피</p>
+        <p>총 <span th:text="${postCount}">1,248개</span>의 맛있는 레시피</p>
 
         <div class="sort" >
-            <a th:href="@{/recipe/list(page=1, type='latest')}">최신순</a>
-            <a th:href="@{/recipe/list(page=1, type='view')}">조회순</a>
+            <a th:href="@{/recipe/list(page=1, type='latest', categoryId=${categoryId})}">최신순</a>
+            <a th:href="@{/recipe/list(page=1, type='view', categoryId=${categoryId})}">조회순</a>
         </div>
     </div>
     <div class="recipe-list">
@@ -37,8 +38,8 @@
         <a th:href="@{/recipe/detail(id=${post.id})}" class="recipe-card" th:each="post : ${recipePosts}">
             <div class="recipe-card">
                 <div class="image">
-                    <img th:if = "${post.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
-                    <img th:if = "${post.mainImage != null}" th:src="@{/recipe/main-image(filename=${post.mainImage})}" alt="레시피 이미지">
+                    <img th:if = "${post.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="기본 이미지">
+                    <img th:if = "${post.mainImage != null}" th:src="@{/images/{filename}(filename=${post.mainImage})}" alt="레시피 이미지">
                 </div>
                 <div class="content">
                     <span class="tag" th:text="${post.categoryName}">한식</span>
@@ -48,15 +49,16 @@
                         <span>👁<span th:text="${post.viewCount}">1.2K</span></span>
                     </div>
                     <div class="created">
-                        <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm:ss')}">2026-07-13 15:30:00</span>
+                        <span th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm')}">2026-07-13 15:30:00</span>
                     </div>
                 </div>
             </div>
         </a>
     </div>
+<!--    페이지 누를때도 다 넘겨주기(중요)-->
     <div class="pagination">
         <a th:each="i : ${#numbers.sequence(1, totalPage)}"
-           th:href="@{/recipe/list(page=${i})}"
+           th:href="@{/recipe/list(page=${i},categoryId=${categoryId},type=${type})}"
            th:text="${i}">
         </a>
     </div>

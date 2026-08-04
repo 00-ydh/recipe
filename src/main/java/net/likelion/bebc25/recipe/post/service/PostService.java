@@ -31,9 +31,10 @@ public interface PostService {
     int recipePostCount();
     // 오늘 뭐먹지 게시글
     PostDto getRandomRecipePost(int categoryId);
-    // 레시피 게시글 페이징, 조회순, 최신순
-    List<PostDto> getRecipePosts(String type, int page, int size);
+    // 레시피 게시글 페이징, 조회순, 최신순 , 카테고리
+    List<PostDto> getRecipePosts(int categoryId, String type, int page, int size);
 
     List<PostDto> searchPosts(String type, String keyword, int page, int size);
     int searchPostCount(String type, String keyword);
+
 }

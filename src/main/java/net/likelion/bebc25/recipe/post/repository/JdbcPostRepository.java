@@ -111,7 +111,7 @@ public class JdbcPostRepository implements PostRepository {
 
 
     // 게시글 등록
-    //  post.getCategoryId() == 0 ? null : post.getCategoryId() - 오류
+    //  post.getCategoryId() == 0 ? null : post.getCategoryId()
     @Override
     public void save(PostDto post) {
         String sql = "INSERT INTO post (member_id, category_id, main_image, title, content, post_type) VALUES (?, ?, ?, ?, ?, ?)";
@@ -189,7 +189,9 @@ public class JdbcPostRepository implements PostRepository {
     @Override
     public int recipePostCount() {
         String sql = "SELECT COUNT(*) FROM post WHERE post_type = 1";
-        Integer  count = jdbcTemplate.queryForObject(sql, Integer.class);
+        // queryForObject의 반환형이 Integer라 이렇게 받음
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
+        // Integer는 0이 null이여서 이렇게 조건 처리
         return count == null ? 0 : count;
     }
 
@@ -215,12 +217,16 @@ public class JdbcPostRepository implements PostRepository {
     // 페이지당 8개씩 보여줄 것임
     // 0, 8 넣고 Service에서 계산
     @Override
-    public List<PostDto> findRecipePosts(String type, int offset, int limit) {
+    public List<PostDto> findRecipePosts(int categoryId, String type, int offset, int limit) {
         String sql = "SELECT post.* , category.category_name, member.name FROM post " +
                 "LEFT JOIN category on post.category_id = category.id " +
                 "LEFT JOIN member on post.member_id = member.id " +
                 "WHERE post.post_type = 1 ";
 
+        // 카테고리
+        if(categoryId != 0) {
+            sql += " AND post.category_id = ?";
+        }
         // 조회순 / 최신순 / 등록순
         if("view".equals(type)) {
             sql += " ORDER BY post.view_count DESC ";
@@ -231,10 +237,14 @@ public class JdbcPostRepository implements PostRepository {
         }
         // 페이징
         sql += " LIMIT ?, ?";
-        return jdbcTemplate.query(sql, postDtoRowMapper, offset, limit);
+
+        // 카테고리가 있으면 반환을 카테고리도 해줘야함
+        if(categoryId != 0) {
+            return jdbcTemplate.query(sql, postDtoRowMapper, categoryId, offset, limit);
+        } else {
+            return jdbcTemplate.query(sql, postDtoRowMapper, offset, limit);
+        }
     }
-
-
 
 
     @Override
