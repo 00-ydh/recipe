@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 <body>
+<!--header 삽입 코드 한줄 !-->
+<div th:replace="~{header/header :: header}"></div>
+
 <div class="container">
     <h2 th:text="${recipePostForm.id == 0 ? '레시피 등록하기' : '레시피 수정하기'}">레시피 등록하기</h2>
     <p class="sub-title">
@@ -15,7 +18,7 @@
     </p>
     <div class="write-box">
 <!--       enctype="multipart/form-data" 대표 이미지 업로드를 위해 필요-->
-        <form method="POST" th:action="@{{action}(action=${recipePostForm.id == 0} ? 'write' : 'edit')}" enctype="multipart/form-data" th:object="${recipePostForm}" >
+        <form class="write-box" method="POST" th:action="@{{action}(action=${recipePostForm.id == 0} ? 'write' : 'edit')}" enctype="multipart/form-data" th:object="${recipePostForm}" >
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label for="file"> 사진 첨부 (선택)</label>
@@ -136,8 +139,10 @@
     if(content) {
         editor.setHTML(content);
     }
-    // form 태그를 찾음
-    const form = document.querySelector('form');
+    // [수정] document.querySelector('form') → 'form.write-box'
+    // 이유: 헤더에 검색 form이 존재해서 querySelector('form')이
+    //       작성 form이 아닌 헤더 검색 form을 잡는 문제가 있었음
+    const form = document.querySelector('form.write-box');
     // form 태그에 submit이벤트 등록 또는 수정버튼
     form.addEventListener('submit', function (){
         // HTML에 저장
