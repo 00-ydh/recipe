@@ -38,14 +38,6 @@ public interface FollowRepository {
      */
     FollowDto findFollowById(int followingId, int followerId);
 
-
-    /**
-     * 내가 팔로잉한 회원들의 레시피 조회 (내림차순, 최신순)
-     * @param followingId 팔로잉한 회원 ID (나)
-     * @return 조회된 PostDto 리스트
-     */
-    List<PostDto> findFollowingMemberRecipes(int followingId);
-
     /**
      * 특정 회원의 팔로워 수를 조회합니다.
      * @param memberId 조회하고 싶은 회원 ID

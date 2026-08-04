@@ -43,5 +43,24 @@ public interface PostRepository {
     // 조회수
     int viewCount(int postId);
 
+    /**
+     * 내가 팔로잉한 회원들의 레시피 조회 (내림차순, 최신순)
+     * @param followingId 팔로잉한 회원 ID (나)
+     * @return 조회된 PostDto 리스트
+     */
+    List<PostDto> findFollowingMemberRecipes(int followingId);
 
+    /**
+     * 입력 받은 회원 ID로 해당 회원이 스크랩한 레시피 조회
+     * @param memberId 조회할 회원 ID
+     * @return 조회된 레시피 리스트
+     */
+    List<PostDto> getScrapRecipes(int memberId);
+
+    /**
+     * 입력 받은 회원 ID로 해당 회원이 스크랩한 레시피 조회
+     * @param memberId 조회할 회원 ID
+     * @return 조회된 레시피 리스트
+     */
+    List<PostDto> getScrapTips(int memberId);
 }

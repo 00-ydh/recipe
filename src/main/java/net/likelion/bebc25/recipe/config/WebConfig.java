@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
-                .addPathPatterns("/member/**", "/tip/write", "/tip/edit", "/tip/delete", "/recipe/write", "/recipe/edit", "/recipe/delete")
+                .addPathPatterns("/member/**", "/tip/write", "/tip/edit", "/tip/delete", "/recipe/write", "/recipe/edit", "/recipe/delete", "/follow")
                 .excludePathPatterns("/member/login", "/member/register", "/member/profile/**", "/member/css/**", "/js/**", "/images/**", "/*.ico", "/error");
     }
     // 브라우저의 /images/** 요청 경로를 외부 로컬 저장소 파일 디렉터리와 매핑
