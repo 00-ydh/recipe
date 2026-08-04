@@ -1,0 +1,81 @@
+/* 팔로우 목록 전체 페이지 전용 CSS
+   - /member/follow-list
+*/
+
+body {
+    background-color: #FAF4F0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0px;
+}
+
+/* 페이지 헤더 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.page-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #58413A;
+    margin-bottom: 6px;
+}
+
+.page-header p {
+    font-size: 14px;
+    color: #999;
+}
+
+/* 마이페이지로 돌아가기 버튼 */
+.btn-back {
+    padding: 8px 18px;
+    background: #b34712;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* 팔로우 그리드 (5열) */
+.follow-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px 20px;
+}
+
+/* 아바타 + 이름 세로 배치 */
+.follow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 원형 아바타 (마이페이지와 동일) */
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #F5EDE4;
+    border: 2px solid #E07550;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 팔로우한 사람 닉네임 */
+.follow-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}

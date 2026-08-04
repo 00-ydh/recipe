@@ -340,17 +340,11 @@ input[type="radio"][name="tab"] {
     color: #666666;
 }
 
-/* 탭 컨텐츠 내부 흰 카드 박스 */
-.content-card {
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    padding: 28px 32px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-}
 
-/* 구독한 사람 최신 레시피 목록 (1열) */
+
+/* 구독한 사람 최신 레시피 목록 (2열) */
 .follow-list-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 /* 스크랩 탭 레시피 카드 이미지 영역 */
@@ -539,6 +533,33 @@ input[type="radio"][name="tab"] {
 a.follow-item {
     text-decoration: none;
     color: inherit;
+}
+
+/* 팔로우 섹션 헤더 (제목+버튼 양쪽 배치) */
+.follow-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 전체보기 버튼 */
+.btn-view-all {
+    padding: 8px 18px;
+    background: #b34712;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+/* 팔로우 목록 / 구독 레시피 구분선 */
+.follow-divider {
+    border: none;
+    border-top: 1.5px solid #e8d8cf;
+    margin: 32px 0;
 }
 
 /* 팔로우 탭 이미지 높이 (구독 레시피 목록) */

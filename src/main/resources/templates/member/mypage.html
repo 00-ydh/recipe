@@ -74,7 +74,8 @@
                 <div class="thumbnail-wrapper">
                     <a th:href="@{/recipe/detail(id=${recipe.id})}">
                     <!-- 메인 이미지 (이미지 경로 없으면 기본 이미지 사용) -->
-                        <img src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
+                        <img th:if="${recipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="기본 이미지">
+                        <img th:if="${recipe.mainImage != null}" th:src="@{/images/{filename}(filename=${recipe.mainImage})}" alt="레시피 이미지">
                     </a>
 
                     <div class="badge-edit-delete">
@@ -170,7 +171,8 @@
                 <div class="thumbnail-wrapper">
                     <a th:href="@{/recipe/detail(id=${recipe.id})}">
                         <!-- 메인 이미지 (이미지 경로 없으면 기본 이미지 사용) -->
-                        <img src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
+                        <img th:if="${recipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="기본 이미지">
+                        <img th:if="${recipe.mainImage != null}" th:src="@{/images/{filename}(filename=${recipe.mainImage})}" alt="레시피 이미지">
                     </a>
 
                     <div class="top-badges">
@@ -271,9 +273,12 @@
         <div class="content-card">
 
         <!-- 팔로우한 사람 프로필 목록 -->
-        <div class="section-header">
-            <h3 class="section-title">내가 팔로우 한 목록</h3>
-            <p class="section-desc">프로필을 클릭하시면 해당 프로필 페이지로 이동합니다!</p>
+        <div class="section-header follow-section-header">
+            <div>
+                <h3 class="section-title">내가 팔로우 한 목록</h3>
+                <p class="section-desc">프로필을 클릭하시면 해당 프로필 페이지로 이동합니다!</p>
+            </div>
+            <a th:href="@{/member/follow-list}" class="btn-view-all">전체보기</a>
         </div>
         <div class="follow-grid">
             <a th:href="@{/member/profile/{targetName}(targetName=${following.name})}" th:each="following : ${myFollowing}" class="follow-item">
@@ -287,6 +292,9 @@
             </a>
         </div>
 
+        <!-- 구분선 -->
+        <hr class="follow-divider">
+
         <!-- 구독한 사람들의 최신 레시피 -->
         <div class="section-header" style="margin-top: 40px;">
             <h3 class="section-title">구독한 사람의 최신 레시피</h3>
@@ -296,7 +304,8 @@
             <a th:each="myFollowingRecipe : ${myFollowingRecipes}" th:href="@{/recipe/detail(id=${myFollowingRecipe.id})}">
             <article class="recipe-card">
                 <div class="recipe-img-wrap follow-img-wrap">
-                    <img class="recipe-img follow-img" src="https://loremflickr.com/300/200/food?lock=31" alt="레시피 이미지">
+                    <img th:if="${myFollowingRecipe.mainImage == null}" class="recipe-img follow-img" src="https://loremflickr.com/300/200/food?lock=31" alt="기본 이미지">
+                    <img th:if="${myFollowingRecipe.mainImage != null}" class="recipe-img follow-img" th:src="@{/images/{filename}(filename=${myFollowingRecipe.mainImage})}" alt="레시피 이미지">
                     <div class="recipe-img-stats">
                         <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5</span>
                         <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 15</span>
@@ -307,8 +316,7 @@
                     <p class="recipe-title" th:text="${myFollowingRecipe.title}">집에서 즐기는 정통 까르보나라</p>
                     <p class="recipe-author" th:text="${myFollowingRecipe.memberName}">김셰프</p>
                     <div class="recipe-bottom">
-                        <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1,204</span>
-                        <span class="recipe-cmt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 45</span>
+                        <span class="recipe-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span th:text="${myFollowingRecipe.viewCount}">0</span></span>
                         <span class="recipe-date" th:text="${#temporals.format(myFollowingRecipe.createdAt, 'yyyy.MM.dd')}">2024.05.20</span>
                     </div>
                 </div>

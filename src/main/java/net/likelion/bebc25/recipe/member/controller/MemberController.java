@@ -185,6 +185,8 @@ public class MemberController {
         return "member/mypage";
     }
 
+
+
     /**
      * 특정 회원의 프로필 화면을 반환합니다.
      * @param name 조회할 대상 회원의 이름
@@ -331,6 +333,14 @@ public class MemberController {
         memberService.deleteMemberById(loginMember.getId());
 
         return  "redirect:/";
+    }
+
+
+
+    // 팔로우 전체 목록 페이지 -- 새로 추가됨!
+    @GetMapping("/follow-list")
+    public String getFollowList() {
+        return "member/follow-list";
     }
 }
 
