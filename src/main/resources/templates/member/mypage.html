@@ -91,10 +91,10 @@
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                             <span th:text="${recipe.likeCount}">5</span>
                         </span>
-                        <span class="badge">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                            15
-                        </span>
+<!--                        <span class="badge">-->
+<!--                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>-->
+<!--                            15-->
+<!--                        </span>-->
                     </div>
                 </div>
                 <div class="card-content">
@@ -166,6 +166,11 @@
     <!-- 3. 스크랩한 레시피  탭 클릭 했을 때 나오는 부분입니다!! -->
     <div class="tab-content tab-content-3">
         <!--  제목 부분-->
+        <div class="section-header">
+            <h3 class="section-title">스크랩한 레시피</h3>
+            <p class="section-desc">스크랩한 레시피들을 한 눈에 볼 수 있어요!</p>
+        </div>
+
         <div class="recipe-grid">
             <div class="recipe-card" th:each="recipe : ${myScarpRecipes}">
                 <div class="thumbnail-wrapper">
@@ -180,10 +185,10 @@
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                             <span th:text="${recipe.likeCount}">5</span>
                         </span>
-                        <span class="badge">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                            15
-                        </span>
+<!--                        <span class="badge">-->
+<!--                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>-->
+<!--                            15-->
+<!--                        </span>-->
                     </div>
                 </div>
                 <div class="card-content">
@@ -231,8 +236,8 @@
     <div class="tab-content tab-content-4">
         <!-- 제목 부분(데이터 채울 것 x) -->
         <div class="section-header">
-            <h3 class="section-title">내가 쓴 꿀팁</h3>
-            <p class="section-desc">내가 쓴 꿀팁들을 한 눈에 볼 수 있어요! 수정 삭제 버튼을 클릭하시면 꿀팁 수정하거나 삭제 할 수 있는 페이지로 이동합니다!</p>
+            <h3 class="section-title">스크랩한 꿀팁</h3>
+            <p class="section-desc">스크랩한 꿀팁들을 한 눈에 볼 수 있어요!</p>
         </div>
 
         <div class="tip-list">
@@ -276,21 +281,21 @@
         <div class="section-header follow-section-header">
             <div>
                 <h3 class="section-title">내가 팔로우 한 목록</h3>
-                <p class="section-desc">프로필을 클릭하시면 해당 프로필 페이지로 이동합니다!</p>
+<!--                <p class="section-desc">프로필을 클릭하시면 해당 프로필 페이지로 이동합니다!</p>-->
             </div>
             <a th:href="@{/member/follow-list}" class="btn-view-all">전체보기</a>
         </div>
-        <div class="follow-grid">
-            <a th:href="@{/member/profile/{targetName}(targetName=${following.name})}" th:each="following : ${myFollowing}" class="follow-item">
-                <div class="avatar">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
-                        <circle cx="12" cy="8" r="4"/>
-                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-                    </svg>
-                </div>
-                <span class="follow-name" th:text="${following.name}">안녕</span>
-            </a>
-        </div>
+<!--        <div class="follow-grid">-->
+<!--            <a th:href="@{/member/profile/{targetName}(targetName=${following.name})}" th:each="following : ${myFollowing}" class="follow-item">-->
+<!--                <div class="avatar">-->
+<!--                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">-->
+<!--                        <circle cx="12" cy="8" r="4"/>-->
+<!--                        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>-->
+<!--                    </svg>-->
+<!--                </div>-->
+<!--                <span class="follow-name" th:text="${following.name}">안녕</span>-->
+<!--            </a>-->
+<!--        </div>-->
 
         <!-- 구분선 -->
         <hr class="follow-divider">
@@ -307,8 +312,11 @@
                     <img th:if="${myFollowingRecipe.mainImage == null}" class="recipe-img follow-img" src="https://loremflickr.com/300/200/food?lock=31" alt="기본 이미지">
                     <img th:if="${myFollowingRecipe.mainImage != null}" class="recipe-img follow-img" th:src="@{/images/{filename}(filename=${myFollowingRecipe.mainImage})}" alt="레시피 이미지">
                     <div class="recipe-img-stats">
-                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> 5</span>
-                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 15</span>
+                        <span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            <span th:text="${myFollowingRecipe.likeCount}"></span>
+                        </span>
+<!--                        <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> 15</span>-->
                     </div>
                 </div>
                 <div class="recipe-card-body">
