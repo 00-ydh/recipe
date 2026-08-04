@@ -376,5 +376,16 @@ public class JdbcPostRepository implements PostRepository {
                 "WHERE g.like_type = 3 AND p.post_type = 2 AND g.member_id = ?";
         return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
     }
+    @Override
+    public void increaseLikeCount(int postId) {
+        String sql = "UPDATE post SET like_count = like_count + 1 WHERE id = ?";
+        jdbcTemplate.update(sql, postId);
+    }
+
+    @Override
+    public void decreaseLikeCount(int postId) {
+        String sql = "UPDATE post SET like_count = like_count - 1 WHERE id = ?";
+        jdbcTemplate.update(sql, postId);
+    }
 }
 

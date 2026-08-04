@@ -38,7 +38,6 @@ public class GoodRepositoryImpl implements GoodRepository{
         //좋아요를 누르지 않은경우 count결과가 0일때 사용자가 좋아요를 처음 누른 것이니까 db에 새로운 좋아요 데이터를 insert
         //해준다
         //결과가 1이상일 때 사용자가 좋아요를 다시 눌러서 취소하려는 것으로 db에 있는 좋아요 데이터를 삭제 한다.
-        //좋아요 로직은 잘 따라와보자.
         String sql = "SELECT COUNT(*) FROM good WHERE post_id = ? AND member_id = ? AND like_type = ?";
         Integer count = jdbcTemplate.queryForObject(
                 sql, Integer.class,
@@ -46,4 +45,5 @@ public class GoodRepositoryImpl implements GoodRepository{
         );
         return count != null && count > 0;
     }
+
 }

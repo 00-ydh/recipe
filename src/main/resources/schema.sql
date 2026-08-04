@@ -27,6 +27,7 @@ CREATE TABLE post (
                       title VARCHAR(200) NOT NULL,
                       content TEXT NOT NULL,
                       view_count INT NOT NULL DEFAULT 0,
+                      like_count INT NOT NULL DEFAULT 0,
                       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                       post_type INT NOT NULL,
                       CONSTRAINT fk_post_member FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE SET NULL,
