@@ -42,6 +42,8 @@ public interface PostRepository {
     int tipPostCount();
     // 조회수
     int viewCount(int postId);
+    void increaseLikeCount(int postId);
+    void decreaseLikeCount(int postId);
 
     /**
      * 내가 팔로잉한 회원들의 레시피 조회 (내림차순, 최신순)

@@ -11,4 +11,5 @@ public interface GoodRepository {
         void save(GoodDto goodDTO);
         void delete(GoodDto goodDTO);
         boolean exists(GoodDto goodDTO);
+
 }

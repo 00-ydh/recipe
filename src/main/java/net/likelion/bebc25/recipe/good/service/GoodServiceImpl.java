@@ -21,18 +21,27 @@ public class GoodServiceImpl implements GoodService {
 
     @Override
     public void toggleLike(GoodDto goodDto) {
-        // 이미 좋아요를 눌렀는지 확인
+        // 이미 눌렀는지 확인
         boolean alreadyLiked = goodRepository.exists(goodDto);
 
         if (alreadyLiked) {
-            //  이미 눌렀다면 취소 (DELETE)
+            // 이미 눌렀다면 취소 (DELETE)
             goodRepository.delete(goodDto);
+
+            // ★ likeType이 1(레시피 좋아요) 또는 2(팁 좋아요)일 때 감소
+            if (goodDto.getLikeType() == 1 || goodDto.getLikeType() == 2) {
+                postRepository.decreaseLikeCount(goodDto.getPostId());
+            }
         } else {
-            //  안 눌렀다면 추가 (INSERT)
+            // 안 눌렀다면 추가 (INSERT)
             goodRepository.save(goodDto);
+
+            // ★ likeType이 1(레시피 좋아요) 또는 2(팁 좋아요)일 때 증가
+            if (goodDto.getLikeType() == 1 || goodDto.getLikeType() == 2) {
+                postRepository.increaseLikeCount(goodDto.getPostId());
+            }
         }
     }
-
 
     @Override
     public boolean isLiked(GoodDto goodDto) {
