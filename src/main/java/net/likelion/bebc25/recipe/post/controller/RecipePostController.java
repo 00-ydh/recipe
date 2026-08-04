@@ -62,20 +62,26 @@ public class RecipePostController {
     public String getRecipeList(@RequestParam(value = "page", defaultValue = "1")int page,
                                 @RequestParam(value = "pageSize", defaultValue = "8") int size,
                                 @RequestParam(value = "type", required = false) String type,
+                                @RequestParam(defaultValue = "0") int categoryId,
                                 Model model) {
 
         // 게시글 목록 조회(데이터)
         // size = 페이지당 보여주고 싶은 게시글 수
-        List<PostDto> recipePosts = postService.getRecipePosts(type,page, size);
+        List<PostDto> recipePosts = postService.getRecipePosts(categoryId, type, page, size);
 
         // 여기서 페이지 계산
         int totalCount = postService.recipePostCount();
         int totalPage = (int) Math.ceil((double) totalCount / size);
 
+        // 총 레시피 게시글
+        int count = postService.recipePostCount();
+
         model.addAttribute("recipePosts", recipePosts);
         model.addAttribute("page", page);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("type", type);
+        model.addAttribute("postCount", count);
+        model.addAttribute("categoryId", categoryId);
 
         return "board/recipe-list";
     }
@@ -84,12 +90,9 @@ public class RecipePostController {
     @GetMapping("/detail")
     public String getRecipeDetails(@RequestParam("id") int id, Model model, HttpSession session) {
         PostDto postDto = postService.getRecipe(id);
-        model.addAttribute("post", postDto);
         List<ResponseDTO> replies = replyService.getRepliesByPostId(id);
-        model.addAttribute("replies", replies);
 
         MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
-
 
         // 로그인이 되어있는 상태일 때 좋아요 관련
         if (loginMember != null) {
@@ -103,15 +106,8 @@ public class RecipePostController {
         } else {
             model.addAttribute("isLiked", false);
         }
-        // 파일이 이미지 형식인지 확인하여 뷰(detail.html)에 isImage boolean 값 전달
-        boolean isImage = postDto.getContentType() != null && postDto.getContentType().startsWith("image/");
-        if(!isImage && postDto.getOriginalFilename() != null){
-            isImage = fileStore.isImage(postDto.getOriginalFilename());
-        }
-
         model.addAttribute("post", postDto);
-        model.addAttribute("isImage", isImage);
-
+        model.addAttribute("replies", replies);
 
         return "board/recipe-detail";
     }

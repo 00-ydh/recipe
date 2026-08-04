@@ -19,7 +19,7 @@
             <input type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label for="file"> 사진 첨부 (선택)</label>
-                <label class="upload-box" >
+                <label class="upload-box">
 <!--                    accept="image/*" 모든 이미지 형식 허용 여기 부분 문제인거 같은데-->
                     <input type="file" id="file" th:field="*{file}">
                     <div th:if="${recipePostForm.originalFilename != null}" class="camera">사진 첨부</div>
@@ -39,8 +39,8 @@
                         <div class="field-error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
                         <option value="0">카테고리를 선택하세요</option>
                         <option value="1">한식</option>
-                        <option value="2">중식</option>
-                        <option value="3">양식</option>
+                        <option value="2">양식</option>
+                        <option value="3">중식</option>
                         <option value="4">일식</option>
                     </select>
                 </label>

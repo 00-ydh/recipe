@@ -35,8 +35,7 @@
                 <a th:each="topRecipe : ${topRecipes}" th:href="@{/recipe/detail(id=${topRecipe.id})}" class="top-recipe-card">
                     <div class="top-recipe-img-wrap">
                         <img th:if="${topRecipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
-                        <img th:if="${topRecipe.mainImage != null}" th:src="@{/recipe/main-image(filename=${topRecipe.mainImage})}" alt="레시피 이미지">
-
+                        <img th:if="${topRecipe.mainImage != null}" th:src="@{/images/{filename}(filename=${topRecipe.mainImage})}" alt="레시피 이미지">
                         <!-- 좋아요수, 스크랩수 표시 부분 -->
                         <div class="recipe-img-stats">
                             <!-- 좋아요수-->
@@ -122,7 +121,7 @@
                 <a th:each="monthlyRecipe : ${monthlyRecipes}" th:href="@{/recipe/detail(id=${monthlyRecipe.id})}"  class="recipe-card">
                     <div class="recipe-img-wrap">
                         <img th:if="${monthlyRecipe.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
-                        <img th:if="${monthlyRecipe.mainImage != null}" th:src="@{/recipe/main-image(filename=${monthlyRecipe.mainImage})}" alt="레시피 이미지">
+                        <img th:if="${monthlyRecipe.mainImage != null}" th:src="@{/images/{filename}(filename=${monthlyRecipe.mainImage})}" alt="레시피 이미지">
 
                         <!-- 좋아요수, 스크랩수 표시 부분 -->
                         <div class="recipe-img-stats">

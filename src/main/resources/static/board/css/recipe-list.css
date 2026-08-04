@@ -30,7 +30,7 @@
     margin-bottom: 30px;
 }
 
-.category button {
+.category a {
     border: 1px solid #ddd;
     background: #fff;
     padding: 8px 18px;
@@ -137,7 +137,11 @@
     margin: 50px 0;
 }
 
-.pagination button {
+.pagination a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 35px;
     height: 35px;
     border: 1px solid #ddd;
