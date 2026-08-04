@@ -41,4 +41,7 @@ public interface PostService {
     // 꿀팁 게시글 개수
     int tipPostCount();
 
+    // 조회수
+    int viewCount(int postId);
+
 }

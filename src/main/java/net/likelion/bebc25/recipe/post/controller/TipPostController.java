@@ -96,6 +96,8 @@ public class TipPostController {
 
     @GetMapping("/detail")
     public String getTipDetail(@RequestParam("id") int id, HttpSession session, Model model) {
+        // 조회수 증가
+        postService.viewCount(id);
         PostDto tip = postService.getPost(id);
         model.addAttribute("tip", tip);
 

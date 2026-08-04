@@ -286,6 +286,12 @@ public class JdbcPostRepository implements PostRepository {
         }
     }
 
+    @Override
+    public int viewCount(int postId) {
+        String sql = "UPDATE post SET view_count = view_count + 1 WHERE id = ? ";
+        return jdbcTemplate.update(sql, postId);
+    }
+
     /**
      * {@inheritDoc}
      * LIMIT ? OFFSET ? 구문을 활용해 원하는 개수만큼 잘라서 가져오는 데이터베이스 페이징 조회를 수행합니다.
@@ -331,9 +337,6 @@ public class JdbcPostRepository implements PostRepository {
             return count != null ? count : 0;
         }
     }
-
-
-
 
 }
 
