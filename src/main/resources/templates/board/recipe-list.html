@@ -51,10 +51,7 @@
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
                             <span th:text="${post.likeCount}">0</span>
                         </span>
-                        <span>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                            0
-                        </span>
+
                     </div>
                 </div>
                 <div class="content">
@@ -64,11 +61,14 @@
                         <span th:text="${post.memberName}">김셰프</span>
                     </div>
                     <div class="card-bottom">
-                        <span class="created" th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd HH:mm')}">2026-07-13 15:30:00</span>
-                        <span class="views">
+                        <!--  조회수-->
+                         <span class="views">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                             <span th:text="${post.viewCount}">1.2K</span>
                         </span>
+                        <!-- 날짜 -->
+                        <span class="created" th:text="${#temporals.format(post.createdAt, 'yyyy.MM.dd')}">2026-07-13</span>
+
                     </div>
                 </div>
             </div>
