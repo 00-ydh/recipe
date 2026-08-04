@@ -4,6 +4,7 @@ package net.likelion.bebc25.recipe.good.service;
 import net.likelion.bebc25.recipe.good.dto.GoodDto;
 import net.likelion.bebc25.recipe.good.respository.GoodRepository;
 import net.likelion.bebc25.recipe.post.dto.PostDto;
+import net.likelion.bebc25.recipe.post.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.List;
 @Service
 public class GoodServiceImpl implements GoodService {
     private final GoodRepository goodRepository;
+    private final PostRepository postRepository;
 
-    public GoodServiceImpl(GoodRepository goodRepository) {
+    public GoodServiceImpl(GoodRepository goodRepository, PostRepository postRepository) {
         this.goodRepository = goodRepository;
+        this.postRepository = postRepository;
     }
 
     @Override
@@ -41,7 +44,7 @@ public class GoodServiceImpl implements GoodService {
      */
     @Override
     public List<PostDto> getRecipes(int memberId) {
-        return goodRepository.getScrapRecipes(memberId);
+        return postRepository.getScrapRecipes(memberId);
     }
 
     /**
@@ -49,6 +52,6 @@ public class GoodServiceImpl implements GoodService {
      */
     @Override
     public List<PostDto> getTips(int memberId) {
-        return goodRepository.getScrapTips(memberId);
+        return postRepository.getScrapTips(memberId);
     }
 }

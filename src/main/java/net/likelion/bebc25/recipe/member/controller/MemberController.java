@@ -129,10 +129,11 @@ public class MemberController {
      */
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("member") MemberDto memberDto,
-                           @RequestParam(value = "passwordConfirm", required = false) String passwordConfirm,
-                           BindingResult bindingResult) {
+                           BindingResult bindingResult,
+                           @RequestParam(value = "passwordConfirm", required = false) String passwordConfirm) {
+
         if (memberDto.getPassword() != null && !memberDto.getPassword().equals(passwordConfirm)) {
-            bindingResult.rejectValue("password", "mismatch", "비밀번호가 일치하지 않습니다.");
+            bindingResult.rejectValue("password", "password", "비밀번호가 일치하지 않습니다.");
         }
 
         if(bindingResult.hasErrors()){

@@ -338,5 +338,43 @@ public class JdbcPostRepository implements PostRepository {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PostDto> findFollowingMemberRecipes(int followingId) {
+        String sql = "SELECT p.*, c.category_name, m.name AS member_name " +
+                "FROM post p " +
+                "LEFT JOIN category c ON p.category_id = c.id " +
+                "LEFT JOIN member m ON p.member_id = m.id " +
+                "WHERE p.post_type = 1 " +
+                "AND p.member_id IN (" +
+                "SELECT follower_id FROM follow WHERE following_id = ?)" +
+                "ORDER BY p.created_at DESC";
+        return jdbcTemplate.query(sql, postDtoRowMapper, followingId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PostDto> getScrapRecipes(int memberId) {
+        String sql = "SELECT p.*, m.name, c.category_name FROM good g LEFT JOIN post p on g.post_id = p.id " +
+                "LEFT JOIN member m on p.member_id = m.id " +
+                "LEFT JOIN category c on p.category_id = c.id " +
+                "WHERE g.like_type = 3 AND p.post_type = 1 AND g.member_id = ?";
+        return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<PostDto> getScrapTips(int memberId) {
+        String sql = "SELECT p.*, m.name FROM good g LEFT JOIN post p on g.post_id = p.id " +
+                "LEFT JOIN member m on p.member_id = m.id " +
+                "WHERE g.like_type = 3 AND p.post_type = 2 AND g.member_id = ?";
+        return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
+    }
 }
 

@@ -16,10 +16,12 @@ public class FollowServiceImpl implements FollowService {
 
     private final FollowRepository followRepository;
     private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
 
-    public FollowServiceImpl(FollowRepository followRepository,  MemberRepository memberRepository) {
+    public FollowServiceImpl(FollowRepository followRepository,  MemberRepository memberRepository, PostRepository postRepository) {
         this.followRepository = followRepository;
         this.memberRepository = memberRepository;
+        this.postRepository = postRepository;
     }
 
     /**
@@ -82,7 +84,7 @@ public class FollowServiceImpl implements FollowService {
      */
     @Override
     public List<PostDto> myFollowingMembersRecipes(int followingId) {
-        return followRepository.findFollowingMemberRecipes(followingId);
+        return postRepository.findFollowingMemberRecipes(followingId);
     }
 
     /**

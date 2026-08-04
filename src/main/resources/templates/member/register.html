@@ -24,13 +24,13 @@
         <div class="form-group">
             <label for="password">비밀번호</label>
             <input type="password" id="password" th:field="*{password}" placeholder="최소 8자 이상">
-            <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">에러 메시지</div>
         </div>
 
         <!-- 비밀번호 확인 -->
         <div class="form-group">
             <label for="password-confirm">비밀번호 확인</label>
             <input type="password" id="password-confirm" name="passwordConfirm" placeholder="비밀번호 재입력">
+            <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">에러 메시지</div>
         </div>
 
         <!-- 별명 -->

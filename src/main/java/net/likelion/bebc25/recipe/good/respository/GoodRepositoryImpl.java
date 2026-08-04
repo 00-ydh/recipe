@@ -16,41 +16,6 @@ import java.util.List;
 public class GoodRepositoryImpl implements GoodRepository{
     private final JdbcTemplate jdbcTemplate;
 
-    private final RowMapper<PostDto> postDtoRowMapper = (ResultSet rs, int rowNum) -> {
-        return PostDto.builder()
-                .id(rs.getInt("id"))
-                .memberId(rs.getInt("member_id"))
-                .mainImage(rs.getString("main_image"))
-                .title(rs.getString("title"))
-                .categoryId(rs.getInt("category_id"))
-                .content(rs.getString("content"))
-                .viewCount(rs.getInt("view_count"))
-                .createdAt(rs.getObject("created_at", LocalDateTime.class))
-                .postType(rs.getInt("post_type"))
-                // 컬럼 존재 여부를 확인 후 안전하게 매핑 (없으면 null)
-                .categoryName(hasColumn(rs, "category_name") ? rs.getString("category_name") : null)
-                // 쿼리에서 'name' 또는 'member_name' 별칭(alias)을 다르게 쓸 수 있으므로 둘 다 대응
-                .memberName(hasColumn(rs, "member_name") ? rs.getString("member_name") :
-                        (hasColumn(rs, "name") ? rs.getString("name") : null))
-                .likeCount(hasColumn(rs, "like_count") ? rs.getInt("like_count") : 0)
-                .build();
-    };
-
-    private boolean hasColumn(ResultSet rs, String columnName) {
-        try {
-            ResultSetMetaData metaData = rs.getMetaData();
-            int columnCount = metaData.getColumnCount();
-            for (int i = 1; i <= columnCount; i++) {
-                if (columnName.equalsIgnoreCase(metaData.getColumnLabel(i))) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            return false;
-        }
-        return false;
-    }
-
     public GoodRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -80,28 +45,5 @@ public class GoodRepositoryImpl implements GoodRepository{
                 goodDto.getPostId(), goodDto.getMemberId(), goodDto.getLikeType()
         );
         return count != null && count > 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<PostDto> getScrapRecipes(int memberId) {
-        String sql = "SELECT p.*, m.name, c.category_name FROM good g LEFT JOIN post p on g.post_id = p.id " +
-                "LEFT JOIN member m on p.member_id = m.id " +
-                "LEFT JOIN category c on p.category_id = c.id " +
-                "WHERE g.like_type = 3 AND p.post_type = 1 AND g.member_id = ?";
-        return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<PostDto> getScrapTips(int memberId) {
-        String sql = "SELECT p.*, m.name FROM good g LEFT JOIN post p on g.post_id = p.id " +
-                "LEFT JOIN member m on p.member_id = m.id " +
-                "WHERE g.like_type = 3 AND p.post_type = 2 AND g.member_id = ?";
-        return jdbcTemplate.query(sql, postDtoRowMapper, memberId);
     }
 }
