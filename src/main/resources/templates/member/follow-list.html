@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>팔로우 목록 - 냉부</title>
+    <link rel="stylesheet" href="/member/css/follow-list.css">
+</head>
+<body>
+
+<!--header 삽입 코드 한줄 !-->
+<div th:replace="~{header/header :: header}"></div>
+
+<div class="container">
+
+    <!-- 페이지 헤더 -->
+    <div class="page-header">
+        <div>
+            <h2>내가 팔로우한 목록 프로필</h2>
+            <p>프로필을 클릭하시면 해당 프로필 페이지로 이동합니다!</p>
+        </div>
+        <!-- 버튼 누르면 마이페이지로 이동되게 했습니다-->
+        <a th:href="@{/member/mypage}" class="btn-back">← 마이페이지로</a>
+    </div>
+
+    <!-- 팔로우 목록 그리드 (데이터 연결 필요) -->
+    <div class="follow-grid">
+        <!-- 반복되어야 하는 부분입니다 a 태그 시작 -->
+        <a href="#" class="follow-item">
+            <!-- 이 부분은 데이터 필요 x - 아바타 사진 (아이콘 부분이기 때문!)  -->
+            <div class="avatar">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+            </div>
+            <!-- 이름 보여지는 부분 -->
+            <span class="follow-name">안녕</span>
+        </a>
+        <!-- 반복되어야 하는 부분입니다 끝!!!-->
+
+        <a href="#" class="follow-item">
+            <div class="avatar">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+            </div>
+            <span class="follow-name">김셰프</span>
+        </a>
+        <a href="#" class="follow-item">
+            <div class="avatar">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+            </div>
+            <span class="follow-name">요리사</span>
+        </a>
+        <a href="#" class="follow-item">
+            <div class="avatar">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+            </div>
+            <span class="follow-name">김셰프</span>
+        </a>
+        <a href="#" class="follow-item">
+            <div class="avatar">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#58413A" stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4"/>
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+            </div>
+            <span class="follow-name">누구니</span>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
