@@ -92,16 +92,20 @@
 <!--            <a th:href="@{/recipe/delete/{id}(id=${post.id})}">삭제</a>-->
 <!--        </div>-->
 
-        <!-- 조회수 / 좋아요 - 테이블에 넣어야함 -->
-        <div class="recipe-stats">
-            <div class="stat-item">
-                <span class="stat-label" >조회수</span>
-                <span class="stat-value" th:text="${post.viewCount}">1,240</span>
+        <!-- 조회수 / 좋아요 + 목록 보기 버튼 -->
+        <hr class="divider">
+        <div class="stats-and-btn">
+            <div class="recipe-stats">
+                <div class="stat-item">
+                    <span class="stat-label" >조회수</span>
+                    <span class="stat-value" th:text="${post.viewCount}">1,240</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">좋아요</span>
+                    <span class="stat-value" th:text="${post.likeCount}">45,892</span>
+                </div>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">좋아요</span>
-                <span class="stat-value" th:text="${post.likeCount}">45,892</span>
-            </div>
+            <a href="/recipe/list" class="list-btn">목록 보기</a>
         </div>
 
         </div><!-- 섹션 1 본문 끝 -->
