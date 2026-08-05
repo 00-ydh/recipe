@@ -40,32 +40,6 @@ public class MemberController {
     }
 
     /**
-     * (삭제 예정)
-     * 비밀번호 찾기 양식 화면을 반환합니다.
-     * @param memberDto 폼과 바인딩할 빈 회원 객체
-     * @return 비밀번호 찾기 페이지 뷰 경로
-     */
-    @GetMapping("/find-account")
-    public String getFindAccountForm(@ModelAttribute("member") MemberDto memberDto) {
-        return "member/find-account";
-    }
-
-    /**
-     * (삭제 예정)
-     * 회원의 이메일, 별명이 일치하면 비밀번호를 보여줍니다.
-     * @param memberDto 비밀번호를 찾을 회원 정보 객체
-     * @param model 결과 메시지를 전달하기 위한 model 객체
-     * @return 비밀번호 찾기 결과가 포함된 뷰 경로
-     */
-    @PostMapping("/find-account")
-    public String findAccount(@ModelAttribute("member") MemberDto memberDto, Model model) {
-        String resultPassword = memberService.findPassword(memberDto.getEmail(), memberDto.getName());
-
-        model.addAttribute("resultMessage", resultPassword);
-        return "member/find-account";
-    }
-
-    /**
      * 로그인 양식 화면을 반환합니다.
      * 이미 로그인 한 사용자가 접근할 경우 메인 화면으로 이동합니다.
      *
