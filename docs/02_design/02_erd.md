@@ -12,18 +12,17 @@
 
 ```mermaid
 erDiagram
-    MEMBER ||--o{ POST : "작성 (ON DELETE SET NULL)"
-    CATEGORY ||--o{ POST : "분류 (ON DELETE SET NULL)"
+    MEMBER ||--o{ POST : writes
+    CATEGORY ||--o{ POST : classifies
     
-    POST ||--o{ REPLY : "댓글 포함 (ON DELETE CASCADE)"
-    MEMBER ||--o{ REPLY : "댓글 작성 (ON DELETE CASCADE)"
+    POST ||--o{ REPLY : contains
+    MEMBER ||--o{ REPLY : writes
     
-    POST ||--o{ good : "좋아요 포함 (ON DELETE CASCADE)"
-    MEMBER ||--o{ good : "좋아요 함 (ON DELETE CASCADE)"
+    POST ||--o{ GOOD : contains
+    MEMBER ||--o{ GOOD : likes
     
-    MEMBER ||--o{ FOLLOW : "팔로잉 관계 (ON DELETE CASCADE)"
-    MEMBER ||--o{ FOLLOW : "팔로워 관계 (ON DELETE CASCADE)"
-    
+    MEMBER ||--o{ FOLLOW : following
+    MEMBER ||--o{ FOLLOW : follower
     
     MEMBER {
         int id PK
@@ -41,6 +40,7 @@ erDiagram
         varchar_200 title
         text content
         int view_count
+        int like_count
         datetime created_at
         int post_type
     }
@@ -70,7 +70,6 @@ erDiagram
         int following_id FK
         int follower_id FK
     }
-    
 ```
 
 ---
@@ -93,6 +92,7 @@ erDiagram
 - title: VARCHAR(200), NOT NULL (게시글 제목)
 - content: TEXT, NOT NULL (게시글 본문)
 - view_count: INT, DEFAULT 0 (조회수)
+- like_count: INT, DEFAULT 0 (좋아요 수)
 - created_at: DATETIME, DEFAULT CURRENT_TIMESTAMP (작성 일시)
 - post_type: INT NOT NULL (1: 레시피 게시판, 2: 요리꿀팁 게시판)
 
@@ -145,6 +145,7 @@ CREATE TABLE post (
                       title VARCHAR(200) NOT NULL,
                       content TEXT NOT NULL,
                       view_count INT NOT NULL DEFAULT 0,
+                      like_count INT NOT NULL DEFAULT 0,
                       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                       post_type INT NOT NULL,
                       CONSTRAINT fk_post_member FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE SET NULL,
