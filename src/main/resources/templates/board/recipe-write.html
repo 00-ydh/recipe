@@ -20,6 +20,7 @@
 <!--       enctype="multipart/form-data" 대표 이미지 업로드를 위해 필요-->
         <form class="write-box" method="POST" th:action="@{{action}(action=${recipePostForm.id == 0} ? 'write' : 'edit')}" enctype="multipart/form-data" th:object="${recipePostForm}" >
             <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{categoryId}">
             <div class="form-group">
                 <label for="file"> 사진 첨부 (선택)</label>
                 <label class="upload-box">
@@ -143,8 +144,15 @@
     //       작성 form이 아닌 헤더 검색 form을 잡는 문제가 있었음
     const form = document.querySelector('form.write-box');
     // form 태그에 submit이벤트 등록 또는 수정버튼
-    form.addEventListener('submit', function (){
+    form.addEventListener('submit', function(e){
+        const text = editor.getHTML().replace(/<[^>]*>/g, "").trim();
+
         // HTML에 저장
+        if (text.length === 0) {
+            error.textContent = "내용을 입력해주세요.";
+            e.preventDefault();
+            return;
+        }
         document.querySelector("#content").value = editor.getHTML();
     })
 </script>
