@@ -90,6 +90,18 @@
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* TUI 에디터 본문 넘침 방지 */
+.content {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: break-word;
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* 내용 박스 */
 .step-box {
     background-color: white;
@@ -264,10 +276,15 @@
     margin-bottom: 24px;
 }
 
+.recipe-image {
+    width: 100%;
+    height: 100%;
+}
+
 .recipe-hero img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
 

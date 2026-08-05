@@ -33,6 +33,8 @@
 
         <!-- 수정 시 id 전달을 위한 hidden input -->
         <input type="hidden" th:field="*{id}">
+        <!-- 꿀팁은 카테고리 없음 - @Positive 검증 통과를 위해 기본값 설정 -->
+        <input type="hidden" name="categoryId" value="1">
 
         <div class="form-group">
             <label>제목</label>

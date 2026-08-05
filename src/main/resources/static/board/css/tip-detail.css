@@ -89,8 +89,9 @@
 
 /* 에디터 삽입 이미지 크기 제한 */
 .step-box img {
-    max-width: 100%;
-    height: auto;
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
 }
 
 /* TUI 에디터 렌더링 콘텐츠 폰트 */
@@ -108,6 +109,9 @@
     color: #444;
     line-height: 2;
     margin-bottom: 35px;
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: break-word;
 }
 
 /* 조회수 / 좋아요 통계 */

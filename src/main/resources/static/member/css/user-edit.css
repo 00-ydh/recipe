@@ -10,12 +10,9 @@
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* 화면 중앙 정렬 */
+/* 배경 */
 body {
     background-color: #FAF4F0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
 }
 
@@ -28,6 +25,7 @@ body {
     border-radius: 16px;
     border: 1px solid #F3E3D9;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+    margin: 60px auto;
 }
 
 /* 카드 제목 */

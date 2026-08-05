@@ -6,7 +6,9 @@
 .site-header {
     background-color: #ffffff;
     border-bottom: 1px solid #f0ebe5;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    position: relative;
+    z-index: 100;
 }
 
 /* 헤더 내부 최대 너비 + 가로 정렬 */
@@ -37,6 +39,13 @@
     color: #58413A;
 }
 
+/* 검색창 + 버튼 묶음 */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 /* 둥근 pill 형태 검색바 */
 .search-bar {
     display: flex;
@@ -45,9 +54,11 @@
     background-color: #FAFAF9;
     border: 1.5px solid #C9BDB6;
     border-radius: 999px;
-    padding: 8px 16px;
+    padding: 0 16px;
     width: 260px;
+    height: 38px;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 /* 포커스 시 테두리 강조 */
@@ -68,6 +79,22 @@
 .search-bar input::placeholder {
     color: #C4B8B2;
 }
+
+/* 검색 버튼 */
+.search-btn {
+    height: 38px;
+    padding: 0 18px;
+    background-color: #3D2E1E;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
 
 /* 중앙 메뉴 링크 목록 */
 .header-nav {
