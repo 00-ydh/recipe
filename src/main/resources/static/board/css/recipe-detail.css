@@ -288,6 +288,25 @@
     display: block;
 }
 
+/* 통계 + 목록 버튼 가로 배치 */
+.stats-and-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 목록 보기 버튼 */
+.list-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid #E07550;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #E07550;
+    text-decoration: none;
+}
+
 /* 이미지 위 카테고리 태그 */
 .recipe-tag {
     position: absolute;
