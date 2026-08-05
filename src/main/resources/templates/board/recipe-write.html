@@ -20,7 +20,7 @@
 <!--       enctype="multipart/form-data" 대표 이미지 업로드를 위해 필요-->
         <form class="write-box" method="POST" th:action="@{{action}(action=${recipePostForm.id == 0} ? 'write' : 'edit')}" enctype="multipart/form-data" th:object="${recipePostForm}" >
             <input type="hidden" th:field="*{id}">
-            <input type="hidden" th:field="*{categoryId}">
+<!--            <input type="hidden" th:field="*{categoryId}"> -->
             <div class="form-group">
                 <label for="file"> 사진 첨부 (선택)</label>
                 <label class="upload-box">
@@ -36,7 +36,8 @@
                 <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
             </div>
 <!--            레시피 작성일때만 카테고리 박스 뜨게 -->
-            <div class="form-group" th:if="${recipePostForm.id == 0}">
+<!--            <div class="form-group" th:if="${recipePostForm.id == 0}">-->
+            <div class="form-group">
                 <label>카테고리</label>
                 <label>
                     <select name="categoryId" th:field="*{categoryId}" class="category-select">

@@ -129,9 +129,10 @@ public class JdbcPostRepository implements PostRepository {
     // 게시글 수정
     @Override
     public void update(PostDto post) {
-        String sql = "UPDATE post SET title = ?, content = ?, main_image = ? WHERE id = ?";
+        String sql = "UPDATE post SET title = ?, category_id = ?,content = ?, main_image = ? WHERE id = ?";
         jdbcTemplate.update(sql,
                 post.getTitle(),
+                post.getCategoryId() == 0 ? null : post.getCategoryId(),
                 post.getContent(),
                 post.getMainImage(),
                 post.getId());
