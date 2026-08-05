@@ -128,8 +128,14 @@
     //       작성 form이 아닌 헤더 검색 form을 잡는 문제가 있었음
     const form = document.querySelector('form.write-box');
     // form 태그에 submit이벤트 등록 또는 수정버튼
-    form.addEventListener('submit', function (){
+    form.addEventListener('submit', function (e){
+        const text = editor.getHTML().replace(/<[^>]*>/g, "").trim();
         // HTML에 저장
+        if (text.length === 0) {
+            alert("내용을 입력해주세요.");
+            e.preventDefault();
+            return;
+        }
         document.querySelector("#content").value = editor.getHTML();
     })
 </script>
