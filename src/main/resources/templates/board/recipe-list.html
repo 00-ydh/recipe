@@ -58,7 +58,8 @@
                     <span class="tag" th:text="${post.categoryName}">한식</span>
                     <h3 th:text="${post.title}">정통 전주 비빔밥의 비밀 레시피</h3>
                     <div class="writer">
-                        <span th:text="${post.memberName}">김셰프</span>
+                        <span th:if ="${post.memberName == null}">탈퇴한 회원입니다</span>
+                        <span th:text ="${post.memberName}">김세프</span>
                     </div>
                     <div class="card-bottom">
                         <!--  조회수-->

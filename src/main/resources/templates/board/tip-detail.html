@@ -63,6 +63,7 @@
                 <span class="meta-item">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                 <!-- 작성자  -  링크연결 (프로필 페이지로)-->
+                    <span th:if ="${tip.memberName == null}">탈퇴한 회원입니다</span>
                     <a th:href="@{/member/profile/{targetName}(targetName=${tip.memberName})}" th:text="${tip.memberName}" style="color:inherit; text-decoration:none;">작성자</a>
                 </span>
                 <span class="meta-item">

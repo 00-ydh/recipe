@@ -49,7 +49,7 @@
             <img th:if = "${post.mainImage == null}" src="https://loremflickr.com/300/200/food?lock=21" alt="레시피 이미지">
             <img th:if = "${post.mainImage != null}" th:src="@{/images/{filename}(filename=${post.mainImage})}" alt="레시피 이미지">
             <h3 th:text="${post.title}"></h3>
-            <p><span th:text="${post.categoryName}"></span> | <span th:text="${post.memberName}"></span></p>
+            <p><span th:text="${post.categoryName}"></span> | <span th:if ="${post.memberName == null}">탈퇴한 회원입니다</span> <span th:text="${post.memberName}"></span></p>
         </div>
         </a>
     </div>
