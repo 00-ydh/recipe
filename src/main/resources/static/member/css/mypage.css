@@ -69,7 +69,7 @@ body {
 
 /* 통계 라벨 */
 .stat-label {
-    font-size: 11px;
+    font-size: 13px;
     color: #888888;
 }
 
@@ -204,7 +204,8 @@ input[type="radio"][name="tab"] {
 .thumbnail-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #D4C4B0;
 }
 
 /* 썸네일 좌측 상단 [수정 | 삭제] 배지 */
@@ -345,9 +346,15 @@ input[type="radio"][name="tab"] {
 
 
 
-/* 구독한 사람 최신 레시피 목록 (2열) */
+/* 구독한 사람 최신 레시피 목록 (4열 - 레시피 카드와 동일) */
 .follow-list-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* 팔로우 탭 카드 링크 스타일 제거 */
+.follow-list-grid a {
+    text-decoration: none;
+    color: inherit;
 }
 
 /* 스크랩 탭 레시피 카드 이미지 영역 */
@@ -361,7 +368,7 @@ input[type="radio"][name="tab"] {
 .recipe-img {
     width: 100%;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     background-color: #D4C4B0;
 }
@@ -509,20 +516,22 @@ input[type="radio"][name="tab"] {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 13px;
-    color: #888;
-    margin-left: 16px;
+    background-color: #F06638;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
 }
 
 .tip-actions a {
-    color: #666;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
 /* 수정 | 삭제 구분선 */
 .tip-actions .divider {
-    color: #ddd;
-    font-size: 11px;
+    color: #FFFFFF;
+    font-size: 10px;
+    opacity: 0.7;
 }
 
 /* 아바타 배경색 */
@@ -565,13 +574,13 @@ a.follow-item {
     margin: 32px 0;
 }
 
-/* 팔로우 탭 이미지 높이 (구독 레시피 목록) */
+/* 팔로우 탭 이미지 높이 (레시피 카드와 동일하게 150px) */
 .follow-img-wrap {
-    height: 400px;
+    height: 150px;
 }
 
 .follow-img {
-    height: 400px;
+    height: 150px;
 }
 
 /* 삭제 버튼 */
