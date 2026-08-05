@@ -185,11 +185,19 @@ public class RecipePostController {
         if (loginMember == null) {
             return "redirect:/member/login";
         }
+        String text = post.getContent()
+                .replaceAll("<[^>]*>", "")
+                .replace("&nbsp;", "")
+                .trim();
 
+        if (text.isEmpty()) {
+            bindingResult.rejectValue("content", "content.empty", "내용을 입력해주세요.");
+        }
         // 검증에 실패했을 경우
         if (bindingResult.hasErrors()) {
             return "board/recipe-write";
         }
+
         // 로그인 된 회원의 Id를 게시글의 작성자 ID로 지정
         post.setMemberId(loginMember.getId());
         // postType을 recipe로 지정

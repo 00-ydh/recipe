@@ -1,6 +1,8 @@
 package net.likelion.bebc25.recipe.post.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,7 @@ public class PostDto {
     private MultipartFile file;
 
     // 카테고리 ID: 한식 양식 중식 일식
+    @Positive(message = "카테고리를 선택해주세요")
     private int categoryId;
 
     // 제목
