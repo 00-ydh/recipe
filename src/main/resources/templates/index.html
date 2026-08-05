@@ -49,6 +49,7 @@
                     <div class="top-recipe-info">
                         <span th:text="${topRecipe.categoryName}" class="recipe-category-tag">양식(카테고리종류)</span>
                         <p th:text="${topRecipe.title}" class="top-recipe-title">레시피 제목</p>
+                        <p th:if ="${topRecipe.memberName == null}">탈퇴한 회원입니다</p>
                         <p th:text="${topRecipe.memberName}" class="top-recipe-author">작성자</p>
                         <div class="recipe-bottom">
                             <!--조회수-->
@@ -132,6 +133,7 @@
                     <div class="recipe-card-body">
                         <span th:text="${monthlyRecipe.categoryName}" class="recipe-category-tag">양식</span>
                         <p th:text="${monthlyRecipe.title}"  class="recipe-title">게시글 제목</p>
+                        <p th:if ="${monthlyRecipe.memberName == null}">탈퇴한 회원입니다</p>
                         <p th:text="${monthlyRecipe.memberName}" class="recipe-author">작성자이름</p>
                         <div class="recipe-bottom">
                             <!--조회수-->
@@ -181,6 +183,7 @@
                         <div class="tip-meta">
                             <span>
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                <span th:if ="${latestTip.memberName == null}">탈퇴한 회원입니다</span>
                                 <span th:text="${latestTip.memberName}">작성자</span>
                             </span>
                             <span>

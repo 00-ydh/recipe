@@ -43,6 +43,7 @@
                 <div class="meta">
                     <span>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span th:if ="${post.memberName == null}">탈퇴한 회원입니다</span>
                         <span th:text="${post.memberName}">작성자</span>
                     </span>
                     <span>
