@@ -34,14 +34,14 @@
 ## 2. 주요 화면별 명세
 
 ### 2.1 메인 화면 (GET `/`)
-<img src="../images/main.png" width="500" alt="메인 페이지 화면">
+<img src="../images/main1.png" width="500" alt="메인 페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
     - GNB 영역: 서비스 로고 
     - 검색어 입력 폼 
     - 회원 인증 상태 정보
         - 비로그인시: 로그인 버튼
-        - 로그인시: MY 셀렉트 박스(클릭 시 마이페이지 이동/ 내 정보수정/ 로그아웃)
+        - 로그인시: 마이페이지 버튼
     - 레시피 등록 버튼
     - 레시피 목록 버튼
     - 오늘 뭐 먹지 버튼
@@ -61,7 +61,7 @@
     - 서비스 로고 클릭 시 게시글 목록 화면으로 이동
     - 검색어 입력 시 게시글 목록 검색 조회
     - 비로그인 상태: login버튼 클릭 시 로그인 페이지로 이동
-    - 로그인상태: my메뉴(내 정보 수정, 페이지 이동, 로그아웃 기능 지원)과 레시피 등록 버튼이 활성화
+    - 로그인상태: 마이페이지 버튼 클릭시 마이페이지로 이동
     - 메인 메뉴 탭(홈, 레시피, 오늘 뭐 먹지, 요리꿀팁) 클릭 시 해당 게시판 목록 페이지로 이동
     - 명예의 전당 사진 클릭 시 해당 레시피 상세 페이지로 이동
     - 밥플루언서 프로필 클릭 시 해당 회원의 프로필로 이동
@@ -69,7 +69,7 @@
     - 요리꿀팁 게시글 클릭 시 해당 꿀팁 게시글 상세 페이지로 이동
 
 ### 2.2 레시피 목록 페이지 (GET `/recipe/list`)
-<img src="../images/recipelist.png" width="500" alt="레시피 목록 페이지 화면">
+<img src="../images/recipe_list.png" width="500" alt="레시피 목록 페이지 화면">
 
 - 출력 데이터 항목 (Output Data)
   - GNB 영역
@@ -77,7 +77,7 @@
     - 레시피 검색어 입력 폼
     - 회원 인증 상태 정보:
       - 비로그인 시: 로그인 버튼
-      - 로그인 시: MY 셀렉트 박스 (마이페이지 이동, 내 정보 수정, 로그아웃) 및 레시피 등록 버튼
+      - 로그인 시: 마이페이지 버튼
   - 카테고리 필터 영역:
     - 대표 카테고리 버튼 목록 (한식, 중식, 일식, 양식 등)
   - 정렬 및 목록 헤더 영역:
@@ -99,7 +99,7 @@
   -  번호 클릭 시 해당 페이지의 레시피 목록으로 이동합니다.
 
 ### 2.3 레시피 상세 페이지 (GET `/recipe/detail?id={id}`)
-<img src="../images/recipedetail.png" width="500" alt="레시피 상세 페이지 화면">
+<img src="../images/recipe_detail.png" width="500" alt="레시피 상세 페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
   - GNB 영역:
@@ -107,7 +107,7 @@
     - 레시피 검색어 입력 폼
     - 회원 인증 상태 정보:
       - 비로그인 시: 로그인 버튼
-      - 로그인 시: MY 셀렉트 박스 (마이페이지 이동, 내 정보 수정, 로그아웃) 및 레시피 등록 버튼
+      - 로그인 시: 마이페이지 버튼
   - 상단 액션 영역:
     - 스크랩 버튼 (별 아이콘 / DB: `good` 테이블, `like_type = 3` 매핑)
     - 좋아요/추천 버튼 (하트 아이콘 / DB: `good` 테이블, `like_type = 1` 매핑)
@@ -135,14 +135,14 @@
     - 비로그인 상태: 로그인 페이지로 이동합니다.
 
 ### 2.4 레시피 등록 화면 (GET `/recipe/write`)
-<img src="../images/reciperes.png" width="500" alt="레시피 등록 페이지 화면">
+<img src="../images/recipe_write.png" width="500" alt="레시피 등록 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - GNB 영역:
     - 서비스 로고
     - 레시피 검색어 입력 폼
     - 회원 인증 상태 정보:
-      - 로그인 상태 전용 화면이므로 MY 셀렉트 박스 및 레시피 등록 버튼 활성화
+      - 로그인 상태 전용 화면이므로 마이페이지 버튼 및 레시피 등록 버튼 활성화
 - 대표 사진 등록 영역:
   - 이미지 업로드 버튼 (DB: `main_image`, `original_filename`, `content_type`)
 - 텍스트 입력 영역 (DB: `post` 테이블, `post_type = 1`로 매핑):
@@ -165,14 +165,14 @@
     - 모든 데이터가 정상 입력되었다면 서버로 전송되어 DB에 저장된 후 레시피 목록 페이지(GET /recipe/list)로 이동합니다.
 
 ### 2.5 레시피 수정 화면 (GET `/recipe/edit?id={id}`)
-<img src="../images/reciperes.png" width="500" alt="레시피 수정 페이지 화면">
+<img src="../images/recipe_write.png" width="500" alt="레시피 수정 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - GNB 영역:
     - 서비스 로고
     - 레시피 검색어 입력 폼
     - 회원 인증 상태 정보:
-      - 로그인 상태 전용 화면이므로 MY 셀렉트 박스 및 레시피 등록 버튼 활성화
+      - 로그인 상태 전용 화면이므로 마이페이지 버튼 및 레시피 등록 버튼 활성화
   - 기존 데이터 바인딩(미리 채워짐) 영역 (DB: `post` 테이블의 해당 `id` 데이터):
     - 대표 사진: 기존에 등록된 이미지(`main_image`, `original_filename`) 썸네일 노출 및 변경 파일 업로드 폼
     - 레시피 제목: 기존 입력된 제목(`title`) 노출
@@ -195,7 +195,7 @@
     - 수정이 완료되면 마이페이지(GET `/member/mypage`)로 즉시 이동합니다.
 
 ### 2.6 요리 꿀팁 목록 페이지 (GET `/tip/list`)
-<img src="../images/tiplist.png" width="500" alt="요리 꿀팁 페이지 화면">
+<img src="../images/tip_liest.png" width="500" alt="요리 꿀팁 페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
   - GNB 영역:
@@ -203,7 +203,7 @@
     - 검색어 입력 폼
     - 회원 인증 상태 정보:
       - 비로그인 시: 로그인 버튼
-      - 로그인 시: MY 셀렉트 박스 (마이페이지 이동, 내 정보 수정, 로그아웃) 및 레시피 등록 버튼
+      - 로그인 시: 마이페이지 버튼
   - 타이틀 및 헤더 영역:
     - 페이지 타이틀 (요리 꿀팁!)
     - 서브 텍스트 (요리 꿀팁을 공유해보세요!)
@@ -224,7 +224,7 @@
   - 로그인 상태: GNB 영역의 MY 메뉴 및 레시피 등록 버튼이 활성화됩니다.
 
 ### 2.7 요리 꿀팁 상세 페이지 (GET `/tip/detail?id={id}`)
-<img src="../images/tipdetail.png" width="500" alt="요리꿀팁 상세 페이지 화면">
+<img src="../images/tip_detail.png" width="500" alt="요리꿀팁 상세 페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
   - GNB 영역:
@@ -232,7 +232,7 @@
     - 검색어 입력 폼
     - 회원 인증 상태 정보:
       - 비로그인 시: 로그인 버튼
-      - 로그인 시: MY 셀렉트 박스 (마이페이지 이동, 내 정보 수정, 로그아웃) 및 레시피 등록 버튼
+      - 로그인 시: 마이페이지 버튼
   - 상단 액션 영역:
     - 스크랩 버튼 (별 아이콘 / DB: `good` 테이블, `like_type = 3`)
     - 좋아요 버튼 (하트 아이콘 / DB: `good` 테이블, `like_type = 2`)
@@ -261,14 +261,14 @@
   - 로그인 상태: GNB 영역의 MY 메뉴 및 레시피 등록 버튼이 활성화되며, 레시피 등록 버튼 클릭 시 레시피 작성 페이지(GET `/recipe/write`)로 이동합니다.
 
 ### 2.8 요리 꿀팁 등록 화면 (GET `/tip/write`)
-<img src="../images/tipres.png" width="500" alt="요리 꿀팁 작성 페이지 화면">
+<img src="../images/tip_write.png" width="500" alt="요리 꿀팁 작성 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - GNB 영역:
     - 서비스 로고
     - 검색어 입력 폼
     - 회원 인증 상태 정보:
-      - 로그인 상태 전용 화면이므로 MY 셀렉트 박스 및 레시피 등록 버튼 활성화
+      - 로그인 시 마이페이지 버튼 활성화
   - 타이틀 영역:
     - 페이지 타이틀 (요리 꿀팁 작성하기)
   - 텍스트 입력 영역 (DB: `post` 테이블, `post_type = 2`로 매핑):
@@ -288,14 +288,14 @@
     - 모든 데이터가 정상 입력되었다면 서버로 전송되어 DB에 저장(`post_type = 2`)된 후 요리 꿀팁 목록 페이지(GET `/tip/list`)로 이동합니다.
 
 ### 2.9 요리 꿀팁 수정 화면 (GET `/tip/edit?id={id}`)
-<img src="../images/tipres.png" width="500" alt="요리 꿀팁 수정 페이지 화면">
+<img src="../images/tip_write.png" width="500" alt="요리 꿀팁 수정 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - GNB 영역:
     - 서비스 로고
     - 검색어 입력 폼
     - 회원 인증 상태 정보:
-      - 로그인 상태 전용 화면이므로 MY 셀렉트 박스 및 레시피 등록 버튼 활성화
+      - 로그인 상태 전용 화면이므로 마이페이지 버튼 및 레시피 등록 버튼 활성화
   - 타이틀 영역:
     - 페이지 타이틀 (요리 꿀팁 작성하기 - ※ 수정 모드로 동작)
   - 기존 데이터 바인딩(미리 채워짐) 영역 (DB: `post` 테이블의 해당 `id` 데이터, `post_type = 2`):
@@ -316,7 +316,7 @@
     - 수정 처리가 완료되면, 해당 요리 꿀팁의 상세 페이지(GET `/tip/detail?id={id}`)로 즉시 이동합니다.
 
 ### 2.10 오늘 뭐먹지 (랜덤 추천) 화면 (GET `/today/list`)
-<img src="../images/eatwhat.png" width="500" alt="오늘 뭐먹지 페이지 화면">
+<img src="../images/what_eat.png" width="500" alt="오늘 뭐먹지 페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
   - GNB 영역:
@@ -324,7 +324,7 @@
     - 검색어 입력 폼
     - 회원 인증 상태 정보:
       - 비로그인 시: 로그인 버튼
-      - 로그인 시: MY 셀렉트 박스 (마이페이지 이동, 내 정보 수정, 로그아웃) 및 레시피 등록 버튼
+      - 로그인 시: 마이페이지 (마이페이지 이동, 내 정보 수정, 로그아웃) 및 레시피 등록 버튼
   - 타이틀 및 안내 영역:
     - 메인 타이틀 ("오늘 뭐먹지 ??")
     - 서브 텍스트 ("카테고리를 선택하시면 오늘 먹을 레시피 추천해드립니다!")
@@ -345,7 +345,7 @@
   - 로그인 상태: GNB 영역의 MY 메뉴 및 레시피 등록 버튼이 활성화됩니다.
 
 ### 2.11 회원가입 화면 (GET `/member/register`)
-<img src="../images/res.png" width="500" alt="회원가입 페이지 화면">
+<img src="../images/resister.png" width="500" alt="회원가입 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - 타이틀 영역:
@@ -368,7 +368,7 @@
     - 정상적으로 회원가입이 완료되면 로그인 페이지(GET `/member/login`)로 즉시 리다이렉트됩니다.
 
 ### 2.12 사용자 로그인 화면 (GET `/member/login`)
-<img src="../images/login.png" width="500" alt="로그인 페이지 화면">
+<img src="../images/login2.png" width="500" alt="로그인 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - 타이틀 영역:
@@ -393,7 +393,7 @@
 
 
 ### 2.13 회원정보 수정 화면 (GET `/member/edit`)
-<img src="../images/ed.png" width="500" alt="회원정보 수정 페이지 화면">
+<img src="../images/restore.png" width="500" alt="회원정보 수정 페이지 화면">
 
 - 출력 데이터 및 입력 폼 항목 (Output & Input Data):
   - 타이틀 영역:
@@ -417,7 +417,7 @@
 
 
 ### 2.14 프로필(마이페이지) 화면 (GET `/member/mypage` 및 GET `/member/profile/{name}`)
-<img src="../images/mypage.png" width="500" alt="마이페이지 화면">
+<img src="../images/mypage3.png" width="500" alt="마이페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
   - 상단 액션 영역:
@@ -448,7 +448,7 @@
     - 내 마이페이지에서 작성글의 [수정]/[삭제] 버튼 클릭 시 각각 수정 폼(GET `/recipe/edit` 또는 `/tip/edit`) 및 삭제 요청(POST `/recipe/delete` 또는 `/tip/delete`)으로 연동됩니다.
 
 ### 2.15 다른 사람 프로필 페이지 (GET `/member/profile/{name}`)
-<img src="../images/otherpg.png" width="500" alt="다른 사람 프로필 페이지 화면">
+<img src="../images/other_profile.png" width="500" alt="다른 사람 프로필 페이지 화면">
 
 - 출력 데이터 항목 (Output Data):
   - 프로필 정보 영역 (DB: `member`, `follow` 테이블 참조):
