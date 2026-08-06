@@ -49,7 +49,7 @@
                     <div class="top-recipe-info">
                         <span th:text="${topRecipe.categoryName}" class="recipe-category-tag">양식(카테고리종류)</span>
                         <p th:text="${topRecipe.title}" class="top-recipe-title">레시피 제목</p>
-                        <p th:if ="${topRecipe.memberName == null}">탈퇴한 회원입니다</p>
+                        <p th:if ="${topRecipe.memberName == null}" class="top-recipe-author">탈퇴한 회원입니다</p>
                         <p th:text="${topRecipe.memberName}" class="top-recipe-author">작성자</p>
                         <div class="recipe-bottom">
                             <!--조회수-->
