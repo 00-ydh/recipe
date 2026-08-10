@@ -74,7 +74,7 @@ public class JdbcMainRepository implements MainRepository {
                      "LEFT JOIN member m   ON p.member_id = m.id " +
                      "LEFT JOIN good g     ON p.id = g.post_id " +
                      "WHERE p.post_type = 1 " +
-                     "AND p.created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) " +
+                     "AND p.created_at >= DATEADD('MONTH', 1, NOW()) " +
                      "GROUP BY p.id " +
                      "ORDER BY like_count DESC " +
                      "LIMIT 10";

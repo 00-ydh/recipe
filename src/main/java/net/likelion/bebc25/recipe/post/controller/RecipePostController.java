@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Member;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.List;
@@ -270,7 +271,8 @@ public class RecipePostController {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         String extension = orgFilename.substring(orgFilename.lastIndexOf(".") + 1);
         String saveFilename = uuid + "." + extension;
-        String fileFullPath = Paths.get(uploadDir, saveFilename).toString();
+//        String fileFullPath = Paths.get(uploadDir, saveFilename).toString();
+        Path fileFullPath = Paths.get(uploadDir, saveFilename).toAbsolutePath();
 
         File dir = new File(uploadDir);
 
@@ -278,7 +280,7 @@ public class RecipePostController {
             dir.mkdirs();
         }
         try {
-            image.transferTo(new File(fileFullPath));
+            image.transferTo(fileFullPath);
 
             return saveFilename;
 
